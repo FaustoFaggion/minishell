@@ -3,3 +3,7 @@
 ## Description
 <p> Creation of a simple shell.</p>
 <p> The objective of this project is for you to create a simple shell. Yes, your little bash or zsh. You will learn a lot about processes and file descriptors. </p>
+
+
+### Sources
+<p> https://tldp.org/LDP/Bash-Beginners-Guide/html/chap_01.html </p>
