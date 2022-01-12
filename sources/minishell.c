@@ -21,6 +21,8 @@ static int	count_tab_x(char *line)
 	i = 0;
 	nb = 0;
 	flag = 0;
+	while (line[i] == ' ')
+		i++;
 	while (line[i] != '\0')
 	{
 		if (line[i] == ' ')
@@ -66,12 +68,12 @@ static int	count_tab_x(char *line)
 					i++;
 					if (line[i] == '{')
 					{
-						while (line[i] != '}')
+						while (line[i] != '}' && line[i] != '\0')
 							i++;
 					}
 					else
 					{
-						while (line[i] != ' ')
+						while (line[i] != ' ' && line[i] != '\0')
 							i++;
 					}
 				}
@@ -111,49 +113,142 @@ static int	count_tab_x(char *line)
 	}
 	return (nb);
 }
-/*
-static size_t	count_tab_y(char const *s, char c)
+
+static int	count_tab_y(char *line)
 {
-	size_t	i;
-	size_t	nb;
+	int	i;
+	int x;
+	int	nb;
+	int	flag;
 
 	i = 0;
+	x = 0;
 	nb = 0;
-	while (s[i] != '\0')
+	flag = 0;
+	while (line[i] == ' ')
+		i++;
+	while (line[i] != '\0')
 	{
-		while (s[i] == c && s[i] != '\0')
-			i++;
-		if (s[i] == '\'')
+		if (line[i] == ' ')
 		{
-			nb++;
-			i++;
-			while (s[i] != '\'' && s[i] != '\0')
-				i++;
+			flag = 0;
 			i++;
 		}
-		if (s[i] != c && s[i] != '\0' && (s[i] != '\''))
-		{	
-			nb++;
-			while (s[i] != c && s[i] != '\0')
+		else if (line[i] == '<')
+		{
+			flag = 0;
+			if (x > nb)
+				nb = x;
+			x = 0;
+			i++;
+			if (line[i] == '<')
 				i++;
+		}
+		else if (line[i] == '>')
+		{
+			flag = 0;
+			if (x > nb)
+				nb = x;
+			x = 0;
+			i++;
+			if (line[i] == '>')
+				i++;
+		}
+		else if (line[i] == '\'')
+		{
+			if (flag == 0)
+				x++;
+			if (x > nb)
+				nb = x;
+			flag = 1;
+			i++;
+			while (line[i] != '\'' && line[i] != '\0')
+				i++;
+			if (line[i] == '\'')
+				i++;
+		}
+		else if (line[i] == '"')
+		{
+			if (flag == 0)
+				x++;
+			if (x > nb)
+				nb = x;
+			flag = 1;
+			i++;
+			while (line[i] != '"' && line[i] != '\0')
+			{
+				if (line[i] == '$')
+				{
+					i++;
+					if (line[i] == '{')
+					{
+						while (line[i] != '}' && line[i] != '\0')
+							i++;
+					}
+					else
+					{
+						while (line[i] != ' ' && line[i] != '\0')
+							i++;
+					}
+				}
+				i++;
+			}
+			if (line[i] == '"')
+				i++;
+		}
+		else if (line[i] == '|')
+		{
+			flag = 0;
+			if (x > nb)
+				nb = x;
+			x = 0;
+			i++;
+		}
+		else if (line[i] == '$')
+		{
+			if (x == 0)
+				x++;
+			if (x > nb)
+				nb = x;
+			i++;
+			if (line[i] == '{')
+			{
+				while (line[i] != '}' && line[i] != '\0')
+					i++;
+				i++;
+			}
+			else
+			{
+				while (line[i] != ' ' && line[i] != '\0')
+					i++;
+			}
+		}
+		else
+		{
+			if (flag == 0)
+				x++;
+			if (x > nb)
+				nb = x;
+			flag = 1;
+			i++;
 		}
 	}
 	return (nb);
 }
-*/
+
 static void ms_parse(char *line)
 {
 	int		i;
 	int		flag;
 	int		x;
-//	int		y;
+	int		y;
 
 	flag = 0;
 	i = 0;
 	x = count_tab_x(line);
-//	y = count_tab_y(line, ' ');
+	y = count_tab_y(line);
 	printf("count tab_x %d\n", x);
-//	printf("count tab_y %d\n", y);
+	printf("count tab_y %d\n", y);
 	while (line[i] != '\0')
 	{
 		
