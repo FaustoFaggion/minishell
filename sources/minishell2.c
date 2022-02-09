@@ -29,6 +29,7 @@ static void token_recog(t_cmd *cmd)
 		x++;
 	}*/
 //	tab = split_minishell_2(tab_0);
+	printf("x = %d, y = %d\n", cmd->x_tab, cmd->y_tab);
 	while (cmd->tab[i])
 	{
 		printf("%s\n", cmd->tab[i]);

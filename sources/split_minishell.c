@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 11:13:26 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/02/09 17:37:43 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/02/09 17:50:16 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ static void	ft_ptr_count_shell(t_cmd *cmd)
 	int	i;
 
 	i = 0;
+	cmd->x_tab = 0;
 	cmd->y_tab = 0;
 	while (cmd->line[i] != '\0')
 	{
@@ -71,6 +72,10 @@ static void	ft_ptr_count_shell(t_cmd *cmd)
 		if (ft_strchr("|<>", cmd->line[i]) != NULL)
 		{
 			i = metachar_check(cmd, i);
+			if (cmd->y_tab != 0)
+				cmd->x_tab = 2;
+			else
+				cmd->x_tab++;
 			cmd->y_tab++;
 		}
 		else if (ft_strchr("\'", cmd->line[i]) != NULL || ft_strchr("\"", cmd->line[i]) != NULL)
