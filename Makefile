@@ -13,8 +13,8 @@ CFLAGS			=	-Wall -Werror -Wextra -g
 
 SRC_DIR			=	sources
 SRC_FILES		=	minishell2.c \
-					split_minishell.c \
-					#split_minishell_2.c \
+					split_minishell_2.c \
+					#split_minishell.c \
 
 
 SRC				=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))
