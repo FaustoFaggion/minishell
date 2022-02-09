@@ -10,4 +10,14 @@
 #include <sys/types.h>
 #include "libft.h"
 
+typedef struct s_cmd
+{
+	char	*line;
+	char	**tab;
+	int		x_tab;
+	int		y_tab;
+}	t_cmd;
+
+char	**split_minishell(t_cmd *cmd);
+
 #endif

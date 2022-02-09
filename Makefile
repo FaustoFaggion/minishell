@@ -12,7 +12,10 @@ CC				=	clang
 CFLAGS			=	-Wall -Werror -Wextra -g
 
 SRC_DIR			=	sources
-SRC_FILES		=	minishell.c \
+SRC_FILES		=	minishell2.c \
+					split_minishell.c \
+					#split_minishell_2.c \
+
 
 SRC				=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
@@ -81,7 +84,7 @@ run:
 #	./pipex file1.txt "tr a b" "tr e c" file2.txt
 
 valgrind:
-	make && valgrind ./minishell
+	make re && valgrind --leak-check=full --show-leak-kinds=all ./minishell
 
 #valgrind_bonus: $(NAME_BONUS)
 #	valgrind --leak-check=full --show-leak-kinds=all ./pipex file1.txt "tr a b" "tr e c" file2.txt
