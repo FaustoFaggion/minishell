@@ -13,11 +13,12 @@
 typedef struct s_cmd
 {
 	char	*line;
-	char	**tab;
+	char	***tab_x;
+	char	**tab_y;
 	int		x_tab;
 	int		y_tab;
 }	t_cmd;
 
-char	**split_minishell(t_cmd *cmd);
+char	***split_minishell(t_cmd *cmd);
 
 #endif

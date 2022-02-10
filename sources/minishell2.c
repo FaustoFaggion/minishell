@@ -1,5 +1,13 @@
 #include "minishell.h"
-
+/*
+static void	free_tab_x(t_cmd *cmd)
+{
+	if (cmd->tab_x != NULL)
+	{
+		while ()
+	}
+}
+*/
 static void print_dir()
 {
 	char		*user;
@@ -14,27 +22,25 @@ static void print_dir()
 
 static void token_recog(t_cmd *cmd)
 {
-	int	i;
+	int	x;
+	int	y;
 	
 	split_minishell(cmd);
-	i = 0;
-/*	while (cmd->tab[x][y])
+	x = 0;
+	y = 0;
+	printf("x = %d, y = %d\n", cmd->x_tab, cmd->y_tab);
+	while (x < cmd->x_tab)
 	{
 		y = 0;
-		while (cmd->tab[x][y])
+		while (y < cmd->y_tab)
 		{
-			printf("%s\n", cmd->tab[x][y]);
+			printf("tab_x[%d][%d] %s  .  ", x, y, cmd->tab_x[x][y]);
 			y++;
 		}
+		printf("\n");
 		x++;
-	}*/
-//	tab = split_minishell_2(tab_0);
-	printf("x = %d, y = %d\n", cmd->x_tab, cmd->y_tab);
-	while (cmd->tab[i])
-	{
-		printf("%s\n", cmd->tab[i]);
-		i++;
 	}
+	
 }
 
 int main(void)
@@ -48,6 +54,7 @@ int main(void)
 		add_history(cmd.line);
 		token_recog(&cmd);
 //		printf("%s\n", line);
+		//free_tab_x(cmd);
 		free(cmd.line);
 	}
 

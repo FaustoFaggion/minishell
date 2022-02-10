@@ -103,15 +103,17 @@ static void	ft_ptr_count_shell(t_cmd *cmd)
 
 static void	free_tab(t_cmd *cmd, size_t i)
 {
-	while ((int)i >= 0)
+	if (cmd->tab_y != NULL)
 	{
-		free(cmd->tab[i]);
-		cmd->tab[i] = NULL;
-		i--;
+		while (((int)i - 1) > 0)
+		{
+			free(cmd->tab_y[i]);
+			cmd->tab_y[i] = NULL;
+			i--;
+		}
+		free(cmd->tab_y);
+		cmd->tab_y = NULL;
 	}
-	free(cmd->tab);
-	cmd->tab = NULL;
-	
 }
 
 int	len_s(t_cmd *cmd, int i)
@@ -139,36 +141,111 @@ int	len_s(t_cmd *cmd, int i)
 	return (len_ptr);
 }
 
-static void	mal_sub(t_cmd *cmd)
+static char	**mal_sub(t_cmd *cmd)
 {
 	int	len_ptr;
-	int	i;
-	int	j;
+	int	x;
+	int	y;
+	int	z;
+	int	flag;
 
-	i = 0;
-	j = 0;
-	while (i < cmd->y_tab)
+	x = 0;
+	y = 0;
+	z = 0;
+	flag = 0;
+	cmd->tab_y = (char **)malloc(((sizeof(char *)) * (cmd->y_tab + 1)));
+	if (!cmd->tab_x)
+		return(NULL);
+	while (cmd->line[z] != '\0')
 	{
-		while (cmd->line[j] == ' ' && cmd->line[j] != '\0')
-			j++;
-		len_ptr = len_s(cmd, j);
-		cmd->tab[i] = ft_substr(cmd->line, j, len_ptr);
-		if (cmd->tab[i] == NULL)
-			free_tab(cmd, i);
-		j = j + len_ptr;
-		i++;
+		while (cmd->line[z] == ' ' && cmd->line[z] != '\0')
+			z++;
+		if (ft_strchr("|<>", cmd->line[z]) == NULL)
+		{
+			len_ptr = len_s(cmd, z);
+			cmd->tab_y[y] = ft_substr(cmd->line, z, len_ptr);
+			if (cmd->tab_y[y] == NULL)
+				free_tab(cmd, cmd->y_tab);
+			printf ("tab_y %s\n", cmd->tab_y[y]);
+			z = z + len_ptr;
+			y++;
+			flag = 0;
+		}
+		else
+		{
+			if (flag == 0)
+			{
+				while (y < cmd->y_tab)
+				{
+					cmd->tab_y[y] = NULL;
+					y++;
+				}
+			
+				cmd->tab_x[x] = cmd->tab_y;
+//				free_tab(cmd, cmd->y_tab);
+				cmd->tab_y = (char **)malloc(((sizeof(char *)) * (cmd->y_tab + 1)));
+				x++;
+				y = 0;
+			}
+			len_ptr = len_s(cmd, z);
+			cmd->tab_y[y] = ft_substr(cmd->line, z, len_ptr);
+			if (cmd->tab_y[y] == NULL)
+				free_tab(cmd, cmd->y_tab);
+			z = z + len_ptr;
+			y++;
+			while (y < cmd->y_tab)
+			{
+				cmd->tab_y[y] = NULL;
+				y++;
+			}
+			cmd->tab_x[x] = cmd->tab_y;
+//			free_tab(cmd, cmd->y_tab);
+			cmd->tab_y = (char **)malloc(((sizeof(char *)) * (cmd->y_tab + 1)));
+			if (cmd->line[z] == '\0')
+			{
+				free(cmd->tab_y);
+				cmd->tab_y = NULL;
+			}
+
+			if (!cmd->tab_x)
+				break ;
+			
+			x++;
+			y = 0;
+			flag = 1;
+		}
 	}
-	cmd->tab[i] = NULL;
+	if (cmd->line[z] == '\0')
+	{
+		if (cmd->tab_y != NULL)
+		{
+			while (y < cmd->y_tab)
+			{
+				cmd->tab_y[y] = NULL;
+				y++;
+			}
+			cmd->tab_x[x] = cmd->tab_y;
+			cmd->tab_x[x + 1] = NULL;
+//			free_tab(cmd, cmd->y_tab);
+		}
+		else
+		{
+			free(cmd->tab_y);
+			cmd->tab_x[x] = NULL;
+		}
+	}
+//	printf("tab_x[0][0] %s\n", cmd->tab_x[0][0]);
+	return (cmd->tab_y);
 }
 
-char	**split_minishell(t_cmd *cmd)
+char	***split_minishell(t_cmd *cmd)
 {
 	if (!cmd->line)
 		return (NULL);
 	ft_ptr_count_shell(cmd);
-	cmd->tab = (char **)malloc(((sizeof(char *)) * (cmd->x_tab + 1)));
-	if (!cmd->tab)
+	cmd->tab_x = (char ***)malloc(((sizeof(char *)) * (cmd->x_tab + 1)));
+	if (!cmd->tab_x)
 		return (NULL);
 	mal_sub(cmd);
-	return (cmd->tab);
+	return (cmd->tab_x);
 }
