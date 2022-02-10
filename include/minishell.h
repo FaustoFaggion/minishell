@@ -19,6 +19,6 @@ typedef struct s_cmd
 	int		y_tab;
 }	t_cmd;
 
-char	***split_minishell(t_cmd *cmd);
+char	***parse_cmd_tab(t_cmd *cmd);
 
 #endif

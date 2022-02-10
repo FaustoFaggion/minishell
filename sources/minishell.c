@@ -25,7 +25,7 @@ static void token_recog(t_cmd *cmd)
 	int	x;
 	int	y;
 	
-	split_minishell(cmd);
+	parse_cmd_tab(cmd);
 	x = 0;
 	y = 0;
 	printf("x = %d, y = %d\n", cmd->x_tab, cmd->y_tab);
@@ -34,7 +34,7 @@ static void token_recog(t_cmd *cmd)
 		y = 0;
 		while (y < cmd->y_tab)
 		{
-			printf("tab_x[%d][%d] %s  .  ", x, y, cmd->tab_x[x][y]);
+			printf("%s  ", cmd->tab_x[x][y]);
 			y++;
 		}
 		printf("\n");

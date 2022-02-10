@@ -54,8 +54,8 @@ static void	ft_ptr_count_shell(t_cmd *cmd)
 
 	i = 0;
 	count_y = 0;
-	flag = 0;
-	cmd->x_tab = 1;
+	flag = 1;
+	cmd->x_tab = 0;
 	cmd->y_tab = 0;
 	while (cmd->line[i] != '\0')
 	{
@@ -65,6 +65,9 @@ static void	ft_ptr_count_shell(t_cmd *cmd)
 		{
 			i = metachar_check(cmd, i);
 			cmd->x_tab++;
+			count_y = 1;
+			if (count_y > cmd->y_tab)
+				cmd->y_tab = count_y;
 			count_y = 0;
 			flag = 1;
 		}
@@ -152,7 +155,7 @@ static char	**mal_sub(t_cmd *cmd)
 	x = 0;
 	y = 0;
 	z = 0;
-	flag = 0;
+	flag = 1;
 	cmd->tab_y = (char **)malloc(((sizeof(char *)) * (cmd->y_tab + 1)));
 	if (!cmd->tab_x)
 		return(NULL);
@@ -182,7 +185,6 @@ static char	**mal_sub(t_cmd *cmd)
 				}
 			
 				cmd->tab_x[x] = cmd->tab_y;
-//				free_tab(cmd, cmd->y_tab);
 				cmd->tab_y = (char **)malloc(((sizeof(char *)) * (cmd->y_tab + 1)));
 				x++;
 				y = 0;
@@ -199,7 +201,6 @@ static char	**mal_sub(t_cmd *cmd)
 				y++;
 			}
 			cmd->tab_x[x] = cmd->tab_y;
-//			free_tab(cmd, cmd->y_tab);
 			cmd->tab_y = (char **)malloc(((sizeof(char *)) * (cmd->y_tab + 1)));
 			if (cmd->line[z] == '\0')
 			{
@@ -226,7 +227,6 @@ static char	**mal_sub(t_cmd *cmd)
 			}
 			cmd->tab_x[x] = cmd->tab_y;
 			cmd->tab_x[x + 1] = NULL;
-//			free_tab(cmd, cmd->y_tab);
 		}
 		else
 		{
@@ -234,11 +234,10 @@ static char	**mal_sub(t_cmd *cmd)
 			cmd->tab_x[x] = NULL;
 		}
 	}
-//	printf("tab_x[0][0] %s\n", cmd->tab_x[0][0]);
 	return (cmd->tab_y);
 }
 
-char	***split_minishell(t_cmd *cmd)
+char	***parse_cmd_tab(t_cmd *cmd)
 {
 	if (!cmd->line)
 		return (NULL);
