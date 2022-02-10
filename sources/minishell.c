@@ -54,7 +54,7 @@ int main(void)
 		add_history(cmd.line);
 		token_recog(&cmd);
 //		printf("%s\n", line);
-		//free_tab_x(cmd);
+		exit_shell(&cmd);
 		free(cmd.line);
 	}
 

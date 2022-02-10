@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_cmd_tab.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/10 20:40:17 by fagiusep          #+#    #+#             */
+/*   Updated: 2022/02/10 20:52:11 by fagiusep         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static int	metachar_check(t_cmd *cmd, int i)
@@ -19,30 +31,19 @@ static int	metachar_check(t_cmd *cmd, int i)
 	return (i);
 }
 
-static int	quotes_check(t_cmd *cmd, int i)
+static int	quotes_check(t_cmd *cmd, int i, char c)
 {
-	if (cmd->line[i] == '\'')
+	i++;
+	while (cmd->line[i] != c)
 	{
-		i++;
-		while (cmd->line[i] != '\'')
+		if (cmd->line[i] == '\0')
 		{
-			if (cmd->line[i] == '\0')
-				return (-1);
-			i++;
-		}	
+			exit_shell(cmd);
+			exit(1);
+		}
 		i++;
-	}
-	else if (cmd->line[i] == '"')
-	{
-		i++;
-		while (cmd->line[i] != '"')
-		{
-			if (cmd->line[i] == '\0')
-				return (-1);
-			i++;
-		}	
-		i++;
-	}
+	}	
+	i++;
 	return (i);
 }
 
@@ -71,9 +72,9 @@ static void	ft_ptr_count_shell(t_cmd *cmd)
 			count_y = 0;
 			flag = 1;
 		}
-		else if (ft_strchr("\'", cmd->line[i]) != NULL || ft_strchr("\"", cmd->line[i]) != NULL)
+		else if (ft_strchr("\'\"", cmd->line[i]) != NULL)
 		{
-			i = quotes_check(cmd, i);
+			i = quotes_check(cmd, i, cmd->line[i]);
 			if (i == -1)
 			{
 				write(2, "ERROR\nUnclosed quote.\n", 21);
@@ -130,10 +131,10 @@ int	len_s(t_cmd *cmd, int i)
 		i = metachar_check(cmd, i);
 		len_ptr = i - len_ptr;
 	}
-	else if (ft_strchr("\'", cmd->line[i]) != NULL || ft_strchr("\"", cmd->line[i]) != NULL)
+	else if (ft_strchr("\'\"", cmd->line[i]) != NULL)
 	{
 		len_ptr = i;
-		i = quotes_check(cmd, i);
+		i = quotes_check(cmd, i, cmd->line[i]);
 		len_ptr = (i - len_ptr);
 	}
 	else

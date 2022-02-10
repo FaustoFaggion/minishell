@@ -21,4 +21,6 @@ typedef struct s_cmd
 
 char	***parse_cmd_tab(t_cmd *cmd);
 
+void	exit_shell(t_cmd *cmd);
+
 #endif
