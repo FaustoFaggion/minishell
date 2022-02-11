@@ -15,6 +15,7 @@ SRC_DIR			=	sources
 SRC_FILES		=	minishell.c \
 					parse_cmd_tab.c \
 					parse_cmd_tab_count.c \
+					parse_cmd_tab_len.c \
 					exit.c
 
 SRC				=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))
@@ -74,7 +75,7 @@ fclean: clean
 re: fclean all
 
 run:
-	make && ./minishell
+	make re && ./minishell
 
 #run_bonus:
 #	make && ./pipex file1.txt "tr a b" "tr e c" file2.txt

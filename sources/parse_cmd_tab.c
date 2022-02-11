@@ -6,46 +6,11 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 20:40:17 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/02/11 10:33:02 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/02/11 11:36:32 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	metachar_check(t_cmd *cmd, int i)
-{
-	if (cmd->line[i] == '|')
-		i++;
-	else if (cmd->line[i] == '<')
-	{
-		i++;
-		if (cmd->line[i] == '<')
-			i++;
-	}
-	else if (cmd->line[i] == '>')
-	{
-		i++;
-		if (cmd->line[i] == '>')
-			i++;
-	}
-	return (i);
-}
-
-int	quotes_check(t_cmd *cmd, int i, char c)
-{
-	i++;
-	while (cmd->line[i] != c)
-	{
-		if (cmd->line[i] == '\0')
-		{
-			exit_shell(cmd);
-			exit(1);
-		}
-		i++;
-	}	
-	i++;
-	return (i);
-}
 
 static void	free_tab(t_cmd *cmd, size_t i)
 {
@@ -62,32 +27,7 @@ static void	free_tab(t_cmd *cmd, size_t i)
 	}
 }
 
-int	len_s(t_cmd *cmd, int i)
-{
-	int	len_ptr;
-
-	len_ptr = 0;
-	if (ft_strchr("|<>", cmd->line[i]) != NULL)
-	{
-		len_ptr = i;
-		i = metachar_check(cmd, i);
-		len_ptr = i - len_ptr;
-	}
-	else if (ft_strchr("\'\"", cmd->line[i]) != NULL)
-	{
-		len_ptr = i;
-		i = quotes_check(cmd, i, cmd->line[i]);
-		len_ptr = (i - len_ptr);
-	}
-	else
-	{
-		while (ft_strchr("|<> ", cmd->line[i + len_ptr]) == NULL && cmd->line[i + len_ptr] != '\0')
-			len_ptr++;
-	}
-	return (len_ptr);
-}
-
-static char	**mal_sub(t_cmd *cmd)
+static char	**parse_malloc(t_cmd *cmd)
 {
 	int	len_ptr;
 	int	x;
@@ -101,14 +41,14 @@ static char	**mal_sub(t_cmd *cmd)
 	flag = 1;
 	cmd->tab_y = (char **)malloc(((sizeof(char *)) * (cmd->y_tab + 1)));
 	if (!cmd->tab_x)
-		return(NULL);
+		return (NULL);
 	while (cmd->line[z] != '\0')
 	{
 		while (cmd->line[z] == ' ' && cmd->line[z] != '\0')
 			z++;
 		if (ft_strchr("|<>", cmd->line[z]) == NULL)
 		{
-			len_ptr = len_s(cmd, z);
+			len_ptr = parse_cmd_tab_len(cmd, z);
 			cmd->tab_y[y] = ft_substr(cmd->line, z, len_ptr);
 			if (cmd->tab_y[y] == NULL)
 				free_tab(cmd, cmd->y_tab);
@@ -126,13 +66,12 @@ static char	**mal_sub(t_cmd *cmd)
 					cmd->tab_y[y] = NULL;
 					y++;
 				}
-			
 				cmd->tab_x[x] = cmd->tab_y;
 				cmd->tab_y = (char **)malloc(((sizeof(char *)) * (cmd->y_tab + 1)));
 				x++;
 				y = 0;
 			}
-			len_ptr = len_s(cmd, z);
+			len_ptr = parse_cmd_tab_len(cmd, z);
 			cmd->tab_y[y] = ft_substr(cmd->line, z, len_ptr);
 			if (cmd->tab_y[y] == NULL)
 				free_tab(cmd, cmd->y_tab);
@@ -150,10 +89,8 @@ static char	**mal_sub(t_cmd *cmd)
 				free(cmd->tab_y);
 				cmd->tab_y = NULL;
 			}
-
 			if (!cmd->tab_x)
 				break ;
-			
 			x++;
 			y = 0;
 			flag = 1;
@@ -184,10 +121,10 @@ char	***parse_cmd_tab(t_cmd *cmd)
 {
 	if (!cmd->line)
 		return (NULL);
-	parse_ptr_count(cmd);
+	parse_cmd_tab_count(cmd);
 	cmd->tab_x = (char ***)malloc(((sizeof(char *)) * (cmd->x_tab + 1)));
 	if (!cmd->tab_x)
 		return (NULL);
-	mal_sub(cmd);
+	parse_malloc(cmd);
 	return (cmd->tab_x);
 }

@@ -1,18 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/11 11:20:20 by fagiusep          #+#    #+#             */
+/*   Updated: 2022/02/11 11:21:39 by fagiusep         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
-/*
-static void	free_tab_x(t_cmd *cmd)
+
+static void	print_dir(void)
 {
-	if (cmd->tab_x != NULL)
-	{
-		while ()
-	}
-}
-*/
-static void print_dir()
-{
+	char		dir[1024];
 	char		*user;
 //	char		*host;
-	char		dir[1024];
 
 	user = getenv("USER");
 	printf("%s@ ", user);
@@ -20,11 +24,11 @@ static void print_dir()
 	printf("%s", dir);
 }
 
-static void token_recog(t_cmd *cmd)
+static void	token_recog(t_cmd *cmd)
 {
 	int	x;
 	int	y;
-	
+
 	parse_cmd_tab(cmd);
 	x = 0;
 	y = 0;
@@ -43,11 +47,11 @@ static void token_recog(t_cmd *cmd)
 	
 }
 
-int main(void)
+int	main(void)
 {
 	t_cmd cmd;
-	
-	while(1)
+
+	while (1)
 	{
 		print_dir();
 		cmd.line = readline("$ ");
@@ -57,5 +61,4 @@ int main(void)
 		exit_shell(&cmd);
 		free(cmd.line);
 	}
-
 }

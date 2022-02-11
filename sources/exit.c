@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exit.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/11 11:19:26 by fagiusep          #+#    #+#             */
+/*   Updated: 2022/02/11 11:19:27 by fagiusep         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-void exit_shell(t_cmd *cmd)
+void	exit_shell(t_cmd *cmd)
 {
 	int	x;
 	int	y;
@@ -8,7 +20,6 @@ void exit_shell(t_cmd *cmd)
 	x = 0;
 	if (cmd->tab_x != NULL)
 	{
-
 		while (x < cmd->x_tab)
 		{
 			y = 0;

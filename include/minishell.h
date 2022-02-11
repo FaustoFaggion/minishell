@@ -17,6 +17,8 @@ typedef struct s_cmd
 	char	**tab_y;
 	int		x_tab;
 	int		y_tab;
+	int		count_y;
+	int		flag;
 }	t_cmd;
 
 char	***parse_cmd_tab(t_cmd *cmd);
@@ -25,7 +27,9 @@ int	metachar_check(t_cmd *cmd, int i);
 
 int	quotes_check(t_cmd *cmd, int i, char c);
 
-void	parse_ptr_count(t_cmd *cmd);
+void	parse_cmd_tab_count(t_cmd *cmd);
+
+int	parse_cmd_tab_len(t_cmd *cmd, int i);
 
 void	exit_shell(t_cmd *cmd);
 
