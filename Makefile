@@ -14,6 +14,7 @@ CFLAGS			=	-Wall -Werror -Wextra -g
 SRC_DIR			=	sources
 SRC_FILES		=	minishell.c \
 					parse_cmd_tab.c \
+					parse_cmd_tab_count.c \
 					exit.c
 
 SRC				=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))

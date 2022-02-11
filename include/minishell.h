@@ -21,6 +21,12 @@ typedef struct s_cmd
 
 char	***parse_cmd_tab(t_cmd *cmd);
 
+int	metachar_check(t_cmd *cmd, int i);
+
+int	quotes_check(t_cmd *cmd, int i, char c);
+
+void	parse_ptr_count(t_cmd *cmd);
+
 void	exit_shell(t_cmd *cmd);
 
 #endif
