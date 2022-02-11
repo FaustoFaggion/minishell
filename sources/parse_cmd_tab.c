@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 20:40:17 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/02/10 20:52:11 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/02/11 10:27:18 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ static void	ft_ptr_count_shell(t_cmd *cmd)
 			}
 		}
 	}
+	cmd->y_tab++;
 }
 
 static void	free_tab(t_cmd *cmd, size_t i)
