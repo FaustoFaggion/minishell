@@ -15,14 +15,16 @@ typedef struct s_cmd
 	char	*line;
 	char	***tab_x;
 	char	**tab_y;
-	int		x_tab;
-	int		y_tab;
+	int		size_tab_x;
+	int		size_tab_y;
 	int		count_y;
 	int		flag;
 	int		len_ptr;
 	int		x;
 	int		y;
 	int		z;
+	char	**grammar;
+	int		size_grammar;
 }	t_cmd;
 
 char	***parse_cmd_tab(t_cmd *cmd);
@@ -39,6 +41,6 @@ char	**parse_cmd_tab_malloc(t_cmd *cmd);
 
 void	exit_shell(t_cmd *cmd);
 
-void	free_tab(t_cmd *cmd, size_t i);
+void	free_tab(char ** tab, size_t i);
 
 #endif

@@ -6,24 +6,24 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:19:26 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/02/11 13:01:19 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/02/14 14:37:16 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_tab(t_cmd *cmd, size_t i)
+void	free_tab(char **tab, size_t i)
 {
-	if (cmd->tab_y != NULL)
+	if (tab != NULL)
 	{
 		while (((int)i - 1) > 0)
 		{
-			free(cmd->tab_y[i]);
-			cmd->tab_y[i] = NULL;
+			free(tab[i]);
+			tab[i] = NULL;
 			i--;
 		}
-		free(cmd->tab_y);
-		cmd->tab_y = NULL;
+		free(tab);
+		tab = NULL;
 	}
 }
 
@@ -35,18 +35,30 @@ void	exit_shell(t_cmd *cmd)
 	x = 0;
 	if (cmd->tab_x != NULL)
 	{
-		while (x < cmd->x_tab)
+		while (x < cmd->size_tab_x)
 		{
 			y = 0;
-			while (y < cmd->y_tab && cmd->tab_x[x][y])
+			while (y < cmd->size_tab_y && cmd->tab_x[x][y])
 			{
 				free(cmd->tab_x[x][y]);
 				cmd->tab_x[x][y] = NULL;
 				y++;
 			}
+			free(cmd->tab_x[x]);
 			x++;
 		}
 		free(cmd->tab_x);
 		cmd->tab_x = NULL;
 	}
+	x = 0;
+/*	if (cmd->grammar[x] != NULL)
+	{
+		while (x < cmd->size_grammar)
+		{
+			free(cmd->grammar[x]);
+			x++;
+		}
+	}
+*/	free(cmd->grammar);
+	
 }

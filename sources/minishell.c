@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:20:20 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/02/11 13:09:19 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/02/14 14:33:33 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ static void	token_recog(t_cmd *cmd)
 	parse_cmd_tab(cmd);
 	x = 0;
 	y = 0;
-	printf("x = %d, y = %d\n", cmd->x_tab, cmd->y_tab);
-	while (x < cmd->x_tab)
+	printf("x = %d, y = %d\n", cmd->size_tab_x, cmd->size_tab_y);
+	while (x < cmd->size_tab_x)
 	{
 		y = 0;
-		while (y < cmd->y_tab)
+		while (y < cmd->size_tab_y)
 		{
 			printf("%s  ", cmd->tab_x[x][y]);
 			y++;
@@ -44,6 +44,7 @@ static void	token_recog(t_cmd *cmd)
 		printf("\n");
 		x++;
 	}
+	printf("gam_count %d\n", cmd->size_grammar);
 }
 
 int	main(void)
@@ -59,5 +60,6 @@ int	main(void)
 //		printf("%s\n", line);
 		exit_shell(&cmd);
 		free(cmd.line);
+		exit(0);
 	}
 }
