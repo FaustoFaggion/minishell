@@ -48,6 +48,8 @@ void	lexical_check(t_tkn *tkn);
 
 void	sintax_check(t_tkn *tkn);
 
+void	quote_removal(t_tkn *tkn);
+
 void	exit_shell(t_tkn *tkn);
 
 //char	***parse_cmd_tab(t_cmd *cmd);

@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:20:20 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/02 11:55:22 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/02 15:20:31 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static void	token_recog(t_tkn *tkn)
 
 	lexical_check(tkn);
 	sintax_check(tkn);
+	quote_removal(tkn);
+	
 	i = 0;
 	printf ("TOKENS = ");
 	while (tkn->lexemas[i] != NULL)
