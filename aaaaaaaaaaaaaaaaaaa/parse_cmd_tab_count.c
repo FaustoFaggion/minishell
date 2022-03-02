@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:15:03 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/02/28 13:42:33 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/02/14 18:17:12 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,10 @@ void	parse_cmd_tab_count(t_cmd *cmd)
 
 	i = 0;
 	cmd->count_y = 0;
+	cmd->flag = 1;
 	cmd->size_tab_x = 0;
 	cmd->size_tab_y = 0;
 	cmd->size_grammar = 0;
-	cmd->flag = 1;
 	while (cmd->line[i] != '\0')
 	{
 		while (cmd->line[i] == ' ' && cmd->line[i] != '\0')

@@ -9,7 +9,9 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 #include "libft.h"
+#include <fcntl.h>
 
+/*
 typedef struct s_cmd
 {
 	char	*line;
@@ -26,21 +28,41 @@ typedef struct s_cmd
 	char	**grammar;
 	int		size_grammar;
 }	t_cmd;
+*/
+typedef struct s_tkn
+{
+	char	*line;
+	char	**lexemas;
+	char	**tokens;
+	int		count;
+	int		len;
+	int		fd;
+}	t_tkn;
 
-char	***parse_cmd_tab(t_cmd *cmd);
+typedef struct s_filename
+{
+	int	fd;
+}	t_filename;
 
-int		metachar_check(t_cmd *cmd, int i);
+void	lexical_check(t_tkn *tkn);
 
-int		quotes_check(t_cmd *cmd, int i, char c);
+void	sintax_check(t_tkn *tkn);
 
-void	parse_cmd_tab_count(t_cmd *cmd);
+void	exit_shell(t_tkn *tkn);
 
-int		parse_cmd_tab_len(t_cmd *cmd, int i);
+//char	***parse_cmd_tab(t_cmd *cmd);
 
-char	**parse_cmd_tab_malloc(t_cmd *cmd);
+//int		metachar_check(t_cmd *cmd, int i);
 
-void	exit_shell(t_cmd *cmd);
+//int		quotes_check(t_cmd *cmd, int i, char c);
 
-void	free_tab(char ** tab, size_t i);
+//void	parse_cmd_tab_count(t_cmd *cmd);
+
+//int		parse_cmd_tab_len(t_cmd *cmd, int i);
+
+//char	**parse_cmd_tab_malloc(t_cmd *cmd);
+
+
+//void	free_tab(char ** tab, size_t i);
 
 #endif

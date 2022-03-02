@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:19:26 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/01 16:18:29 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/02/15 09:09:30 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,13 @@ void	free_tab(char **tab, size_t i)
 	}
 }
 
-void	exit_shell(t_tkn *tkn)
+void	exit_shell(t_cmd *cmd)
 {
 	int	x;
+	int	y;
 
 	x = 0;
-/*	if (cmd->tab_x != NULL)
+	if (cmd->tab_x != NULL)
 	{
 		while (x < cmd->size_tab_x)
 		{
@@ -49,18 +50,15 @@ void	exit_shell(t_tkn *tkn)
 		free(cmd->tab_x);
 		cmd->tab_x = NULL;
 	}
-*/
 	x = 0;
-	if (tkn->tokens[x] != NULL)
+	if (cmd->grammar[x] != NULL)
 	{
-		while (tkn->tokens[x])
+		while (x < cmd->size_grammar)
 		{
-			free(tkn->tokens[x]);
-			free(tkn->lexemas[x]);
-
+			free(cmd->grammar[x]);
 			x++;
 		}
 	}
-	free(tkn->tokens);
-	free(tkn->lexemas);
+	free(cmd->grammar);
+	
 }

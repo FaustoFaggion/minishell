@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:20:20 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/02/14 14:33:33 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/02 11:55:22 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,32 @@ static void	print_dir(void)
 	printf("%s", dir);
 }
 
-static void	token_recog(t_cmd *cmd)
+static void	token_recog(t_tkn *tkn)
 {
-	int	x;
-	int	y;
+	int	i;
 
-	parse_cmd_tab(cmd);
-	x = 0;
-	y = 0;
+	lexical_check(tkn);
+	sintax_check(tkn);
+	i = 0;
+	printf ("TOKENS = ");
+	while (tkn->lexemas[i] != NULL)
+	{
+		printf ("%s  ", tkn->tokens[i]);
+		i++;
+	}
+	printf ("%s  ", tkn->tokens[i]);
+	printf ("\n");
+	i = 0;
+	printf ("LEXEMAS = ");
+	while (tkn->lexemas[i] != NULL)
+	{
+		printf ("%s  ", tkn->lexemas[i]);
+		i++;
+	}
+	printf ("%s  ", tkn->lexemas[i]);
+	printf ("\n");
+//	parse_cmd_tab(cmd);
+	/*
 	printf("x = %d, y = %d\n", cmd->size_tab_x, cmd->size_tab_y);
 	while (x < cmd->size_tab_x)
 	{
@@ -45,21 +63,25 @@ static void	token_recog(t_cmd *cmd)
 		x++;
 	}
 	printf("gam_count %d\n", cmd->size_grammar);
+	*/
 }
 
 int	main(void)
 {
-	t_cmd	cmd;
+	t_tkn		tkn;
+	t_filename	filename;
 
+	ft_bzero(&tkn, sizeof(tkn));
+	ft_bzero(&filename, sizeof(filename));
 	while (1)
 	{
 		print_dir();
-		cmd.line = readline("$ ");
-		add_history(cmd.line);
-		token_recog(&cmd);
+		tkn.line = readline("$ ");
+		add_history(tkn.line);
+		token_recog(&tkn);
 //		printf("%s\n", line);
-		exit_shell(&cmd);
-		free(cmd.line);
+		exit_shell(&tkn);
+		free(tkn.line);
 		exit(0);
 	}
 }
