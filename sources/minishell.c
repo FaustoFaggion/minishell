@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:20:20 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/02 15:20:31 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/03 12:15:16 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,6 @@ static void	print_dir(void)
 static void	token_recog(t_tkn *tkn)
 {
 	int	i;
-
-	lexical_check(tkn);
-	sintax_check(tkn);
-	quote_removal(tkn);
 	
 	i = 0;
 	printf ("TOKENS = ");
@@ -68,11 +64,13 @@ static void	token_recog(t_tkn *tkn)
 	*/
 }
 
-int	main(void)
+int	main(int argc,char *argv[], char *envp[])
 {
 	t_tkn		tkn;
 	t_filename	filename;
-
+	int	i;
+	i = argc;
+	
 	ft_bzero(&tkn, sizeof(tkn));
 	ft_bzero(&filename, sizeof(filename));
 	while (1)
@@ -80,6 +78,20 @@ int	main(void)
 		print_dir();
 		tkn.line = readline("$ ");
 		add_history(tkn.line);
+		lexical_check(&tkn);
+		sintax_check(&tkn);
+//		quote_removal(&tkn);
+		check_envp(&tkn, envp);
+		i = 0;
+/*		while (envp[i])
+		{
+			printf("%s\n", envp[i]);
+			i++;
+		}
+		
+*/		
+		printf("v=%s\n", argv[0]);
+	
 		token_recog(&tkn);
 //		printf("%s\n", line);
 		exit_shell(&tkn);

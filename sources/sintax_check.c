@@ -11,34 +11,54 @@ void	sintax_check(t_tkn *tkn)
 	{
 		if (ft_strncmp(tkn->lexemas[i], "LESS", 4) == 0)
 		{
-			if (ft_strncmp(tkn->lexemas[++i], "WORD", 4) == 0)
-				i++;
-			else
+			if (tkn->lexemas[++i] == NULL)
 				printf("bash: erro de sintaxe próximo ao token inesperado '<'\n");
+			else
+			{
+				if (ft_strncmp(tkn->lexemas[i], "WORD", 4) == 0)
+					i++;
+				else
+					printf("bash: erro de sintaxe próximo ao token inesperado '<'\n");
+			}
 			printf("LESS\n");
 		}
 		else if (ft_strncmp(tkn->lexemas[i], "DLESS", 5) == 0)
 		{
-			if (ft_strncmp(tkn->lexemas[++i], "WORD", 4) == 0)
-				i++;
-			else
+			if (tkn->lexemas[++i] == NULL)
 				printf("bash: erro de sintaxe próximo ao token inesperado '<<'\n");
+			else
+			{
+				if (ft_strncmp(tkn->lexemas[i], "WORD", 4) == 0)
+					i++;
+				else
+					printf("bash: erro de sintaxe próximo ao token inesperado '<<'\n");
+			}
 			printf("DLESS\n");
 		}
 		else if (ft_strncmp(tkn->lexemas[i], "GREAT", 5) == 0)
 		{
-			if (ft_strncmp(tkn->lexemas[++i], "WORD", 4) == 0)
-				i++;
-			else
+			if (tkn->lexemas[++i] == NULL)
 				printf("bash: erro de sintaxe próximo ao token inesperado '>'\n");
+			else
+			{
+				if (ft_strncmp(tkn->lexemas[i], "WORD", 4) == 0)
+					i++;
+				else
+					printf("bash: erro de sintaxe próximo ao token inesperado '>'\n");
+			}
 			printf("GREAT\n");
 		}
 		else if (ft_strncmp(tkn->lexemas[i], "DGREAT", 6) == 0)
 		{
-			if (ft_strncmp(tkn->lexemas[++i], "WORD", 4) == 0)
-				i++;
-			else
+			if (tkn->lexemas[++i] == NULL)
 				printf("bash: erro de sintaxe próximo ao token inesperado '>>'\n");
+			else
+			{
+				if (ft_strncmp(tkn->lexemas[i], "WORD", 4) == 0)
+					i++;
+				else
+					printf("bash: erro de sintaxe próximo ao token inesperado '>>'\n");
+			}
 			printf("DGREAT\n");
 		}
 		else if (ft_strncmp(tkn->lexemas[i], "ASSIGNMENT_WORD", 15) == 0)
@@ -55,7 +75,7 @@ void	sintax_check(t_tkn *tkn)
 		{
 			if (tkn->lexemas[++i] == NULL)
 				printf("bash: erro de sintaxe próximo ao token inesperado '|'\n");
-			printf("PIPE\n");
+			printf("PIPE_\n");
 		}
 		else
 			break ;

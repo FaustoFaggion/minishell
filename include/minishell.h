@@ -50,6 +50,9 @@ void	sintax_check(t_tkn *tkn);
 
 void	quote_removal(t_tkn *tkn);
 
+void	check_envp(t_tkn *tkn, char *envp[]);
+
+
 void	exit_shell(t_tkn *tkn);
 
 //char	***parse_cmd_tab(t_cmd *cmd);
