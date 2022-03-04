@@ -44,9 +44,11 @@ typedef struct s_filename
 	int	fd;
 }	t_filename;
 
-void	lexical_check(t_tkn *tkn);
+void	token_analysis(t_tkn *tkn);
 
-void	sintax_check(t_tkn *tkn);
+void	lexical_analysis(t_tkn *tkn);
+
+void	sintax_analysis(t_tkn *tkn);
 
 void	expansion_envp(t_tkn *tkn);
 

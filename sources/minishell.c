@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:20:20 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/04 12:21:38 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/04 12:48:44 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,9 @@ int	main(int argc,char *argv[])
 		print_dir();
 		tkn.line = readline("$ ");
 		add_history(tkn.line);
-		lexical_check(&tkn);
-		sintax_check(&tkn);
+		token_analysis(&tkn);
+		lexical_analysis(&tkn);
+		sintax_analysis(&tkn);
 		expansion_envp(&tkn);
 		expansion_quote(&tkn);
 		i = 0;

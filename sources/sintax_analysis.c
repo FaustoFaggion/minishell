@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	sintax_check(t_tkn *tkn)
+void	sintax_analysis(t_tkn *tkn)
 {
 	int	i;
 
