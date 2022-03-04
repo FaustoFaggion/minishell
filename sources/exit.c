@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:19:26 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/01 16:18:29 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/04 14:25:25 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,25 @@ void	exit_shell(t_tkn *tkn)
 	}
 */
 	x = 0;
-	if (tkn->tokens[x] != NULL)
+	if (tkn->tokens != NULL)
 	{
-		while (tkn->tokens[x])
+		while (x < tkn->count)
 		{
 			free(tkn->tokens[x]);
-			free(tkn->lexemas[x]);
-
 			x++;
 		}
+		free(tkn->tokens);
 	}
-	free(tkn->tokens);
-	free(tkn->lexemas);
+	x = 0;
+	if (tkn->lexemas != NULL)
+	{
+		while (x < tkn->count)
+		{
+			free(tkn->lexemas[x]);
+			x++;
+		}
+		free(tkn->lexemas);
+	}
+	if (tkn->line != NULL)
+		free(tkn->line);
 }

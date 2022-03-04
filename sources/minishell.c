@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:20:20 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/04 12:48:44 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/04 14:24:13 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ int	main(int argc,char *argv[])
 		token_recog(&tkn);
 //		printf("%s\n", line);
 		exit_shell(&tkn);
-		free(tkn.line);
 		exit(0);
 	}
 }
