@@ -48,10 +48,11 @@ void	lexical_check(t_tkn *tkn);
 
 void	sintax_check(t_tkn *tkn);
 
-void	quote_removal(t_tkn *tkn);
+void	expansion_envp(t_tkn *tkn);
 
-void	check_envp(t_tkn *tkn, char *envp[]);
+void	expansion_quote(t_tkn *tkn);
 
+void	quoted_envp(char **tkn);
 
 void	exit_shell(t_tkn *tkn);
 
@@ -66,7 +67,6 @@ void	exit_shell(t_tkn *tkn);
 //int		parse_cmd_tab_len(t_cmd *cmd, int i);
 
 //char	**parse_cmd_tab_malloc(t_cmd *cmd);
-
 
 //void	free_tab(char ** tab, size_t i);
 

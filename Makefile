@@ -16,7 +16,8 @@ SRC_FILES		=	minishell.c \
 					lexical_check.c \
 					sintax_check.c \
 					exit.c \
-					expansion_check.c \
+					expansion_envp.c \
+					expansion_quoted.c \
 					#parse_cmd_tab.c \
 					parse_cmd_tab_count.c \
 					parse_cmd_tab_len.c \

@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:20:20 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/03 12:15:16 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/04 12:21:38 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	token_recog(t_tkn *tkn)
 	*/
 }
 
-int	main(int argc,char *argv[], char *envp[])
+int	main(int argc,char *argv[])
 {
 	t_tkn		tkn;
 	t_filename	filename;
@@ -80,8 +80,8 @@ int	main(int argc,char *argv[], char *envp[])
 		add_history(tkn.line);
 		lexical_check(&tkn);
 		sintax_check(&tkn);
-//		quote_removal(&tkn);
-		check_envp(&tkn, envp);
+		expansion_envp(&tkn);
+		expansion_quote(&tkn);
 		i = 0;
 /*		while (envp[i])
 		{
