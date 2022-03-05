@@ -6,23 +6,17 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 15:11:18 by fagiusep          #+#    #+#             */
-/*   Updated: 2021/08/13 15:11:48 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/04 15:26:22 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_isupper(int c)
-{
-	return (c >= 'A' && c <= 'Z');
-}
-
-static int	ft_islower(int c)
-{
-	return (c >= 'a' && c <= 'z');
-}
-
 int	ft_isalpha(int c)
 {
-	return (ft_isupper(c) || ft_islower(c));
+	if (c >= 'A' && c <= 'Z')
+		return (0);
+	else if (c >= 'a' && c <= 'z')
+		return (0);
+	return (1);
 }

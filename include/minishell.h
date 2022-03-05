@@ -31,6 +31,7 @@ typedef struct s_cmd
 */
 typedef struct s_tkn
 {
+	char	***cmd;
 	char	*line;
 	char	**lexemas;
 	char	**tokens;
@@ -57,6 +58,8 @@ void	expansion_quote(t_tkn *tkn);
 void	quoted_envp(char **tkn);
 
 void	exit_shell(t_tkn *tkn);
+
+void	cmd_tab(t_tkn *tkn);
 
 //char	***parse_cmd_tab(t_cmd *cmd);
 

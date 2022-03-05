@@ -20,7 +20,7 @@ void	sintax_analysis(t_tkn *tkn)
 				else
 					printf("bash: erro de sintaxe próximo ao token inesperado '<'\n");
 			}
-			printf("LESS\n");
+//			printf("LESS\n");
 		}
 		else if (ft_strncmp(tkn->lexemas[i], "DLESS", 5) == 0)
 		{
@@ -33,7 +33,7 @@ void	sintax_analysis(t_tkn *tkn)
 				else
 					printf("bash: erro de sintaxe próximo ao token inesperado '<<'\n");
 			}
-			printf("DLESS\n");
+//			printf("DLESS\n");
 		}
 		else if (ft_strncmp(tkn->lexemas[i], "GREAT", 5) == 0)
 		{
@@ -46,7 +46,7 @@ void	sintax_analysis(t_tkn *tkn)
 				else
 					printf("bash: erro de sintaxe próximo ao token inesperado '>'\n");
 			}
-			printf("GREAT\n");
+//			printf("GREAT\n");
 		}
 		else if (ft_strncmp(tkn->lexemas[i], "DGREAT", 6) == 0)
 		{
@@ -59,23 +59,23 @@ void	sintax_analysis(t_tkn *tkn)
 				else
 					printf("bash: erro de sintaxe próximo ao token inesperado '>>'\n");
 			}
-			printf("DGREAT\n");
+//			printf("DGREAT\n");
 		}
 		else if (ft_strncmp(tkn->lexemas[i], "ASSIGNMENT_WORD", 15) == 0)
 		{
 			i++;
-			printf("ASSIGNMENT_WORD\n");
+//			printf("ASSIGNMENT_WORD\n");
 		}
 		else if (ft_strncmp(tkn->lexemas[i], "WORD", 4) == 0)
 		{
 			i++;
-			printf("WORD\n");
+//			printf("WORD\n");
 		}
 		else if (ft_strncmp(tkn->lexemas[i], "PIPE", 4) == 0)
 		{
 			if (tkn->lexemas[++i] == NULL)
 				printf("bash: erro de sintaxe próximo ao token inesperado '|'\n");
-			printf("PIPE_\n");
+//			printf("PIPE_\n");
 		}
 		else
 			break ;

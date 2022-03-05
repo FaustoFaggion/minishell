@@ -1,6 +1,22 @@
 #include "minishell.h"
 
-static void	quoted(char **tkn)
+static void	s_quoted(char **tkn)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (tkn[i][j + 1] != '\'')
+	{
+		tkn[i][j] = tkn[i][j + 1];
+		j++;
+	}
+	tkn[i][++j] = '\0';
+	tkn[i][++j] = '\0';
+}
+
+static void	d_quoted(char **tkn)
 {
 	int	i;
 	int	j;
@@ -36,10 +52,12 @@ void	expansion_quote(t_tkn *tkn)
 				j++;
 			}
 			if (flag == 0)
-				quoted(&tkn->tokens[i]);
+				d_quoted(&tkn->tokens[i]);
 			else
 				quoted_envp(&tkn->tokens[i]);
 		}
+		if (tkn->tokens[i][0] == '\"')
+			s_quoted(&tkn->tokens[i]);
 		i++;
 	}
 }

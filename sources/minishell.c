@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:20:20 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/04 14:24:13 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/05 08:22:40 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static void	print_dir(void)
 static void	token_recog(t_tkn *tkn)
 {
 	int	i;
+	int	x;
+	int	y;
 	
 	i = 0;
 	printf ("TOKENS = ");
@@ -46,22 +48,21 @@ static void	token_recog(t_tkn *tkn)
 	}
 	printf ("%s  ", tkn->lexemas[i]);
 	printf ("\n");
-//	parse_cmd_tab(cmd);
-	/*
-	printf("x = %d, y = %d\n", cmd->size_tab_x, cmd->size_tab_y);
-	while (x < cmd->size_tab_x)
+	
+	x = 0;
+	y = 0;
+	while (tkn->cmd[x] != NULL)
 	{
 		y = 0;
-		while (y < cmd->size_tab_y)
+		while (tkn->cmd[x][y] != NULL)
 		{
-			printf("%s  ", cmd->tab_x[x][y]);
+			printf("%s  ", tkn->cmd[x][y]);
 			y++;
 		}
+		printf("%s  ", tkn->cmd[x][y]);
 		printf("\n");
 		x++;
 	}
-	printf("gam_count %d\n", cmd->size_grammar);
-	*/
 }
 
 int	main(int argc,char *argv[])
@@ -83,14 +84,9 @@ int	main(int argc,char *argv[])
 		sintax_analysis(&tkn);
 		expansion_envp(&tkn);
 		expansion_quote(&tkn);
+		cmd_tab(&tkn);
 		i = 0;
-/*		while (envp[i])
-		{
-			printf("%s\n", envp[i]);
-			i++;
-		}
-		
-*/		
+
 		printf("v=%s\n", argv[0]);
 	
 		token_recog(&tkn);

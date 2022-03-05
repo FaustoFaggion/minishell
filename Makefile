@@ -18,7 +18,8 @@ SRC_FILES		=	minishell.c \
 					sintax_analysis.c \
 					expansion_quoted.c \
 					expansion_envp.c \
-					exit.c \
+					cmd_tab.c \
+					exit.c
 
 SRC				=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
@@ -42,7 +43,7 @@ all:	$(NAME)
 bonus:	$(NAME_BONUS)
 
 $(NAME):	$(LIBFT) $(OBJ_DIR) $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) $(I_MINISHELL) $(I_LIBFT) $(L_READLINE)
+	$(CC) -g3 $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) $(I_MINISHELL) $(I_LIBFT) $(L_READLINE)
 
 #$(NAME_BONUS):	$(LIBFT) $(OBJ_DIR_BONUS) $(OBJ_BONUS)
 #	$(CC) $(CFLAGS) $(OBJ_BONUS) $(LIBFT) -o $(NAME_BONUS) $(I_PIPEX) $(I_LIBFT)
