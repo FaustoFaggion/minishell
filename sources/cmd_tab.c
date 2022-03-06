@@ -8,7 +8,17 @@ void	cmd_tab(t_tkn *tkn)
 	int		count;
 	char	**temp;
 
-	tkn->cmd = (char ***)malloc(sizeof(char *) * sizeof(tkn->count));
+	count = 0;
+	i = 0;
+	while (i < tkn->count)
+	{
+		if (ft_strncmp(tkn->lexemas[i], "WORD", 4) != 0 &&
+			ft_strncmp(tkn->lexemas[i], "ASSIGNMENT_WORD", 15) != 0)
+			count = count + 3;
+		i++;
+		count++;
+	}
+	tkn->cmd = (char ***)malloc((sizeof(char **) * sizeof(tkn->tokens) * 2) + (sizeof(char **) * 2));
 	x = 0;
 	i = 0;
 	while (i < tkn->count)
@@ -18,13 +28,11 @@ void	cmd_tab(t_tkn *tkn)
 			ft_strncmp(tkn->lexemas[i], "ASSIGNMENT_WORD", 15) != 0)
 		{
 			count = 0;
-			printf(".....%s\n", tkn->lexemas[i]);
 			while (ft_strncmp(tkn->lexemas[i + count], "WORD", 4) != 0 &&
 				ft_strncmp(tkn->lexemas[i + count], "ASSIGNMENT_WORD", 15) != 0)
 				count++;
 			temp = (char **) malloc(sizeof(char *) * (count + 1));
 			j = 0;
-			printf(".....%d\n", count);
 			while (count > 0)
 			{
 				temp[j] = tkn->tokens[i];
