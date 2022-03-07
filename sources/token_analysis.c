@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   token_analysis.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/07 16:10:30 by fagiusep          #+#    #+#             */
+/*   Updated: 2022/03/07 16:10:31 by fagiusep         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static int	metachar_check(t_tkn *tkn, int i)
@@ -46,7 +58,7 @@ void	token_count(t_tkn *tkn)
 {
 	int	i;
 
-	i= 0;
+	i = 0;
 	tkn->tkn_count = 0;
 	while (tkn->line[i] != '\0')
 	{
@@ -57,7 +69,7 @@ void	token_count(t_tkn *tkn)
 		else if (ft_strchr("\'\"", tkn->line[i]) != NULL)
 			i = quotes_check(tkn, i, tkn->line[i]);
 		else
-			i = count_char(tkn, i);		
+			i = count_char(tkn, i);
 		tkn->tkn_count++;
 	}
 }
@@ -95,5 +107,5 @@ void	token_analysis(t_tkn *tkn)
 	if (!tkn->tokens)
 		return ;
 	scan_cmd_line(tkn);
-		return ;
+	return ;
 }

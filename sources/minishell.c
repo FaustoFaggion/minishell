@@ -6,19 +6,18 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:20:20 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/07 13:32:39 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/07 16:01:22 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 static void	token_recog(t_tkn *tkn)
 {
 	int	i;
 	int	x;
 	int	y;
-	
+
 	i = 0;
 	printf ("TOKENS = ");
 	while (tkn->lexemas[i] != NULL)
@@ -37,7 +36,6 @@ static void	token_recog(t_tkn *tkn)
 	}
 	printf ("%s  ", tkn->lexemas[i]);
 	printf ("\n");
-	
 	x = 0;
 	y = 0;
 	while (tkn->cmd[x] != NULL)
@@ -72,7 +70,6 @@ int	main(void)
 	t_tkn		tkn;
 	t_filename	filename;
 
-		
 	ft_bzero(&tkn, sizeof(tkn));
 	ft_bzero(&filename, sizeof(filename));
 	while (1)

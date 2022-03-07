@@ -12,6 +12,11 @@
 #include <fcntl.h>
 
 #define DEBUG 1
+#define PIPE "PIPE"
+#define LESS "LESS"
+#define DLESS "DLESS"
+#define GREAT "GREAT"
+#define DGREAT "DGREAT"
 /*
 typedef struct s_cmd
 {
