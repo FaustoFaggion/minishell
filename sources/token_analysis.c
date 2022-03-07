@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 16:10:30 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/07 16:10:31 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/07 20:06:42 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,6 @@ static int	quotes_check(t_tkn *tkn, int i, char c)
 	return (i);
 }
 
-static int	count_char(t_tkn *tkn, int i)
-{
-	while (ft_strchr("|<> ", tkn->line[i]) == NULL)
-		i++;
-	return (i);
-}
-
 void	token_count(t_tkn *tkn)
 {
 	int	i;
@@ -69,7 +62,10 @@ void	token_count(t_tkn *tkn)
 		else if (ft_strchr("\'\"", tkn->line[i]) != NULL)
 			i = quotes_check(tkn, i, tkn->line[i]);
 		else
-			i = count_char(tkn, i);
+		{
+			while (ft_strchr("|<> ", tkn->line[i]) == NULL)
+				i++;
+		}
 		tkn->tkn_count++;
 	}
 }
@@ -92,7 +88,10 @@ static void	scan_cmd_line(t_tkn *tkn)
 		else if (ft_strchr("\'\"", tkn->line[i]) != NULL)
 			i = quotes_check(tkn, i, tkn->line[i]);
 		else
-			i = count_char(tkn, i);
+		{
+			while (ft_strchr("|<> ", tkn->line[i]) == NULL)
+				i++;
+		}
 		tkn->len = i - start;
 		tkn->tokens[x] = ft_substr(tkn->line, start, tkn->len);
 		x++;

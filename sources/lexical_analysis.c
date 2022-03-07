@@ -1,21 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexical_analysis.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/07 20:02:29 by fagiusep          #+#    #+#             */
+/*   Updated: 2022/03/07 20:08:41 by fagiusep         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static void	word_rules(t_tkn *tkn, int x)
 {
-	
 	tkn->lexemas[x] = ft_strdup("WORD");
 }
-
 
 static void	token_to_lexema(t_tkn *tkn, int x)
 {
 	if (ft_strncmp(tkn->tokens[x], "|", 1) == 0)
 		tkn->lexemas[x] = ft_strdup("PIPE");
-/*	else if (ft_strncmp(tkn->tokens[x], "\'", 1) == 0)
-		tkn->lexemas[x] = ft_strdup("SQUOTE");
-	else if (ft_strncmp(tkn->tokens[x], "\"", 1) == 0)
-		tkn->lexemas[x] = ft_strdup("DQUOTE");
-*/	else if (ft_strncmp(tkn->tokens[x], "<\0", 2) == 0)
+	else if (ft_strncmp(tkn->tokens[x], "<\0", 2) == 0)
 		tkn->lexemas[x] = ft_strdup("LESS");
 	else if (ft_strncmp(tkn->tokens[x], "<<", 2) == 0)
 		tkn->lexemas[x] = ft_strdup("DLESS");

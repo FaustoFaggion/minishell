@@ -71,6 +71,14 @@ void	cmd_tab(t_tkn *tkn);
 
 void	exec_cmd_tab(t_tkn *tkn);
 
+void	exec_simple_cmd(t_tkn *tkn, int i);
+
+int		cmd_setup(t_tkn *tkn, int i);
+
+void	cmd_not_found(t_tkn *tkn, int i);
+
+void	exec_cmd_pipe(t_tkn *tkn, int i);
+
 //char	***parse_cmd_tab(t_cmd *cmd);
 
 //int		metachar_check(t_cmd *cmd, int i);
