@@ -6,24 +6,13 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:20:20 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/05 08:22:40 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/07 10:08:54 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	print_dir(void)
-{
-	char		dir[1024];
-	char		*user;
-//	char		*host;
-
-	user = getenv("USER");
-	printf("%s@ ", user);
-	getcwd(dir, sizeof(dir));
-	printf("%s", dir);
-}
-
+/*
 static void	token_recog(t_tkn *tkn)
 {
 	int	i;
@@ -56,42 +45,60 @@ static void	token_recog(t_tkn *tkn)
 		y = 0;
 		while (tkn->cmd[x][y] != NULL)
 		{
-			printf("%s  ", tkn->cmd[x][y]);
+			printf("cmd[%d][%d] %s\n", x, y, tkn->cmd[x][y]);
 			y++;
 		}
 		printf("%s  ", tkn->cmd[x][y]);
 		printf("\n");
 		x++;
 	}
+	printf("cmd[%d] %p\n", x, tkn->cmd[x]);
+}
+*/
+static void	print_dir(void)
+{
+	char		dir[1024];
+	char		*user;
+//	char		*hostname;
+
+	user = getenv("USER");
+	printf("%s@ ", user);
+	getcwd(dir, sizeof(dir));
+	printf("%s", dir);
 }
 
 int	main(int argc,char *argv[])
 {
 	t_tkn		tkn;
 	t_filename	filename;
-	int	i;
+	
+	int			i;
 	i = argc;
 	
+	printf("v=%s\n", argv[0]);
+		
 	ft_bzero(&tkn, sizeof(tkn));
 	ft_bzero(&filename, sizeof(filename));
 	while (1)
 	{
 		print_dir();
 		tkn.line = readline("$ ");
-		add_history(tkn.line);
+		if (ft_strlen(tkn.line) != 0)
+			add_history(tkn.line);
 		token_analysis(&tkn);
 		lexical_analysis(&tkn);
 		sintax_analysis(&tkn);
 		expansion_envp(&tkn);
 		expansion_quote(&tkn);
 		cmd_tab(&tkn);
-		i = 0;
+		exec_cmd_tab(&tkn);
+/*		i = 0;
 
-		printf("v=%s\n", argv[0]);
+		
 	
 		token_recog(&tkn);
 //		printf("%s\n", line);
 		exit_shell(&tkn);
 		exit(0);
-	}
+*/	}
 }

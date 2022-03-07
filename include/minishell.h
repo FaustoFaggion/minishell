@@ -38,6 +38,7 @@ typedef struct s_tkn
 	int		count;
 	int		len;
 	int		fd;
+	char	*path;
 }	t_tkn;
 
 typedef struct s_filename
@@ -60,6 +61,8 @@ void	quoted_envp(char **tkn);
 void	exit_shell(t_tkn *tkn);
 
 void	cmd_tab(t_tkn *tkn);
+
+void	exec_cmd_tab(t_tkn *tkn);
 
 //char	***parse_cmd_tab(t_cmd *cmd);
 

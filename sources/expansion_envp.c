@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 10:34:01 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/04 17:55:44 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/07 10:11:50 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	expansion_envp(t_tkn *tkn)
 			else
 				tkn->tokens[i] = ft_strdup(getenv(tkn->tokens[i]));
 			free(temp);
-			printf("%s\n", tkn->tokens[i]);
 		}
 		i++;
 	}

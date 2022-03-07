@@ -19,6 +19,7 @@ SRC_FILES		=	minishell.c \
 					expansion_quoted.c \
 					expansion_envp.c \
 					cmd_tab.c \
+					exec_cmd_tab.c \
 					exit.c
 
 SRC				=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))
