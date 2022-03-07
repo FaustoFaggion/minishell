@@ -37,8 +37,18 @@ int	cmd_setup(t_tkn *tkn, int i)
 	return (1);
 }
 
-int	exec_child(t_tkn *tkn, int i)
+int	exec_child(t_tkn *tkn, int fd[], int i)
 {
+
+	if (tkn->cmd[i + 1] != NULL)
+	{
+		if (ft_strncmp(tkn->cmd[i + 1][0], "|", 1) == 0 )
+		{
+			close(fd[0]);
+			dup2(fd[1], STDOUT_FILENO);
+			close(fd[1]);
+		}
+	}
 	if (execve(tkn->path, tkn->cmd[i], NULL) == -1)
 	{
 		write(2, "error execve\n", 13);
@@ -51,20 +61,41 @@ int	exec_child(t_tkn *tkn, int i)
 void	exec_cmd_tab(t_tkn *tkn)
 {
 	int	i;
+	int	fd[2];
 	int	pid;
 
 	i = 0;
 	while (tkn->cmd[i] != NULL)
 	{
+		if (tkn->cmd[i + 1] != NULL)
+		{
+			if (ft_strncmp(tkn->cmd[i + 1][0], "|", 1) == 0 )
+			{
+				if (pipe(fd) == -1)
+					exit(write(1, "pipe error\n", 11));
+			}
+		}
 		if (cmd_setup(tkn, i) == 0)
 		{
 			pid = fork();
 			if (pid < 0)
 				exit(write(1, "fork error\n", 11));
 			if (pid == 0)
-				exec_child(tkn, i);
+				exec_child(tkn, fd, i);
 			waitpid(pid, NULL, 0);
 		}
+		if (tkn->cmd[i + 1] != NULL)
+		{
+			if (ft_strncmp(tkn->cmd[i + 1][0], "|", 1) == 0 )
+			{
+				close(fd[1]);
+				dup2(fd[0], STDIN_FILENO);
+				close(fd[0]);
+				i++;
+			}
+		}
+
 		i++;
 	}
+	dup2(1, STDIN_FILENO);
 }

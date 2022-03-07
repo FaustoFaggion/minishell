@@ -28,7 +28,7 @@ static void	d_quoted(char **tkn)
 		tkn[i][j] = tkn[i][j + 1];
 		j++;
 	}
-	tkn[i][++j] = '\0';
+	tkn[i][j] = '\0';
 	tkn[i][++j] = '\0';
 }
 

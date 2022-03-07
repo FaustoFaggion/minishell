@@ -47,7 +47,7 @@ void	token_count(t_tkn *tkn)
 	int	i;
 
 	i= 0;
-	tkn->count = 0;
+	tkn->tkn_count = 0;
 	while (tkn->line[i] != '\0')
 	{
 		while (tkn->line[i] == ' ' && tkn->line[i] != '\0')
@@ -58,7 +58,7 @@ void	token_count(t_tkn *tkn)
 			i = quotes_check(tkn, i, tkn->line[i]);
 		else
 			i = count_char(tkn, i);		
-		tkn->count++;
+		tkn->tkn_count++;
 	}
 }
 
@@ -91,7 +91,7 @@ static void	scan_cmd_line(t_tkn *tkn)
 void	token_analysis(t_tkn *tkn)
 {
 	token_count(tkn);
-	tkn->tokens = (char **) malloc(sizeof(char *) * (tkn->count + 1));
+	tkn->tokens = (char **) malloc(sizeof(char *) * (tkn->tkn_count + 1));
 	if (!tkn->tokens)
 		return ;
 	scan_cmd_line(tkn);

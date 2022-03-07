@@ -33,7 +33,7 @@ void	lexical_analysis(t_tkn *tkn)
 {
 	int	i;
 
-	tkn->lexemas = (char **) malloc(sizeof(char *) * (tkn->count + 1));
+	tkn->lexemas = (char **) malloc(sizeof(char *) * (tkn->tkn_count + 1));
 	if (!tkn->lexemas)
 		return ;
 	i = 0;

@@ -6,13 +6,13 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:20:20 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/07 10:08:54 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/07 13:32:39 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
+
 static void	token_recog(t_tkn *tkn)
 {
 	int	i;
@@ -45,7 +45,7 @@ static void	token_recog(t_tkn *tkn)
 		y = 0;
 		while (tkn->cmd[x][y] != NULL)
 		{
-			printf("cmd[%d][%d] %s\n", x, y, tkn->cmd[x][y]);
+			printf("cmd[%d][%d] %s  ", x, y, tkn->cmd[x][y]);
 			y++;
 		}
 		printf("%s  ", tkn->cmd[x][y]);
@@ -54,7 +54,7 @@ static void	token_recog(t_tkn *tkn)
 	}
 	printf("cmd[%d] %p\n", x, tkn->cmd[x]);
 }
-*/
+
 static void	print_dir(void)
 {
 	char		dir[1024];
@@ -67,15 +67,11 @@ static void	print_dir(void)
 	printf("%s", dir);
 }
 
-int	main(int argc,char *argv[])
+int	main(void)
 {
 	t_tkn		tkn;
 	t_filename	filename;
-	
-	int			i;
-	i = argc;
-	
-	printf("v=%s\n", argv[0]);
+
 		
 	ft_bzero(&tkn, sizeof(tkn));
 	ft_bzero(&filename, sizeof(filename));
@@ -83,6 +79,8 @@ int	main(int argc,char *argv[])
 	{
 		print_dir();
 		tkn.line = readline("$ ");
+		if (tkn.line == NULL)
+			printf ("line = NULL");
 		if (ft_strlen(tkn.line) != 0)
 			add_history(tkn.line);
 		token_analysis(&tkn);
@@ -92,13 +90,11 @@ int	main(int argc,char *argv[])
 		expansion_quote(&tkn);
 		cmd_tab(&tkn);
 		exec_cmd_tab(&tkn);
-/*		i = 0;
-
-		
-	
-		token_recog(&tkn);
-//		printf("%s\n", line);
+		if (DEBUG == 1)
+			token_recog(&tkn);
 		exit_shell(&tkn);
-		exit(0);
-*/	}
+		
+//		printf("%s\n", line);
+//		exit(0);
+	}
 }

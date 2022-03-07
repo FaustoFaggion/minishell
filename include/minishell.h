@@ -11,6 +11,7 @@
 #include "libft.h"
 #include <fcntl.h>
 
+#define DEBUG 1
 /*
 typedef struct s_cmd
 {
@@ -35,7 +36,8 @@ typedef struct s_tkn
 	char	*line;
 	char	**lexemas;
 	char	**tokens;
-	int		count;
+	int		tkn_count;
+	int		cmd_count;
 	int		len;
 	int		fd;
 	char	*path;
