@@ -21,6 +21,7 @@
 typedef struct s_tkn
 {
 	char	***cmd;
+	char	***cmd_lex;
 	char	*line;
 	char	**lexemas;
 	char	**tokens;
@@ -59,6 +60,8 @@ int		cmd_setup(t_tkn *tkn, int i);
 void	cmd_not_found(t_tkn *tkn, int i);
 
 void	exec_cmd_pipe(t_tkn *tkn, int i);
+
+void	exec_cmd_redirect(t_tkn *tkn, int i);
 
 void	exit_shell(t_tkn *tkn);
 

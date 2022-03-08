@@ -10,3 +10,5 @@
 <p> Welton Leite Notion - https://bumpy-truffle-c97.notion.site/Minishell-94b7e6ad303d4b19b1dfe7d4bbacc9aa</p>
 <p> flowchart - https://app.diagrams.net/ </p>
 <p> https://www.geeksforgeeks.org/making-linux-shell-c/</p>
+
+<p> IEEE Std 1003.1, 2004 Edition - https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html </p>
