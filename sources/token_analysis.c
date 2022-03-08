@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 16:10:30 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/07 20:06:42 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/08 08:36:16 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,18 @@ static int	metachar_check(t_tkn *tkn, int i)
 static int	quotes_check(t_tkn *tkn, int i, char c)
 {
 	i++;
+	printf("....%c", tkn->line[i]);
 	while (tkn->line[i] != c)
 	{
 		if (tkn->line[i] == '\0')
 		{
-			exit_shell(tkn);
+			exit_shell_quote(tkn, tkn->tkn_count);
 			exit(1);
 		}
 		i++;
 	}	
 	i++;
+	printf("....%c\n", tkn->line[i]);
 	return (i);
 }
 
@@ -64,7 +66,14 @@ void	token_count(t_tkn *tkn)
 		else
 		{
 			while (ft_strchr("|<> ", tkn->line[i]) == NULL)
-				i++;
+			{
+				if (tkn->line[i] == '\'')
+					i = quotes_check(tkn, i, tkn->line[i]);
+				else if (tkn->line[i] == '\"')
+					i = quotes_check(tkn, i, tkn->line[i]);
+				else
+					i++;
+			}
 		}
 		tkn->tkn_count++;
 	}
@@ -90,7 +99,14 @@ static void	scan_cmd_line(t_tkn *tkn)
 		else
 		{
 			while (ft_strchr("|<> ", tkn->line[i]) == NULL)
-				i++;
+			{
+				if (tkn->line[i] == '\'')
+					i = quotes_check(tkn, i, tkn->line[i]);
+				else if (tkn->line[i] == '\"')
+					i = quotes_check(tkn, i, tkn->line[i]);
+				else
+					i++;
+			}
 		}
 		tkn->len = i - start;
 		tkn->tokens[x] = ft_substr(tkn->line, start, tkn->len);

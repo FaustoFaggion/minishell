@@ -17,24 +17,7 @@
 #define DLESS "DLESS"
 #define GREAT "GREAT"
 #define DGREAT "DGREAT"
-/*
-typedef struct s_cmd
-{
-	char	*line;
-	char	***tab_x;
-	char	**tab_y;
-	int		size_tab_x;
-	int		size_tab_y;
-	int		count_y;
-	int		flag;
-	int		len_ptr;
-	int		x;
-	int		y;
-	int		z;
-	char	**grammar;
-	int		size_grammar;
-}	t_cmd;
-*/
+
 typedef struct s_tkn
 {
 	char	***cmd;
@@ -65,8 +48,6 @@ void	expansion_quote(t_tkn *tkn);
 
 void	quoted_envp(char **tkn);
 
-void	exit_shell(t_tkn *tkn);
-
 void	cmd_tab(t_tkn *tkn);
 
 void	exec_cmd_tab(t_tkn *tkn);
@@ -78,6 +59,10 @@ int		cmd_setup(t_tkn *tkn, int i);
 void	cmd_not_found(t_tkn *tkn, int i);
 
 void	exec_cmd_pipe(t_tkn *tkn, int i);
+
+void	exit_shell(t_tkn *tkn);
+
+void	exit_shell_quote(t_tkn *tkn, int i);
 
 //char	***parse_cmd_tab(t_cmd *cmd);
 
