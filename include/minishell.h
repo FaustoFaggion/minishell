@@ -11,7 +11,7 @@
 #include "libft.h"
 #include <fcntl.h>
 
-#define DEBUG 1
+#define DEBUG 0
 #define PIPE "PIPE"
 #define LESS "LESS"
 #define DLESS "DLESS"

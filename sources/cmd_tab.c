@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 14:51:10 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/08 11:46:16 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/08 17:42:21 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static int	cmd_metachar(t_tkn *tkn, int i)
 	if (ft_strncmp(tkn->lexemas[i], "PIPE", 4) == 0)
 		count = 1;
 	if (ft_strncmp(tkn->lexemas[i], "LESS", 4) == 0
+		|| ft_strncmp(tkn->lexemas[i], "DLESS", 5) == 0
 		|| ft_strncmp(tkn->lexemas[i], "GREAT", 5) == 0
 		|| ft_strncmp(tkn->lexemas[i], "DGREAT", 6) == 0)
 		count = 2;

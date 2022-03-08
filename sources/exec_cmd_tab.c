@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 20:17:11 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/08 11:59:11 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/08 13:29:35 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	exec_cmd_tab(t_tkn *tkn)
 		{
 			if (tkn->cmd[i + 1] == NULL)
 				exec_simple_cmd(tkn, i);
-			else if (ft_strncmp(tkn->cmd[i + 1][0], "|", 1) == 0)
+			else //if (ft_strncmp(tkn->cmd[i + 1][0], "|", 1) == 0)
 			{
 				exec_cmd_pipe(tkn, i);
 				i++;
