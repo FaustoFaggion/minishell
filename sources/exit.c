@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:19:26 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/08 08:56:38 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/09 11:37:07 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,48 +30,38 @@ void	free_tab(char **tab, size_t i)
 void	exit_shell(t_tkn *tkn)
 {
 	int	x;
+	int	y;
 
 	x = 0;
-/*	if (cmd->tab_x != NULL)
+	if (tkn->cmd != NULL)
 	{
-		while (x < cmd->size_tab_x)
+		while (x < tkn->cmd_count)
 		{
 			y = 0;
-			while (y < cmd->size_tab_y && cmd->tab_x[x][y])
+			while ( tkn->cmd[x][y] != NULL)
 			{
-				free(cmd->tab_x[x][y]);
-				cmd->tab_x[x][y] = NULL;
+				free(tkn->cmd[x][y]);
+				free(tkn->cmd_lex[x][y]);
 				y++;
 			}
-			free(cmd->tab_x[x]);
+			free(tkn->cmd[x]);
+			free(tkn->cmd_lex[x]);
 			x++;
 		}
-		free(cmd->tab_x);
-		cmd->tab_x = NULL;
+		free(tkn->cmd);
+		tkn->cmd = NULL;
+		free(tkn->cmd_lex);
+		tkn->cmd_lex = NULL;
 	}
-*/
-	x = 0;
+
 	if (tkn->tokens != NULL)
-	{
-		while (x < tkn->tkn_count)
-		{
-			free(tkn->tokens[x]);
-			x++;
-		}
 		free(tkn->tokens);
-	}
-	x = 0;
 	if (tkn->lexemas != NULL)
-	{
-		while (x < tkn->tkn_count)
-		{
-			free(tkn->lexemas[x]);
-			x++;
-		}
 		free(tkn->lexemas);
-	}
 	if (tkn->line != NULL)
 		free(tkn->line);
+	if (tkn->path != NULL)
+		free(tkn->path);
 }
 
 void	exit_shell_quote(t_tkn *tkn, int i)
