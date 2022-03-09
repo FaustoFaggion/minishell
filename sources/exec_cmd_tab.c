@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 20:17:11 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/08 13:29:35 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/09 11:44:46 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,15 @@ void	cmd_not_found(t_tkn *tkn, int i)
 	write(1, ": Command not found\n", 20);
 }
 
-static char	**get_env(char **temp, char ***swap)
-{
-	char	**path;
-
-	*temp = getenv("PATH");
-	*swap = ft_split(*temp, ':');
-	path = *swap;
-	return (path);
-}
-
 int	cmd_setup(t_tkn *tkn, int i)
 {
 	int		x;
-	char	**swap;
-	char	**path;
 	char	*temp;
 
-	path = get_env(&temp, &swap);
 	x = -1;
-	while (path[++x])
+	while (tkn->envp[++x])
 	{
-		tkn->path = ft_strjoin(path[x], "/");
+		tkn->path = ft_strjoin(tkn->envp[x], "/");
 		if (tkn->path == NULL)
 			exit(1);
 		temp = tkn->path;

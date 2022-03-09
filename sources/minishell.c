@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:20:20 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/09 11:29:55 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/09 13:01:16 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,35 @@ static void	print_dir(void)
 	printf("%s", dir);
 }
 
-int	main(void)
+static void	init_tkn(t_tkn *tkn, char *envp[])
+{
+	int		i;
+
+	i = -1;
+	while (envp[++i])
+	{
+		if (ft_strncmp("PATH=", envp[i], 5) == 0)
+		{
+			tkn->envp = ft_split(envp[i], ':');
+			if (tkn->envp == NULL)
+			{
+				write(2, "ft_split error on function check\n", 33);
+				exit(1);
+			}
+		}
+	}
+	tkn->envp_count = 0;
+	while (tkn->envp[tkn->envp_count] != NULL)
+		tkn->envp_count++;
+}
+
+int	main(int argc, char *argv[], char *envp[])
 {
 	t_tkn		tkn;
-	t_filename	filename;
 
-	ft_bzero(&tkn, sizeof(tkn));
-	ft_bzero(&filename, sizeof(filename));
+	if (argc > 1)
+		printf("%s", argv[1]);
+	init_tkn(&tkn, envp);
 	while (1)
 	{
 		print_dir();

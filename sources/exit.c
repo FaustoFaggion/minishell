@@ -6,24 +6,26 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:19:26 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/09 11:37:07 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/09 13:14:12 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_tab(char **tab, size_t i)
+void	free_tab(char ***tab, int i)
 {
-	if (tab != NULL)
+	int	x;
+
+	x = 0;
+	if (*tab != NULL)
 	{
-		while (((int)i - 1) > 0)
+		while (x < i)
 		{
-			free(tab[i]);
-			tab[i] = NULL;
+			free((*tab)[i]);
 			i--;
 		}
-		free(tab);
-		tab = NULL;
+		free(*tab);
+		*tab = NULL;
 	}
 }
 
@@ -62,6 +64,17 @@ void	exit_shell(t_tkn *tkn)
 		free(tkn->line);
 	if (tkn->path != NULL)
 		free(tkn->path);
+	x = 0;
+	if (tkn->envp != NULL)
+	{
+		while (x < tkn->envp_count)
+		{
+			free(tkn->envp[x]);
+			x++;
+		}
+		free(tkn->envp);
+		tkn->envp = NULL;
+	}
 }
 
 void	exit_shell_quote(t_tkn *tkn, int i)

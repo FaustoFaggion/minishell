@@ -29,6 +29,8 @@ typedef struct s_tkn
 	int		cmd_count;
 	int		len;
 	int		fd;
+	char	**envp;
+	int		envp_count;
 	char	*path;
 }	t_tkn;
 
@@ -79,6 +81,6 @@ void	exit_shell_quote(t_tkn *tkn, int i);
 
 //char	**parse_cmd_tab_malloc(t_cmd *cmd);
 
-//void	free_tab(char ** tab, size_t i);
+//void	free_tab(char ***tab, int i);
 
 #endif
