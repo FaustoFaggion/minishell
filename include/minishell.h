@@ -63,6 +63,8 @@ void	cmd_not_found(t_tkn *tkn, int i);
 
 void	exec_cmd_pipe(t_tkn *tkn, int i);
 
+void	exec_cmd_dgreat(t_tkn *tkn, int i);
+
 void	exec_cmd_redirect(t_tkn *tkn, int i);
 
 void	exit_shell(t_tkn *tkn);

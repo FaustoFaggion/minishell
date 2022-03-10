@@ -13,22 +13,6 @@ static void	exec_cmd_less(t_tkn *tkn, int i)
 		dup2(tkn->fd, STDIN_FILENO);
 }
 
-static void	exec_cmd_great(t_tkn *tkn, int i)
-{
-	printf(".......");
-	if (ft_strncmp(tkn->cmd_lex[i][1], "WORD", 4) == 0)
-		tkn->fd = open(tkn->cmd[i][1], O_RDWR | O_APPEND | O_CREAT, 0777);
-	if (tkn->fd < 0)
-	{
-		printf("bash: %s: Arquivo ou diretório inexistente\n", tkn->cmd[i][1]);
-		return ;
-	}
-	else
-	{
-		//dup2(tkn->fd, STDOUT_FILENO);
-	}
-}
-
 static void	wr_line(char *tkn, int limiter, int fd[])
 {
 	char	*line;
@@ -74,8 +58,6 @@ void	exec_cmd_redirect(t_tkn *tkn, int i)
 {
 	if (ft_strncmp(tkn->cmd_lex[i][0], "LESS", 4) == 0)
 		exec_cmd_less(tkn, i);
-	else if (ft_strncmp(tkn->cmd_lex[i][0], "GREAT", 5) == 0)
-		exec_cmd_great(tkn, i);
 	else if (ft_strncmp(tkn->cmd_lex[i][0], "DLESS", 5) == 0)
 		exec_cmd_dless(tkn, i);
 }

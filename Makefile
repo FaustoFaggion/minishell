@@ -22,6 +22,7 @@ SRC_FILES		=	minishell.c \
 					exec_cmd_tab.c \
 					exec_simple_cmd.c \
 					exec_cmd_pipe.c \
+					exec_cmd_dgreat.c \
 					exec_cmd_redirect.c \
 					exit.c \
 
