@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 20:17:11 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/09 11:44:46 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/10 10:26:30 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	cmd_setup(t_tkn *tkn, int i)
 	int		x;
 	char	*temp;
 
-	x = -1;
-	while (tkn->envp[++x])
+	x = 0;
+	while (tkn->envp[x])
 	{
 		tkn->path = ft_strjoin(tkn->envp[x], "/");
 		if (tkn->path == NULL)
@@ -38,6 +38,7 @@ int	cmd_setup(t_tkn *tkn, int i)
 			return (0);
 		free(tkn->path);
 		tkn->path = NULL;
+		x++;
 	}
 	cmd_not_found(tkn, i);
 	return (1);

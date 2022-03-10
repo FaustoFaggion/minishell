@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:20:20 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/09 13:01:16 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/10 10:49:08 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,9 @@ static void	print_dir(void)
 static void	init_tkn(t_tkn *tkn, char *envp[])
 {
 	int		i;
-
+	
+	tkn->tokens = NULL;
+	tkn->lexemas = NULL;
 	i = -1;
 	while (envp[++i])
 	{
@@ -89,29 +91,33 @@ static void	init_tkn(t_tkn *tkn, char *envp[])
 
 int	main(int argc, char *argv[], char *envp[])
 {
-	t_tkn		tkn;
-
+	t_tkn	tkn;
+	int		x;
+	
 	if (argc > 1)
 		printf("%s", argv[1]);
-	init_tkn(&tkn, envp);
 	while (1)
 	{
+		init_tkn(&tkn, envp);
 		print_dir();
 		tkn.line = readline("$ ");
 		if (tkn.line == NULL)
 			printf ("line = NULL");
 		if (ft_strlen(tkn.line) != 0)
 			add_history(tkn.line);
-		token_analysis(&tkn);
-		lexical_analysis(&tkn);
-		sintax_analysis(&tkn);
-		expansion_envp(&tkn);
-		expansion_quote(&tkn);
-		cmd_tab(&tkn);
-		exec_cmd_tab(&tkn);
-		if (DEBUG == 1)
-			token_recog(&tkn);
-		exit_shell(&tkn);
+		x = token_analysis(&tkn);
+		if (x == 0)
+		{
+			lexical_analysis(&tkn);
+			sintax_analysis(&tkn);
+			expansion_envp(&tkn);
+			expansion_quote(&tkn);
+			cmd_tab(&tkn);
+			exec_cmd_tab(&tkn);
+			if (DEBUG == 1)
+				token_recog(&tkn);
+			exit_shell(&tkn);
+		}
 		exit(0);
 		
 //		printf("%s\n", line);

@@ -11,7 +11,7 @@
 #include "libft.h"
 #include <fcntl.h>
 
-#define DEBUG 1
+#define DEBUG 0
 #define PIPE "PIPE"
 #define LESS "LESS"
 #define DLESS "DLESS"
@@ -39,7 +39,7 @@ typedef struct s_filename
 	int	fd;
 }	t_filename;
 
-void	token_analysis(t_tkn *tkn);
+int		token_analysis(t_tkn *tkn);
 
 void	lexical_analysis(t_tkn *tkn);
 

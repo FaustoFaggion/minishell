@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 16:10:30 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/08 08:54:58 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/10 10:21:13 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,22 @@ static int	metachar_check(t_tkn *tkn, int i)
 static int	quotes_check(t_tkn *tkn, int i, char c)
 {
 	i++;
-	printf("....%c", tkn->line[i]);
 	while (tkn->line[i] != c)
 	{
 		if (tkn->line[i] == '\0')
 		{
 			exit_shell_quote(tkn, tkn->tkn_count);
-			exit(1);
+			write(2, "Quote missing\n", 14);
+			return (-1);
+		//	exit(1);
 		}
 		i++;
 	}	
 	i++;
-	printf("....%c\n", tkn->line[i]);
 	return (i);
 }
 
-void	token_count(t_tkn *tkn)
+int	token_count(t_tkn *tkn)
 {
 	int	i;
 
@@ -62,7 +62,11 @@ void	token_count(t_tkn *tkn)
 		if (ft_strchr("|<>", tkn->line[i]) != NULL)
 			i = metachar_check(tkn, i);
 		else if (ft_strchr("\'\"", tkn->line[i]) != NULL)
+		{
 			i = quotes_check(tkn, i, tkn->line[i]);
+			if (i == -1)
+				return (1);
+		}
 		else
 		{
 			while (ft_strchr("|<> ", tkn->line[i]) == NULL)
@@ -77,6 +81,7 @@ void	token_count(t_tkn *tkn)
 		}
 		tkn->tkn_count++;
 	}
+	return (0);
 }
 
 static void	scan_cmd_line(t_tkn *tkn)
@@ -95,7 +100,10 @@ static void	scan_cmd_line(t_tkn *tkn)
 		if (ft_strchr("|<>", tkn->line[i]) != NULL)
 			i = metachar_check(tkn, i);
 		else if (ft_strchr("\'\"", tkn->line[i]) != NULL)
+		{
+			
 			i = quotes_check(tkn, i, tkn->line[i]);
+		}
 		else
 		{
 			while (ft_strchr("|<> ", tkn->line[i]) == NULL)
@@ -115,12 +123,16 @@ static void	scan_cmd_line(t_tkn *tkn)
 	tkn->tokens[x] = NULL;
 }
 
-void	token_analysis(t_tkn *tkn)
+int	token_analysis(t_tkn *tkn)
 {
-	token_count(tkn);
+	int	probl;
+	
+	probl = token_count(tkn);
+	if (probl == 1)
+		return (1);
 	tkn->tokens = (char **) malloc(sizeof(char *) * (tkn->tkn_count + 1));
 	if (!tkn->tokens)
-		return ;
+		return (1);
 	scan_cmd_line(tkn);
-	return ;
+	return (0);
 }
