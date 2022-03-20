@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 16:10:30 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/10 10:21:13 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/20 18:55:59 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,12 @@ int	token_count(t_tkn *tkn)
 		{
 			while (ft_strchr("|<> ", tkn->line[i]) == NULL)
 			{
-				if (tkn->line[i] == '\'')
+				if (tkn->line[i] == '\'' || tkn->line[i] == '\"')
+				{
 					i = quotes_check(tkn, i, tkn->line[i]);
-				else if (tkn->line[i] == '\"')
-					i = quotes_check(tkn, i, tkn->line[i]);
+					if (i == -1)
+						return (1);
+				}
 				else
 					i++;
 			}
