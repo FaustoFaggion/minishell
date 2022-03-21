@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:20:20 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/10 11:32:04 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/21 13:11:41 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	token_recog(t_tkn *tkn)
 			printf("cmd[%d][%d] %s  ", x, y, tkn->cmd[x][y]);
 			y++;
 		}
-		printf("%s  ", tkn->cmd[x][y]);
+		printf("cmd[%d][%d] %s  ", x, y, tkn->cmd[x][y]);
 		printf("\n");
 		x++;
 	}

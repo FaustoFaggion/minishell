@@ -18,16 +18,19 @@ static int	exec_child_(t_tkn *tkn, int fd[], int i)
 	else
 		dup2(tkn->fd, STDOUT_FILENO);
 	close(fd[1]);
-	if (execve(tkn->path, tkn->cmd[i], NULL) == -1)
+	if (built_in_cmd(tkn, i) == 1)
 	{
-		write(2, "error execve\n", 13);
-		exit(1);
+		if (execve(tkn->path, tkn->cmd[i], NULL) == -1)
+		{
+			write(2, "error execve\n", 13);
+			exit(1);
+		}
 	}
 	exit(0);
 	return (0);
 }
 
-void	exec_cmd_dgreat(t_tkn *tkn, int i)
+void	exec_cmd_d_great(t_tkn *tkn, int i)
 {
 	int	fd[2];
 	int	pid;

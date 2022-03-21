@@ -11,7 +11,7 @@
 #include "libft.h"
 #include <fcntl.h>
 
-#define DEBUG 0
+#define DEBUG 1
 #define PIPE "PIPE"
 #define LESS "LESS"
 #define DLESS "DLESS"
@@ -63,9 +63,13 @@ void	cmd_not_found(t_tkn *tkn, int i);
 
 void	exec_cmd_pipe(t_tkn *tkn, int i);
 
-void	exec_cmd_dgreat(t_tkn *tkn, int i);
+void	exec_cmd_d_great(t_tkn *tkn, int i);
 
 void	exec_cmd_redirect(t_tkn *tkn, int i);
+
+int	built_in_cmd(t_tkn *tkn, int i);
+
+void	mini_echo(t_tkn *tkn, int i);
 
 void	exit_shell(t_tkn *tkn);
 

@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 20:17:11 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/10 11:33:51 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/21 12:39:09 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,16 @@ int	cmd_setup(t_tkn *tkn, int i)
 	return (1);
 }
 
+int	built_in_cmd(t_tkn *tkn, int i)
+{
+	if (ft_strncmp(tkn->cmd[i][0], "echo", 4) == 0)
+	{
+		mini_echo(tkn, i);
+		return (0);
+	}
+	return (1);
+}
+
 void	exec_cmd_tab(t_tkn *tkn)
 {
 	int	i;
@@ -55,7 +65,7 @@ void	exec_cmd_tab(t_tkn *tkn)
 			|| ft_strncmp(tkn->cmd_lex[i][0], "ASSIGNMENT_WORD", 4) == 0)
 		{
 			if (tkn->cmd[i + 1] == NULL)
-				exec_simple_cmd(tkn, i);
+					exec_simple_cmd(tkn, i);
 			else if (ft_strncmp(tkn->cmd_lex[i + 1][0], "PIPE", 4) == 0)
 			{
 				exec_cmd_pipe(tkn, i);
@@ -64,7 +74,7 @@ void	exec_cmd_tab(t_tkn *tkn)
 			else if (ft_strncmp(tkn->cmd_lex[i + 1][0], "GREAT", 5) == 0
 				|| ft_strncmp(tkn->cmd_lex[i + 1][0], "DGREAT", 6) == 0)
 			{
-				exec_cmd_dgreat(tkn, i);
+				exec_cmd_d_great(tkn, i);
 				i++;
 			}
 			i++;

@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 20:17:33 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/08 11:16:57 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/21 12:29:12 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 static int	exec_child(t_tkn *tkn, int i)
 {
-	if (execve(tkn->path, tkn->cmd[i], NULL) == -1)
+	if (built_in_cmd(tkn, i) == 1)
 	{
-		write(2, "error execve\n", 13);
-		exit(1);
+		if (execve(tkn->path, tkn->cmd[i], NULL) == -1)
+		{
+			write(2, "error execve\n", 13);
+			exit(1);
+		}
 	}
 	exit(0);
 	return (0);

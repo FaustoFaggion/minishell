@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 16:10:30 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/20 18:55:59 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/21 14:45:08 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,29 +59,32 @@ int	token_count(t_tkn *tkn)
 	{
 		while (tkn->line[i] == ' ' && tkn->line[i] != '\0')
 			i++;
-		if (ft_strchr("|<>", tkn->line[i]) != NULL)
-			i = metachar_check(tkn, i);
-		else if (ft_strchr("\'\"", tkn->line[i]) != NULL)
+		if (tkn->line[i] != '\0')
 		{
-			i = quotes_check(tkn, i, tkn->line[i]);
-			if (i == -1)
-				return (1);
-		}
-		else
-		{
-			while (ft_strchr("|<> ", tkn->line[i]) == NULL)
+			if (ft_strchr("|<>", tkn->line[i]) != NULL)
+				i = metachar_check(tkn, i);
+			else if (ft_strchr("\'\"", tkn->line[i]) != NULL)
 			{
-				if (tkn->line[i] == '\'' || tkn->line[i] == '\"')
-				{
-					i = quotes_check(tkn, i, tkn->line[i]);
-					if (i == -1)
-						return (1);
-				}
-				else
-					i++;
+				i = quotes_check(tkn, i, tkn->line[i]);
+				if (i == -1)
+					return (1);
 			}
+			else
+			{
+				while (ft_strchr("|<> ", tkn->line[i]) == NULL)
+				{
+					if (tkn->line[i] == '\'' || tkn->line[i] == '\"')
+					{
+						i = quotes_check(tkn, i, tkn->line[i]);
+						if (i == -1)
+							return (1);
+					}
+					else
+						i++;
+				}
+			}
+			tkn->tkn_count++;
 		}
-		tkn->tkn_count++;
 	}
 	return (0);
 }
@@ -98,29 +101,32 @@ static void	scan_cmd_line(t_tkn *tkn)
 	{
 		while (tkn->line[i] == ' ' && tkn->line[i] != '\0')
 			i++;
-		start = i;
-		if (ft_strchr("|<>", tkn->line[i]) != NULL)
-			i = metachar_check(tkn, i);
-		else if (ft_strchr("\'\"", tkn->line[i]) != NULL)
+		if (tkn->line[i] != '\0')
 		{
-			
-			i = quotes_check(tkn, i, tkn->line[i]);
-		}
-		else
-		{
-			while (ft_strchr("|<> ", tkn->line[i]) == NULL)
+			start = i;
+			if (ft_strchr("|<>", tkn->line[i]) != NULL)
+				i = metachar_check(tkn, i);
+			else if (ft_strchr("\'\"", tkn->line[i]) != NULL)
 			{
-				if (tkn->line[i] == '\'')
-					i = quotes_check(tkn, i, tkn->line[i]);
-				else if (tkn->line[i] == '\"')
-					i = quotes_check(tkn, i, tkn->line[i]);
-				else
-					i++;
+				
+				i = quotes_check(tkn, i, tkn->line[i]);
 			}
+			else
+			{
+				while (ft_strchr("|<> ", tkn->line[i]) == NULL)
+				{
+					if (tkn->line[i] == '\'')
+						i = quotes_check(tkn, i, tkn->line[i]);
+					else if (tkn->line[i] == '\"')
+						i = quotes_check(tkn, i, tkn->line[i]);
+					else
+						i++;
+				}
+			}
+			tkn->len = i - start;
+			tkn->tokens[x] = ft_substr(tkn->line, start, tkn->len);
+			x++;
 		}
-		tkn->len = i - start;
-		tkn->tokens[x] = ft_substr(tkn->line, start, tkn->len);
-		x++;
 	}
 	tkn->tokens[x] = NULL;
 }
