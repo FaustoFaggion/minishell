@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 20:17:11 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/21 12:39:09 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/21 15:10:32 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	built_in_cmd(t_tkn *tkn, int i)
 {
 	if (ft_strncmp(tkn->cmd[i][0], "echo", 4) == 0)
 	{
-		mini_echo(tkn, i);
+		exec_cmd_echo(tkn, i);
 		return (0);
 	}
 	return (1);
@@ -62,7 +62,7 @@ void	exec_cmd_tab(t_tkn *tkn)
 	while (tkn->cmd[i] != NULL)
 	{
 		if (ft_strncmp(tkn->cmd_lex[i][0], "WORD", 4) == 0
-			|| ft_strncmp(tkn->cmd_lex[i][0], "ASSIGNMENT_WORD", 4) == 0)
+			|| ft_strncmp(tkn->cmd_lex[i][0], "ASSIGNMENT_WORD", 15) == 0)
 		{
 			if (tkn->cmd[i + 1] == NULL)
 					exec_simple_cmd(tkn, i);

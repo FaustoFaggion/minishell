@@ -5,6 +5,11 @@ static int	exec_child(t_tkn *tkn, int i)
 	int	j;
 
 	j = 1;
+	if (tkn->cmd[i][1] == NULL)
+	{
+		printf("\n");
+		exit(0);
+	}
 	if (ft_strncmp(tkn->cmd[i][1], "-n", 2) == 0)
 		j = 2;
 	else
@@ -13,18 +18,15 @@ static int	exec_child(t_tkn *tkn, int i)
 		{
 			printf("%s", tkn->cmd[i][j]);
 			j++;
-			if (tkn->cmd[i][j] != NULL)
-				printf(" ");
 		}
 	}
 	if (ft_strncmp(tkn->cmd[i][1], "-n", 2) != 0)
 		printf("\n");
-	printf("dddd\n");
 	exit(0);
 	return (0);
 }
 
-void	mini_echo(t_tkn *tkn, int i)
+void	exec_cmd_echo(t_tkn *tkn, int i)
 {
 	int pid;
 
