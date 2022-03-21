@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:19:26 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/10 10:51:46 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/21 16:26:24 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,18 +62,18 @@ void	exit_shell(t_tkn *tkn)
 		free(tkn->lexemas);
 	if (tkn->line != NULL)
 		free(tkn->line);
-	if (tkn->path != NULL)
-		free(tkn->path);
+	if (tkn->path_0 != NULL)
+		free(tkn->path_0);
 	x = 0;
-	if (tkn->envp != NULL)
+	if (tkn->path != NULL)
 	{
-		while (x < tkn->envp_count)
+		while (x < tkn->path_count)
 		{
-			free(tkn->envp[x]);
+			free(tkn->path[x]);
 			x++;
 		}
-		free(tkn->envp);
-		tkn->envp = NULL;
+		free(tkn->path);
+		tkn->path = NULL;
 	}
 }
 
@@ -104,14 +104,14 @@ void	exit_shell_quote(t_tkn *tkn, int i)
 	if (tkn->line != NULL)
 		free(tkn->line);
 	x = 0;
-	if (tkn->envp != NULL)
+	if (tkn->path != NULL)
 	{
-		while (x < tkn->envp_count)
+		while (x < tkn->path_count)
 		{
-			free(tkn->envp[x]);
+			free(tkn->path[x]);
 			x++;
 		}
-		free(tkn->envp);
-		tkn->envp = NULL;
+		free(tkn->path);
+		tkn->path = NULL;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 20:17:11 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/21 15:10:32 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/21 16:22:45 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,20 @@ int	cmd_setup(t_tkn *tkn, int i)
 	char	*temp;
 
 	x = 0;
-	while (tkn->envp[x])
+	while (tkn->path[x])
 	{
-		tkn->path = ft_strjoin(tkn->envp[x], "/");
-		if (tkn->path == NULL)
+		tkn->path_0 = ft_strjoin(tkn->path[x], "/");
+		if (tkn->path_0 == NULL)
 			exit(1);
-		temp = tkn->path;
-		tkn->path = ft_strjoin(temp, tkn->cmd[i][0]);
+		temp = tkn->path_0;
+		tkn->path_0 = ft_strjoin(temp, tkn->cmd[i][0]);
 		free(temp);
-		if (tkn->path == NULL)
+		if (tkn->path_0 == NULL)
 			exit(1);
-		if (access(tkn->path, F_OK) == 0)
+		if (access(tkn->path_0, F_OK) == 0)
 			return (0);
-		free(tkn->path);
-		tkn->path = NULL;
+		free(tkn->path_0);
+		tkn->path_0 = NULL;
 		x++;
 	}
 	cmd_not_found(tkn, i);

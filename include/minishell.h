@@ -29,9 +29,9 @@ typedef struct s_tkn
 	int		cmd_count;
 	int		len;
 	int		fd;
-	char	**envp;
-	int		envp_count;
-	char	*path;
+	char	**path;
+	int		path_count;
+	char	*path_0;
 }	t_tkn;
 
 typedef struct s_filename

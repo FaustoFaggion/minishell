@@ -20,7 +20,7 @@ static int	exec_child_(t_tkn *tkn, int fd[], int i)
 	close(fd[1]);
 	if (built_in_cmd(tkn, i) == 1)
 	{
-		if (execve(tkn->path, tkn->cmd[i], NULL) == -1)
+		if (execve(tkn->path_0, tkn->cmd[i], NULL) == -1)
 		{
 			write(2, "error execve\n", 13);
 			exit(1);
