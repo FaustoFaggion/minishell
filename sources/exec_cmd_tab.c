@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 20:17:11 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/21 16:22:45 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/22 08:03:55 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,11 @@ int	built_in_cmd(t_tkn *tkn, int i)
 		exec_cmd_echo(tkn, i);
 		return (0);
 	}
+	if (ft_strncmp(tkn->cmd[i][0], "pwd", 3) == 0)
+	{
+		exec_cmd_pwd(tkn);
+		return (0);
+	}
 	return (1);
 }
 
@@ -81,7 +86,7 @@ void	exec_cmd_tab(t_tkn *tkn)
 		}
 		else
 		{
-			exec_cmd_redirect(tkn, i);
+			exec_cmd_d_less(tkn, i);
 			i++;
 		}
 	}

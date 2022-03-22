@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:20:20 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/21 16:28:45 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/21 16:43:24 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,24 +65,34 @@ static void	print_dir(void)
 	printf("%s", dir);
 }
 
-static void	init_tkn(t_tkn *tkn, char *envp[])
+static void	init_tkn(t_tkn *tkn)
 {
 	int		i;
+	char	**temp;
 	
 	tkn->tokens = NULL;
 	tkn->lexemas = NULL;
 	i = -1;
-	while (envp[++i])
+	while (tkn->envp[++i])
 	{
-		if (ft_strncmp("PATH=", envp[i], 5) == 0)
+		if (ft_strncmp("PATH=", tkn->envp[i], 5) == 0)
 		{
-			tkn->path = ft_split(envp[i], ':');
+			temp = ft_split(tkn->envp[i], '=');
+			tkn->path = ft_split(temp[1], ':');
 			if (tkn->path == NULL)
 			{
 				write(2, "ft_split error on function check\n", 33);
 				exit(1);
 			}
+			free(temp);
 		}
+		if (ft_strncmp("PWD=", tkn->envp[i], 4) == 0)
+		{
+			temp = ft_split(tkn->envp[i], '=');
+			tkn->pwd = temp[1];
+			free(temp);
+		}
+		
 	}
 	tkn->path_count = 0;
 	while (tkn->path[tkn->path_count] != NULL)
@@ -96,10 +106,10 @@ int	main(int argc, char *argv[], char *envp[])
 	
 	if (argc > 1)
 		printf("%s", argv[1]);
-	
+	tkn.envp = envp;
 	while (1)
 	{
-		init_tkn(&tkn, envp);
+		init_tkn(&tkn);
 		print_dir();
 		tkn.line = readline("$ ");
 		if (tkn.line == NULL)

@@ -29,9 +29,11 @@ typedef struct s_tkn
 	int		cmd_count;
 	int		len;
 	int		fd;
+	char	**envp;
 	char	**path;
 	int		path_count;
 	char	*path_0;
+	char	*pwd;
 }	t_tkn;
 
 typedef struct s_filename
@@ -65,11 +67,13 @@ void	exec_cmd_pipe(t_tkn *tkn, int i);
 
 void	exec_cmd_d_great(t_tkn *tkn, int i);
 
-void	exec_cmd_redirect(t_tkn *tkn, int i);
+void	exec_cmd_d_less(t_tkn *tkn, int i);
 
-int	built_in_cmd(t_tkn *tkn, int i);
+int		built_in_cmd(t_tkn *tkn, int i);
 
 void	exec_cmd_echo(t_tkn *tkn, int i);
+
+void	exec_cmd_pwd(t_tkn *tkn);
 
 void	exit_shell(t_tkn *tkn);
 

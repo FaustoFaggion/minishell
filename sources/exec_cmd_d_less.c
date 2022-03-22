@@ -54,7 +54,7 @@ static int	exec_cmd_dless(t_tkn *tkn, int i)
 		return (2);
 }
 
-void	exec_cmd_redirect(t_tkn *tkn, int i)
+void	exec_cmd_d_less(t_tkn *tkn, int i)
 {
 	if (ft_strncmp(tkn->cmd_lex[i][0], "LESS", 4) == 0)
 		exec_cmd_less(tkn, i);
