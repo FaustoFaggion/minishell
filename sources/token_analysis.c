@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 16:10:30 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/23 16:12:02 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/23 16:46:43 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ static void	scan_cmd_line(t_tkn *tkn)
 			}
 			tkn->len = i - start;
 			tkn->tokens[x] = ft_substr(tkn->line, start, tkn->len);
+			printf("token %s\n", tkn->tokens[x]);
 			x++;
 		}
 	}
