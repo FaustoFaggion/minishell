@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 16:07:10 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/23 18:20:23 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/23 19:00:00 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,19 @@ static void	s_quoted(char **tkn)
 	tkn[i][++j] = '\0';
 }
 
+static void	prepare_envp(char *token, int j)
+{
+	int		len;
+	char	*temp;
+	
+	len = 0;
+	while (token[j + len] != ' ' && token[j + len] != '\"')
+		len++;
+	temp = ft_substr(token, j, len);
+	printf("temp %s\n", temp);
+	free(temp);
+}
+
 static int	d_quoted(char **tkn, int j)
 {
 	int	k;
@@ -37,6 +50,8 @@ static int	d_quoted(char **tkn, int j)
 	k = 0;
 	while ((*tkn)[j + k + 1] != '\0')
 	{
+		if ((*tkn)[j + k + 1] == '$')
+				prepare_envp(*tkn, (j + k + 1));
 		if ((*tkn)[j + k + 1] == '\"')
 			k++;
 		else
@@ -62,11 +77,7 @@ void	expansion_quote(t_tkn *tkn)
 		while (tkn->tokens[i][j] != '\0')
 		{
 			if (tkn->tokens[i][j] == '\"')
-			{
-				printf("token expansion %s\n", tkn->tokens[i]);
 				j = d_quoted(&tkn->tokens[i], j);
-				printf("token expansion after  %s\n", tkn->tokens[i]);
-			}
 			if (tkn->tokens[i][j] == '\'')
 				s_quoted(&tkn->tokens[i]);
 			j++;
