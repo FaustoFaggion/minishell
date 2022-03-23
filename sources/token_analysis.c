@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 16:10:30 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/21 14:45:08 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/23 16:12:02 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ int	token_count(t_tkn *tkn)
 		{
 			if (ft_strchr("|<>", tkn->line[i]) != NULL)
 				i = metachar_check(tkn, i);
-			else if (ft_strchr("\'\"", tkn->line[i]) != NULL)
+/*			else if (ft_strchr("\'\"", tkn->line[i]) != NULL)
 			{
 				i = quotes_check(tkn, i, tkn->line[i]);
 				if (i == -1)
 					return (1);
 			}
-			else
+*/			else
 			{
 				while (ft_strchr("|<> ", tkn->line[i]) == NULL)
 				{
@@ -106,18 +106,16 @@ static void	scan_cmd_line(t_tkn *tkn)
 			start = i;
 			if (ft_strchr("|<>", tkn->line[i]) != NULL)
 				i = metachar_check(tkn, i);
-			else if (ft_strchr("\'\"", tkn->line[i]) != NULL)
+/*			else if (ft_strchr("\'\"", tkn->line[i]) != NULL)
 			{
 				
 				i = quotes_check(tkn, i, tkn->line[i]);
 			}
-			else
+*/			else
 			{
 				while (ft_strchr("|<> ", tkn->line[i]) == NULL)
 				{
-					if (tkn->line[i] == '\'')
-						i = quotes_check(tkn, i, tkn->line[i]);
-					else if (tkn->line[i] == '\"')
+					if (tkn->line[i] == '\'' || tkn->line[i] == '\"')
 						i = quotes_check(tkn, i, tkn->line[i]);
 					else
 						i++;
