@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 10:34:01 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/22 18:11:15 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/23 10:22:32 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	expansion_envp(t_tkn *tkn)
 			}
 			tkn->tokens[i][j] = '\0';
 			j = 0;
-			while (tkn->envp[j])
+			while (tkn->envp[j] != NULL)
 			{
 				if (ft_strncmp(tkn->envp[j], tkn->tokens[i], ft_strlen(tkn->tokens[i])) == 0)
 				{

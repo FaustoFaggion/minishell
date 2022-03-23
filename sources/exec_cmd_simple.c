@@ -1,16 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_simple_cmd.c                                  :+:      :+:    :+:   */
+/*   exec_cmd_simple.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 20:17:33 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/22 17:04:24 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/23 09:49:58 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int check_built_in(t_tkn *tkn , int i)
+{
+	if (ft_strncmp(tkn->cmd[i][0], "cd", 2) == 0)
+	{
+		built_in_cmd(tkn, i);
+			return (0) ;
+	}
+	if (ft_strncmp(tkn->cmd[i][0], "export", 6) == 0)
+	{
+		built_in_cmd(tkn, i);
+			return (0);
+	}
+	return (1);
+}
 
 static int	exec_child(t_tkn *tkn, int i)
 {
@@ -32,18 +47,16 @@ void	exec_simple_cmd(t_tkn *tkn, int i)
 {
 	int	pid;
 
-	if (ft_strncmp(tkn->cmd[i][0], "cd", 2) == 0)
+	if (check_built_in(tkn , i) == 1)
 	{
-		built_in_cmd(tkn, i);
-			return ;
-	}
-	if (cmd_setup(tkn, i) == 0)
-	{
-		pid = fork();
-		if (pid < 0)
-			exit(write(1, "fork error\n", 11));
-		if (pid == 0)
-			exec_child(tkn, i);
-		waitpid(pid, NULL, 0);
+		if (cmd_setup(tkn, i) == 0)
+		{
+			pid = fork();
+			if (pid < 0)
+				exit(write(1, "fork error\n", 11));
+			if (pid == 0)
+				exec_child(tkn, i);
+			waitpid(pid, NULL, 0);
+		}
 	}
 }
