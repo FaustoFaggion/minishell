@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 20:17:11 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/22 08:03:55 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/23 07:39:14 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	cmd_setup(t_tkn *tkn, int i)
 	char	*temp;
 
 	x = 0;
-	while (tkn->path[x])
+	while (tkn->path[x] != NULL)
 	{
 		tkn->path_0 = ft_strjoin(tkn->path[x], "/");
 		if (tkn->path_0 == NULL)
@@ -53,7 +53,12 @@ int	built_in_cmd(t_tkn *tkn, int i)
 	}
 	if (ft_strncmp(tkn->cmd[i][0], "pwd", 3) == 0)
 	{
-		exec_cmd_pwd(tkn);
+		exec_cmd_pwd();
+		return (0);
+	}
+	if (ft_strncmp(tkn->cmd[i][0], "cd", 2) == 0)
+	{
+		exec_cmd_cd(tkn, i);
 		return (0);
 	}
 	return (1);
@@ -70,7 +75,7 @@ void	exec_cmd_tab(t_tkn *tkn)
 			|| ft_strncmp(tkn->cmd_lex[i][0], "ASSIGNMENT_WORD", 15) == 0)
 		{
 			if (tkn->cmd[i + 1] == NULL)
-					exec_simple_cmd(tkn, i);
+				exec_simple_cmd(tkn, i);
 			else if (ft_strncmp(tkn->cmd_lex[i + 1][0], "PIPE", 4) == 0)
 			{
 				exec_cmd_pipe(tkn, i);

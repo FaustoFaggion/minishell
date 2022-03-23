@@ -1,6 +1,9 @@
 #include "minishell.h"
 
-void	exec_cmd_pwd(t_tkn *tkn)
+void	exec_cmd_pwd(void)
 {
-	printf("%s\n", tkn->pwd);
+	char		dir[1024];
+
+	getcwd(dir, sizeof(dir));
+	printf("%s", dir);
 }

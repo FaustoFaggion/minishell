@@ -25,6 +25,7 @@ static int	exec_child_(t_tkn *tkn, int fd[], int i)
 			write(2, "error execve\n", 13);
 			exit(1);
 		}
+		exit_shell(tkn);
 	}
 	exit(0);
 	return (0);

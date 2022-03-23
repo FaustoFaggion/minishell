@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 20:01:42 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/21 16:19:53 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/22 16:38:56 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ static int	exec_child(t_tkn *tkn, int fd[], int i)
 			write(2, "error execve\n", 13);
 			exit(1);
 		}
+		exit_shell(tkn);
 	}
+	exit_shell(tkn);
 	exit(0);
 	return (0);
 }

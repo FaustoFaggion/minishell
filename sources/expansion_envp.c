@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 10:34:01 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/07 10:11:50 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/22 18:11:15 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	expansion_envp(t_tkn *tkn)
 	int		i;
 	int		j;
 	char	*temp;
+	char	**temp_2;
 
 	i = 0;
 	while (tkn->tokens[i])
@@ -31,10 +32,25 @@ void	expansion_envp(t_tkn *tkn)
 				j++;
 			}
 			tkn->tokens[i][j] = '\0';
+			j = 0;
+			while (tkn->envp[j])
+			{
+				if (ft_strncmp(tkn->envp[j], tkn->tokens[i], ft_strlen(tkn->tokens[i])) == 0)
+				{
+					temp_2 = ft_split(tkn->envp[j], '=');
+					tkn->tokens[i] = ft_strdup(temp_2[1]);
+					free_tab(&temp_2, 2);
+					break ;
+				}
+				j++;
+			}
+			
+			/*
 			if (getenv(tkn->tokens[i]) == NULL)
 				tkn->tokens[i] = ft_strdup(" ");
 			else
 				tkn->tokens[i] = ft_strdup(getenv(tkn->tokens[i]));
+			*/
 			free(temp);
 		}
 		i++;

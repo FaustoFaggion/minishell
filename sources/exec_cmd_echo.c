@@ -16,7 +16,7 @@ static int	exec_child(t_tkn *tkn, int i)
 	{
 		while (tkn->cmd[i][j] != NULL)
 		{
-			printf("%s", tkn->cmd[i][j]);
+			printf("%s ", tkn->cmd[i][j]);
 			j++;
 		}
 	}

@@ -30,10 +30,10 @@ typedef struct s_tkn
 	int		len;
 	int		fd;
 	char	**envp;
+	int		envp_count;
 	char	**path;
 	int		path_count;
 	char	*path_0;
-	char	*pwd;
 }	t_tkn;
 
 typedef struct s_filename
@@ -73,7 +73,9 @@ int		built_in_cmd(t_tkn *tkn, int i);
 
 void	exec_cmd_echo(t_tkn *tkn, int i);
 
-void	exec_cmd_pwd(t_tkn *tkn);
+void	exec_cmd_pwd(void);
+
+void	exec_cmd_cd(t_tkn *tkn, int i);
 
 void	exit_shell(t_tkn *tkn);
 
@@ -91,6 +93,6 @@ void	exit_shell_quote(t_tkn *tkn, int i);
 
 //char	**parse_cmd_tab_malloc(t_cmd *cmd);
 
-//void	free_tab(char ***tab, int i);
+void	free_tab(char ***tab, int i);
 
 #endif

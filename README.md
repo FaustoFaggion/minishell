@@ -12,3 +12,4 @@
 <p> https://www.geeksforgeeks.org/making-linux-shell-c/</p>
 
 <p> IEEE Std 1003.1, 2004 Edition - https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html </p>
+<p> Readline Library - https://tiswww.case.edu/php/chet/readline/readline.html</p>
