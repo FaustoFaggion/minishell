@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 16:07:10 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/24 17:54:10 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/24 18:14:36 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ static int	d_quoted(t_tkn *tkn, char **token, int j, int i)
 	swap = tkn->tokens[i];
 	tkn->tokens[i] = temp;
 	free(swap);
-	return (j);
+	return (j - 1);
 }
 
 void	expansion_quote(t_tkn *tkn)
