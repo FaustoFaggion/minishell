@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 16:07:10 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/23 19:00:00 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/24 08:01:33 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	s_quoted(char **tkn)
 	tkn[i][++j] = '\0';
 }
 
-static void	prepare_envp(char *token, int j)
+static int	prepare_envp(char *token, int j)
 {
 	int		len;
 	char	*temp;
@@ -41,28 +41,31 @@ static void	prepare_envp(char *token, int j)
 	temp = ft_substr(token, j, len);
 	printf("temp %s\n", temp);
 	free(temp);
+	return (j + 1);
 }
 
 static int	d_quoted(char **tkn, int j)
 {
 	int	k;
 	
-	k = 0;
-	while ((*tkn)[j + k + 1] != '\0')
+	while ((*tkn)[j + 1] != '\"')
 	{
-		if ((*tkn)[j + k + 1] == '$')
-				prepare_envp(*tkn, (j + k + 1));
-		if ((*tkn)[j + k + 1] == '\"')
-			k++;
+		if ((*tkn)[j + 1] == '$')
+			j = prepare_envp(*tkn, (j + 1));
 		else
 		{
-			(*tkn)[j] = (*tkn)[j + k + 1];
+			(*tkn)[j] = (*tkn)[j + 1];
 			j++;
 		}
 	}
-	while ((*tkn)[j] != '\0')
-		(*tkn)[j] = '\0';
-	return (j);
+	k = 0;
+	while ((*tkn)[j + k	+ 2] != '\0')
+	{
+		(*tkn)[j + k] = (*tkn)[j + k + 2];
+		k++;
+	}
+	(*tkn)[j + k] = '\0';
+	return (j - 1);
 }
 
 void	expansion_quote(t_tkn *tkn)
@@ -77,7 +80,11 @@ void	expansion_quote(t_tkn *tkn)
 		while (tkn->tokens[i][j] != '\0')
 		{
 			if (tkn->tokens[i][j] == '\"')
+			{
 				j = d_quoted(&tkn->tokens[i], j);
+				printf("j = %d ", j);
+				printf("tkn = %s\n", tkn->tokens[i]);
+			}
 			if (tkn->tokens[i][j] == '\'')
 				s_quoted(&tkn->tokens[i]);
 			j++;
