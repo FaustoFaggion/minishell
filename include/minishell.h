@@ -34,6 +34,9 @@ typedef struct s_tkn
 	char	**path;
 	int		path_count;
 	char	*path_0;
+	int		expansion_start;
+	int		expansion_end;
+	int		expansion_len;
 }	t_tkn;
 
 typedef struct s_filename
