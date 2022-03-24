@@ -6,28 +6,29 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 16:07:10 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/24 08:01:33 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/24 08:08:29 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	s_quoted(char **tkn)
+static int	s_quoted(char **tkn, int j)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (tkn[i][j] != '\'')
-		j++;
-	while (tkn[i][j + 1] != '\'')
+	int	k;
+	
+	while ((*tkn)[j + 1] != '\'')
 	{
-		tkn[i][j] = tkn[i][j + 1];
-		j++;
+			(*tkn)[j] = (*tkn)[j + 1];
+			j++;
 	}
-	tkn[i][j] = '\0';
-	tkn[i][++j] = '\0';
+	k = 0;
+	while ((*tkn)[j + k	+ 2] != '\0')
+	{
+		(*tkn)[j + k] = (*tkn)[j + k + 2];
+		k++;
+	}
+	(*tkn)[j + k] = '\0';
+	return (j - 1);
 }
 
 static int	prepare_envp(char *token, int j)
@@ -86,7 +87,7 @@ void	expansion_quote(t_tkn *tkn)
 				printf("tkn = %s\n", tkn->tokens[i]);
 			}
 			if (tkn->tokens[i][j] == '\'')
-				s_quoted(&tkn->tokens[i]);
+				j = s_quoted(&tkn->tokens[i], j);
 			j++;
 		}
 		i++;
