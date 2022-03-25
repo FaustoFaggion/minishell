@@ -87,6 +87,8 @@ void	exec_cmd_cd(t_tkn *tkn, int i);
 
 void	exec_cmd_export(t_tkn *tkn, int i);
 
+void	exec_cmd_unset(t_tkn *tkn, int i);
+
 void	exec_cmd_envp(t_tkn *tkn);
 
 void	exit_shell(t_tkn *tkn);
