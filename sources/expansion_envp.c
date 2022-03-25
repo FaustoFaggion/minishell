@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 10:34:01 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/25 15:28:47 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/25 15:38:45 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int	prepare_envp(t_tkn **tkn, char **quote, int j)
 	temp_2 = ft_substr(*quote, (*tkn)->exp_start, j - (*tkn)->exp_start);
 	if ((*tkn)->exp_flag == 0)
 		expand_envp(tkn, &exp_envp);
-	j = join_token(quote, temp, exp_envp, temp_2);
+	j = join_token(quote, &temp, &exp_envp, &temp_2);
 	return (j - 1);
 }
 

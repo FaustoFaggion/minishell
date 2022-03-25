@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:20:20 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/25 13:27:16 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/25 17:40:03 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,29 +69,17 @@ static void	init_tkn(t_tkn *tkn)
 {
 	int		i;
 	char	**temp;
-//	int j;
 	
 	tkn->tokens = NULL;
 	tkn->lexemas = NULL;
 	tkn->path_0 = NULL;
 	i = -1;
-	while (tkn->envp[++i])
+	while (tkn->envp[++i] != NULL)
 	{
 		if (ft_strncmp("PATH=", tkn->envp[i], 5) == 0)
 		{
 			temp = ft_split(tkn->envp[i], '=');
-			
-	//		printf("%s \n", temp[1]);
-			
 			tkn->path = ft_split(temp[1], ':');
-
-/*			j = 0;
-			while (tkn->path[j] != NULL)
-			{
-				printf ("%s\n", tkn->path[j]);
-				j++;
-			}
-*/	
 			if (tkn->path == NULL)
 			{
 				write(2, "ft_split error on function check\n", 33);
@@ -115,7 +103,20 @@ int	main(int argc, char *argv[], char *envp[])
 	
 	if (argc > 1)
 		printf("%s", argv[1]);
-	tkn.envp = envp;
+	x = 0;
+	while (envp[x] != NULL)
+		x++;
+	tkn.envp = (char **)malloc((x + 1) * sizeof(char *));
+	x = 0;
+	while (envp[x] != NULL)
+	{
+		tkn.envp[x] = ft_strdup(envp[x]);
+		x++;
+	}
+	tkn.envp[x] = NULL;
+	tkn.envp_count = 0;
+	while (tkn.envp[tkn.envp_count] != NULL)
+		tkn.envp_count++;
 	while (1)
 	{
 		init_tkn(&tkn);

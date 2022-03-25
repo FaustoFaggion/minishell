@@ -47,6 +47,6 @@ int	prepare_quote(t_tkn **tkn, char **token, int j, int i)
 		j++;
 	temp_2 = ft_substr(*token, start, j - start);
 	expand_d_quote(tkn, &quote);
-	j = join_token(&(*tkn)->tokens[i], temp, quote, temp_2);
+	j = join_token(&(*tkn)->tokens[i], &temp, &quote, &temp_2);
 	return (j - 1);
 }

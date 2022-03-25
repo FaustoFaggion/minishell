@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 20:17:11 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/23 08:39:31 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/25 16:13:10 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,11 @@ int	built_in_cmd(t_tkn *tkn, int i)
 	if (ft_strncmp(tkn->cmd[i][0], "export", 6) == 0)
 	{
 		exec_cmd_export(tkn, i);
+		return (0);
+	}
+	if (ft_strncmp(tkn->cmd[i][0], "env", 3) == 0)
+	{
+		exec_cmd_envp(tkn);
 		return (0);
 	}
 	return (1);

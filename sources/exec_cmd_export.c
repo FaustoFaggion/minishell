@@ -25,6 +25,7 @@ void	exec_cmd_export(t_tkn *tkn, int i)
 	char	**temp;
 	char	**var;
 	char	*swap;
+	char	*swap_2;
 
 	if (validate_var(tkn, i) == 1)
 	{
@@ -32,21 +33,17 @@ void	exec_cmd_export(t_tkn *tkn, int i)
 	}
 	else
 	{
-		swap = (char *)malloc(sizeof(tkn->cmd[i][1]) + 1);
-		x = 0;
-		while (tkn->cmd[i][1][x] != '\0')
-		{
-			swap[x] = tkn->cmd[i][1][x];
-			x++;
-		}
-		swap[x] = '\0';
-		var = ft_split(tkn->cmd[i][1], '=');
+		swap = (char *)malloc(ft_strlen(tkn->cmd[i][1]) + 1);
+		ft_memcpy(swap, tkn->cmd[i][1], ft_strlen(tkn->cmd[i][1]) + 1);
+		var = ft_split(swap, '=');
 		x = 0;
 		while (tkn->envp[x] != NULL)
 		{
 			if (ft_strncmp(tkn->envp[x], var[0], ft_strlen(var[0])) == 0)
 			{
+				swap_2 = tkn->envp[x];
 				tkn->envp[x] = swap;
+				free(swap_2);
 				return ;
 			}
 			x++;
@@ -64,11 +61,6 @@ void	exec_cmd_export(t_tkn *tkn, int i)
 		tkn->envp[x] = swap;
 		tkn->envp[++x] = NULL;
 		tkn->envp_count++;
-		x = 0;
-		while(tkn->envp[x] != NULL)
-		{
-			printf("%s\n", tkn->envp[x]);
-			x++;
-		}
+		free(temp);
 	}
 }	
