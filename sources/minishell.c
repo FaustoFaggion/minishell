@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:20:20 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/23 07:37:08 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/25 13:27:16 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,8 +130,8 @@ int	main(int argc, char *argv[], char *envp[])
 		{
 			lexical_analysis(&tkn);
 			sintax_analysis(&tkn);
-			expansion_envp(&tkn);
-			expansion_quote(&tkn);
+//			expansion_envp(&tkn);
+			expansion(&tkn);
 			cmd_tab(&tkn);
 			exec_cmd_tab(&tkn);
 			if (DEBUG == 1)

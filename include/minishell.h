@@ -51,7 +51,13 @@ void	sintax_analysis(t_tkn *tkn);
 
 void	expansion_envp(t_tkn *tkn);
 
-void	expansion_quote(t_tkn *tkn);
+void	expansion(t_tkn *tkn);
+
+int		prepare_quote(t_tkn **tkn, char **token, int j, int i);
+
+int		prepare_envp(t_tkn **tkn, char **quote, int j);
+
+int		join_token(char **quote, char *temp, char *exp_envp, char *temp_2);
 
 void	quoted_envp(char **tkn);
 

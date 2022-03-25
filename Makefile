@@ -16,7 +16,9 @@ SRC_FILES		=	minishell.c \
 					token_analysis.c \
 					lexical_analysis.c \
 					sintax_analysis.c \
-					expansion_quoted.c \
+					expansion.c \
+					expansion_utils.c \
+					expansion_d_quote.c \
 					expansion_envp.c \
 					cmd_tab.c \
 					exec_cmd_tab.c \
