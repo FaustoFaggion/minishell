@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:20:20 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/26 14:38:09 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/26 16:07:32 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static void	init_tkn(t_tkn *tkn)
 			if (tkn->path == NULL)
 			{
 				write(2, "ft_split error on function check\n", 33);
-				exit(1);
+				return ;
 			}
 			free_tab(&temp, 2);
 		}
@@ -97,25 +97,32 @@ static void	init_tkn(t_tkn *tkn)
 		tkn->envp_count++;
 }
 
+static void	envp_list_dup(t_tkn *tkn, char *envp[])
+{
+	int	x;
+
+	x = 0;
+	while (envp[x] != NULL)
+		x++;
+	tkn->envp_count = x;
+	tkn->envp = (char **)malloc((x + 1) * sizeof(char *));
+	x = 0;
+	while (envp[x])
+	{
+		tkn->envp[x] = ft_strdup(envp[x]);
+		x++;
+	}
+	tkn->envp[x] = NULL;
+}
+
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_tkn	tkn;
 	int		x;
 	
 	if (argc > 1)
-		printf("%s", argv[1]);
-	x = 0;
-	while (envp[x] != NULL)
-		x++;
-	tkn.envp_count = x;
-	tkn.envp = (char **)malloc((x + 1) * sizeof(char *));
-	x = 0;
-	while (envp[x])
-	{
-		tkn.envp[x] = ft_strdup(envp[x]);
-		x++;
-	}
-	tkn.envp[x] = NULL;
+		printf("%s :Invalid number of arguments", argv[0]);
+	envp_list_dup(&tkn, envp);
 	while (1)
 	{
 		init_tkn(&tkn);
