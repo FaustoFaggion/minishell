@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:20:20 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/26 07:20:28 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/26 10:35:48 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ int	main(int argc, char *argv[], char *envp[])
 	x = 0;
 	while (envp[x] != NULL)
 		x++;
+	tkn.envp_count = x;
 	tkn.envp = (char **)malloc((x + 1) * sizeof(char *));
 	x = 0;
 	while (envp[x] != NULL)
@@ -114,9 +115,6 @@ int	main(int argc, char *argv[], char *envp[])
 		x++;
 	}
 	tkn.envp[x] = NULL;
-	tkn.envp_count = 0;
-	while (tkn.envp[tkn.envp_count] != NULL)
-		tkn.envp_count++;
 	while (1)
 	{
 		init_tkn(&tkn);

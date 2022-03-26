@@ -24,6 +24,7 @@ static void	unset_var(t_tkn *tkn, int i)
 	tkn->envp = (char **)malloc((tkn->envp_count) * sizeof(char *));
 	tkn->envp = temp;
 	tkn->envp_count--;
+	printf(".count%d\n", tkn->envp_count);
 }
 
 void	exec_cmd_unset(t_tkn *tkn, int i)

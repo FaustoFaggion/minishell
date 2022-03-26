@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 20:17:11 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/25 19:28:28 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/26 10:40:18 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,32 +46,32 @@ int	cmd_setup(t_tkn *tkn, int i)
 
 int	built_in_cmd(t_tkn *tkn, int i)
 {
-	if (ft_strncmp(tkn->cmd[i][0], "echo", 4) == 0)
+	if (ft_strncmp(tkn->cmd[i][0], "echo\0", 5) == 0)
 	{
 		exec_cmd_echo(tkn, i);
 		return (0);
 	}
-	else if (ft_strncmp(tkn->cmd[i][0], "pwd", 3) == 0)
+	else if (ft_strncmp(tkn->cmd[i][0], "pwd\0", 4) == 0)
 	{
 		exec_cmd_pwd();
 		return (0);
 	}
-	else if (ft_strncmp(tkn->cmd[i][0], "cd", 2) == 0)
+	else if (ft_strncmp(tkn->cmd[i][0], "cd\0", 3) == 0)
 	{
 		exec_cmd_cd(tkn, i);
 		return (0);
 	}
-	else if (ft_strncmp(tkn->cmd[i][0], "export", 6) == 0)
+	else if (ft_strncmp(tkn->cmd[i][0], "export\0", 7) == 0)
 	{
 		exec_cmd_export(tkn, i);
 		return (0);
 	}
-	else if (ft_strncmp(tkn->cmd[i][0], "unset", 5) == 0)
+	else if (ft_strncmp(tkn->cmd[i][0], "unset\0", 6) == 0)
 	{
 		exec_cmd_unset(tkn, i);
 		return (0);
 	}
-	else if (ft_strncmp(tkn->cmd[i][0], "env", 3) == 0)
+	else if (ft_strncmp(tkn->cmd[i][0], "env\0", 4) == 0)
 	{
 		exec_cmd_envp(tkn);
 		return (0);

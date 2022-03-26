@@ -61,6 +61,7 @@ void	exec_cmd_export(t_tkn *tkn, int i)
 		tkn->envp[x] = swap;
 		tkn->envp[++x] = NULL;
 		tkn->envp_count++;
+		printf("count%d\n", tkn->envp_count);
 		free(temp);
 	}
 }	
