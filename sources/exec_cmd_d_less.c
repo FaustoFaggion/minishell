@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_cmd_d_less.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/26 17:24:54 by fagiusep          #+#    #+#             */
+/*   Updated: 2022/03/26 17:24:55 by fagiusep         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static void	exec_cmd_less(t_tkn *tkn, int i)
@@ -42,16 +54,16 @@ static void	wr_line(char *tkn, int limiter, int fd[])
 static int	exec_cmd_dless(t_tkn *tkn, int i)
 {
 	int	fd[2];
-	int		limiter;
+	int	limiter;
 
-		if (pipe(fd) == -1)
-			exit(write(1, "pipe error\n", 11));
-		limiter = ft_strlen(tkn->cmd[i][1]);
-		wr_line(tkn->cmd[i][1], limiter, fd);
-		dup2(fd[0], STDIN_FILENO);
-		close(fd[1]);
-		close(fd[0]);
-		return (2);
+	if (pipe(fd) == -1)
+		exit(write(1, "pipe error\n", 11));
+	limiter = ft_strlen(tkn->cmd[i][1]);
+	wr_line(tkn->cmd[i][1], limiter, fd);
+	dup2(fd[0], STDIN_FILENO);
+	close(fd[1]);
+	close(fd[0]);
+	return (2);
 }
 
 void	exec_cmd_d_less(t_tkn *tkn, int i)

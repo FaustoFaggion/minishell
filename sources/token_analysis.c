@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 16:10:30 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/26 12:33:28 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/26 17:25:43 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ static void	scan_cmd_line(t_tkn *tkn)
 int	token_analysis(t_tkn *tkn)
 {
 	int	probl;
-	
+
 	probl = token_count(tkn);
 	if (probl == 1)
 		return (1);

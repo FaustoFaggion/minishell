@@ -1,10 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_cmd_export.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/26 17:21:14 by fagiusep          #+#    #+#             */
+/*   Updated: 2022/03/26 17:22:03 by fagiusep         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static int	validate_var(t_tkn *tkn, int i)
 {
 	int	x;
 
-	if (ft_isdigit(tkn->cmd[i][1][0]) == 0 || ft_strncmp(tkn->cmd[i][1], "=", 1) == 0)
+	if (ft_isdigit(tkn->cmd[i][1][0]) == 0
+			|| ft_strncmp(tkn->cmd[i][1], "=", 1) == 0)
 		return (1);
 	printf("%s ", tkn->cmd[i][0]);
 	printf("%s ", tkn->cmd[i][1]);
@@ -29,7 +42,8 @@ void	exec_cmd_export(t_tkn *tkn, int i)
 
 	if (validate_var(tkn, i) == 1)
 	{
-		printf("bash: export: `%s`: não é um identificador válido\n", tkn->cmd[i][1]);
+		printf("bash: export: `%s`: não é um identificador válido\n",
+			tkn->cmd[i][1]);
 	}
 	else
 	{
@@ -64,4 +78,4 @@ void	exec_cmd_export(t_tkn *tkn, int i)
 		tkn->envp_count = x;
 		free(temp);
 	}
-}	
+}
