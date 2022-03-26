@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:59:12 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/26 12:18:18 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/26 17:19:40 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,12 @@ static void	sintax_error(t_tkn *tkn, char c, int i)
 	{
 		printf("bash: erro de sintaxe próximo ao token inesperado '%c'\n", c);
 		exit_shell(tkn);
-	//	exit(1);
 	}
 	if (i == 2)
 	{
 		printf("bash: erro de sintaxe próximo ao token inesperado '%c%c'\n",
 			c, c);
 		exit_shell(tkn);
-	//	exit(1);
 	}
 }
 
@@ -59,16 +57,8 @@ static int	check_pipe(t_tkn *tkn, int i)
 	return (i);
 }
 
-int	sintax_analysis(t_tkn *tkn)
+static int	check_sintax(t_tkn *tkn, int i)
 {
-	int	i;
-
-	i = 0;
-	if (ft_strncmp(tkn->lexemas[i], "PIPE", 4) == 0)
-	{
-		sintax_error(tkn, '|', 1);
-		return (1);
-	}
 	while (tkn->lexemas[i] != NULL)
 	{
 		if (ft_strncmp(tkn->lexemas[i], "LESS", 4) == 0)
@@ -90,5 +80,20 @@ int	sintax_analysis(t_tkn *tkn)
 		if (i == -1)
 			return (1);
 	}
+	return (0);
+}
+
+int	sintax_analysis(t_tkn *tkn)
+{
+	int	i;
+
+	i = 0;
+	if (ft_strncmp(tkn->lexemas[i], "PIPE", 4) == 0)
+	{
+		sintax_error(tkn, '|', 1);
+		return (1);
+	}
+	if (check_sintax(tkn, i) == 1)
+		return (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:20:20 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/26 16:07:32 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/26 16:13:00 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,11 @@ static void	print_dir(void)
 	printf("%s", dir);
 }
 
-static void	init_tkn(t_tkn *tkn)
+static void	copy_path(t_tkn *tkn)
 {
 	int		i;
 	char	**temp;
 	
-	tkn->tokens = NULL;
-	tkn->lexemas = NULL;
-	tkn->cmd = NULL;
-	tkn->path_0 = NULL;
 	i = -1;
 	while (tkn->envp[++i] != NULL)
 	{
@@ -89,6 +85,15 @@ static void	init_tkn(t_tkn *tkn)
 			free_tab(&temp, 2);
 		}
 	}
+}
+
+static void	init_tkn(t_tkn *tkn)
+{
+	tkn->tokens = NULL;
+	tkn->lexemas = NULL;
+	tkn->cmd = NULL;
+	tkn->path_0 = NULL;
+	copy_path(tkn);
 	tkn->path_count = 0;
 	while (tkn->path[tkn->path_count] != NULL)
 		tkn->path_count++;

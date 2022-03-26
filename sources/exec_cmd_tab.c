@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 20:17:11 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/26 10:40:18 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/26 16:47:57 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	cmd_setup(t_tkn *tkn, int i)
 	char	*temp;
 
 	x = 0;
+	if (tkn->path_0 != NULL)
+		free(tkn->path_0);
 	while (tkn->path[x] != NULL)
 	{
 		tkn->path_0 = ft_strjoin(tkn->path[x], "/");

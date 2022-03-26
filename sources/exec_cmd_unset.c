@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_cmd_unset.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/26 17:09:47 by fagiusep          #+#    #+#             */
+/*   Updated: 2022/03/26 17:10:30 by fagiusep         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static void	unset_var(t_tkn *tkn, int i)
@@ -37,10 +49,11 @@ void	exec_cmd_unset(t_tkn *tkn, int i)
 	x = 0;
 	while (tkn->envp[x] != NULL)
 	{
-		if (ft_strncmp(tkn->envp[x], tkn->cmd[i][1], ft_strlen(tkn->cmd[i][1])) == 0)
+		if (ft_strncmp(tkn->envp[x], tkn->cmd[i][1],
+			ft_strlen(tkn->cmd[i][1])) == 0)
 			flag = 1;
 		x++;
 	}
 	if (flag == 1)
 		unset_var(tkn, i);
-}	
+}

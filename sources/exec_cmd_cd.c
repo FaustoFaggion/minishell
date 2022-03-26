@@ -1,9 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_cmd_cd.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/26 16:14:38 by fagiusep          #+#    #+#             */
+/*   Updated: 2022/03/26 16:15:59 by fagiusep         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static void	steup_old_pwd(t_tkn *tkn, char *old_dir)
 {
 	int		x;
 	char	**temp;
+
 	x = 0;
 	while (tkn->envp[x] != NULL)
 	{
@@ -62,7 +75,8 @@ void	exec_cmd_cd(t_tkn *tkn, int i)
 	{
 		if (chdir(tkn->cmd[i][1]) == -1)
 		{
-			printf("bash: %s: Arquivo ou diretório inexistente\n", tkn->cmd[i][1]);
+			printf("bash: %s: Arquivo ou diretório inexistente\n",
+				tkn->cmd[i][1]);
 			return ;
 		}
 	}

@@ -6,33 +6,33 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 20:17:33 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/26 15:02:54 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/26 17:13:01 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int check_built_in(t_tkn *tkn , int i)
+static int	check_built_in(t_tkn *tkn, int i)
 {
 	if (ft_strncmp(tkn->cmd[i][0], "cd\0", 3) == 0)
 	{
 		built_in_cmd(tkn, i);
-			return (0) ;
+		return (0);
 	}
 	if (ft_strncmp(tkn->cmd[i][0], "export\0", 7) == 0)
 	{
 		built_in_cmd(tkn, i);
-			return (0);
+		return (0);
 	}
 	if (ft_strncmp(tkn->cmd[i][0], "unset\0", 7) == 0)
 	{
 		built_in_cmd(tkn, i);
-			return (0);
+		return (0);
 	}
 	if (ft_strncmp(tkn->cmd[i][0], "env\0", 4) == 0)
 	{
 		built_in_cmd(tkn, i);
-			return (0);
+		return (0);
 	}
 	return (1);
 }
@@ -59,7 +59,7 @@ void	exec_simple_cmd(t_tkn *tkn, int i)
 {
 	int	pid;
 
-	if (check_built_in(tkn , i) == 1)
+	if (check_built_in(tkn, i) == 1)
 	{
 		if (cmd_setup(tkn, i) == 0)
 		{

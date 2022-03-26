@@ -1,23 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_cmd_d_great.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/26 16:16:28 by fagiusep          #+#    #+#             */
+/*   Updated: 2022/03/26 16:26:53 by fagiusep         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-static int	exec_child_(t_tkn *tkn, int fd[], int i)
+static void	exec_cmd(t_tkn *tkn, int i)
 {
-	close(fd[0]);
-	if (ft_strncmp(tkn->cmd_lex[i + 1][1], "WORD", 4) == 0)
-	{
-		if (ft_strncmp(tkn->cmd_lex[i + 1][0], "DGREAT", 6) == 0)
-			tkn->fd = open(tkn->cmd[i + 1][1], O_RDWR | O_APPEND | O_CREAT, 0777);
-		else if (ft_strncmp(tkn->cmd_lex[i + 1][0], "GREAT", 5) == 0)
-			tkn->fd = open(tkn->cmd[i + 1][1], O_RDWR | O_TRUNC | O_CREAT, 0777);
-	}
-	if (tkn->fd < 0)
-	{
-		printf("bash: %s: Arquivo ou diretório inexistente\n", tkn->cmd[i][1]);
-		return (1);
-	}
-	else
-		dup2(tkn->fd, STDOUT_FILENO);
-	close(fd[1]);
 	if (built_in_cmd(tkn, i) == 1)
 	{
 		if (execve(tkn->path_0, tkn->cmd[i], NULL) == -1)
@@ -27,6 +23,32 @@ static int	exec_child_(t_tkn *tkn, int fd[], int i)
 		}
 		exit_shell(tkn);
 	}
+	exit_shell(tkn);
+	free_tab(&tkn->envp, tkn->envp_count);
+	rl_clear_history();
+}
+
+static int	exec_child_(t_tkn *tkn, int fd[], int i)
+{
+	close(fd[0]);
+	if (ft_strncmp(tkn->cmd_lex[i + 1][1], "WORD", 4) == 0)
+	{
+		if (ft_strncmp(tkn->cmd_lex[i + 1][0], "DGREAT", 6) == 0)
+			tkn->fd = open(tkn->cmd[i + 1][1], O_RDWR | O_APPEND
+					| O_CREAT, 0777);
+		else if (ft_strncmp(tkn->cmd_lex[i + 1][0], "GREAT", 5) == 0)
+			tkn->fd = open(tkn->cmd[i + 1][1], O_RDWR | O_TRUNC
+					| O_CREAT, 0777);
+	}
+	if (tkn->fd < 0)
+	{
+		printf("bash: %s: Arquivo ou diretório inexistente\n", tkn->cmd[i][1]);
+		return (1);
+	}
+	else
+		dup2(tkn->fd, STDOUT_FILENO);
+	close(fd[1]);
+	exec_cmd(tkn, i);
 	exit(0);
 	return (0);
 }
