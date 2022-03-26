@@ -13,7 +13,7 @@ static void	unset_var(t_tkn *tkn, int i)
 	temp_2 = ft_strjoin(tkn->cmd[i][1], "=");
 	while (tkn->envp[x + y] != NULL)
 	{
-		if (ft_strncmp(tkn->envp[x + y], temp_2, ft_strlen(tkn->cmd[i][1]) + 1) == 0)
+		if (ft_strncmp(tkn->envp[x + y], temp_2, ft_strlen(temp_2)) == 0)
 			y++;
 		else
 		{
@@ -22,11 +22,10 @@ static void	unset_var(t_tkn *tkn, int i)
 		}
 	}
 	temp[x] = NULL;
-	free_tab(&tkn->envp, 2);
+	free_tab(&tkn->envp, tkn->envp_count);
 	free(temp_2);
-	tkn->envp = (char **)malloc((tkn->envp_count) * sizeof(char *));
 	tkn->envp = temp;
-	tkn->envp_count--;
+	tkn->envp_count = x;
 }
 
 void	exec_cmd_unset(t_tkn *tkn, int i)

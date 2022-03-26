@@ -12,7 +12,7 @@ static int	validate_var(t_tkn *tkn, int i)
 	while (tkn->cmd[i][1][x] != '\0')
 	{
 		printf("%c ", tkn->cmd[i][1][x]);
-		if (tkn->cmd[i][1][x] != '=')
+		if (tkn->cmd[i][1][x] == '=')
 			return (0);
 		x++;
 	}
@@ -42,8 +42,9 @@ void	exec_cmd_export(t_tkn *tkn, int i)
 			if (ft_strncmp(tkn->envp[x], var[0], ft_strlen(var[0])) == 0)
 			{
 				swap_2 = tkn->envp[x];
-				tkn->envp[x] = swap;
+				tkn->envp[x] = ft_strdup(swap);
 				free(swap_2);
+				free(swap);
 				return ;
 			}
 			x++;
@@ -60,8 +61,7 @@ void	exec_cmd_export(t_tkn *tkn, int i)
 		}
 		tkn->envp[x] = swap;
 		tkn->envp[++x] = NULL;
-		tkn->envp_count++;
-		printf("count%d\n", tkn->envp_count);
+		tkn->envp_count = x;
 		free(temp);
 	}
 }	

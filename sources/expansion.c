@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 16:07:10 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/25 15:26:36 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/26 12:47:51 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void	expansion(t_tkn *tkn)
 		{
 			if (tkn->tokens[i][j] == '$')
 				j = prepare_envp(&tkn, &tkn->tokens[i], j);
-			if (tkn->tokens[i][j] == '\"')
+			else if (tkn->tokens[i][j] == '\"')
 				j = prepare_quote(&tkn, &tkn->tokens[i], j, i);
-			if (tkn->tokens[i][j] == '\'')
+			else if (tkn->tokens[i][j] == '\'')
 				j = s_quoted(&tkn->tokens[i], j);
 			j++;
 		}

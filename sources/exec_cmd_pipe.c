@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 20:01:42 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/25 10:41:51 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/26 15:03:12 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static int	exec_child(t_tkn *tkn, int fd[], int i)
 		exit_shell(tkn);
 	}
 	exit_shell(tkn);
+	free_tab(&tkn->envp, tkn->envp_count);
+	rl_clear_history();
 	exit(0);
 	return (0);
 }

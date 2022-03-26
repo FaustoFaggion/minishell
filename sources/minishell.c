@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:20:20 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/26 10:35:48 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/26 14:38:09 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ static void	init_tkn(t_tkn *tkn)
 	
 	tkn->tokens = NULL;
 	tkn->lexemas = NULL;
+	tkn->cmd = NULL;
 	tkn->path_0 = NULL;
 	i = -1;
 	while (tkn->envp[++i] != NULL)
@@ -109,7 +110,7 @@ int	main(int argc, char *argv[], char *envp[])
 	tkn.envp_count = x;
 	tkn.envp = (char **)malloc((x + 1) * sizeof(char *));
 	x = 0;
-	while (envp[x] != NULL)
+	while (envp[x])
 	{
 		tkn.envp[x] = ft_strdup(envp[x]);
 		x++;
@@ -128,17 +129,17 @@ int	main(int argc, char *argv[], char *envp[])
 		if (x == 0)
 		{
 			lexical_analysis(&tkn);
-			sintax_analysis(&tkn);
-//			expansion_envp(&tkn);
-			expansion(&tkn);
-			cmd_tab(&tkn);
-			exec_cmd_tab(&tkn);
-			if (DEBUG == 1)
-				token_recog(&tkn);
-			exit_shell(&tkn);
+			if (sintax_analysis(&tkn) == 0)
+			{
+				expansion(&tkn);
+				cmd_tab(&tkn);
+				exec_cmd_tab(&tkn);
+				if (DEBUG == 1)
+					token_recog(&tkn);
+				exit_shell(&tkn);
+			}
+			else
+				exit_shell(&tkn);
 		}
-//		exit(0);
-		
-//		printf("%s\n", line);
 	}
 }

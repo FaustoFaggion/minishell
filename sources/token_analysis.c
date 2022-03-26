@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 16:10:30 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/25 17:50:35 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/26 12:33:28 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static int	quotes_check(t_tkn *tkn, int i, char c)
 			exit_shell_quote(tkn, tkn->tkn_count);
 			write(2, "Quote missing\n", 14);
 			return (-1);
-		//	exit(1);
 		}
 		i++;
 	}	
@@ -63,13 +62,7 @@ int	token_count(t_tkn *tkn)
 		{
 			if (ft_strchr("|<>", tkn->line[i]) != NULL)
 				i = metachar_check(tkn, i);
-/*			else if (ft_strchr("\'\"", tkn->line[i]) != NULL)
-			{
-				i = quotes_check(tkn, i, tkn->line[i]);
-				if (i == -1)
-					return (1);
-			}
-*/			else
+			else
 			{
 				while (ft_strchr("|<> ", tkn->line[i]) == NULL)
 				{
@@ -106,12 +99,7 @@ static void	scan_cmd_line(t_tkn *tkn)
 			start = i;
 			if (ft_strchr("|<>", tkn->line[i]) != NULL)
 				i = metachar_check(tkn, i);
-/*			else if (ft_strchr("\'\"", tkn->line[i]) != NULL)
-			{
-				
-				i = quotes_check(tkn, i, tkn->line[i]);
-			}
-*/			else
+			else
 			{
 				while (ft_strchr("|<> ", tkn->line[i]) == NULL)
 				{

@@ -47,7 +47,7 @@ int		token_analysis(t_tkn *tkn);
 
 void	lexical_analysis(t_tkn *tkn);
 
-void	sintax_analysis(t_tkn *tkn);
+int		sintax_analysis(t_tkn *tkn);
 
 void	expansion_envp(t_tkn *tkn);
 
@@ -94,18 +94,6 @@ void	exec_cmd_envp(t_tkn *tkn);
 void	exit_shell(t_tkn *tkn);
 
 void	exit_shell_quote(t_tkn *tkn, int i);
-
-//char	***parse_cmd_tab(t_cmd *cmd);
-
-//int		metachar_check(t_cmd *cmd, int i);
-
-//int		quotes_check(t_cmd *cmd, int i, char c);
-
-//void	parse_cmd_tab_count(t_cmd *cmd);
-
-//int		parse_cmd_tab_len(t_cmd *cmd, int i);
-
-//char	**parse_cmd_tab_malloc(t_cmd *cmd);
 
 void	free_tab(char ***tab, int i);
 

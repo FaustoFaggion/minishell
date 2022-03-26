@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 14:51:10 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/26 10:10:50 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/26 12:42:57 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ static int	cmd_metachar(t_tkn *tkn, int i)
 	j = 0;
 	while (count > 0)
 	{
-		temp[j] = tkn->tokens[i];
-		temp_lex[j] = tkn->lexemas[i];
+		temp[j] = ft_strdup(tkn->tokens[i]);
+		temp_lex[j] = ft_strdup(tkn->lexemas[i]);
 		j++;
 		i++;
 		count--;
@@ -108,8 +108,6 @@ static int	cmd_metachar(t_tkn *tkn, int i)
 	tkn->cmd[tkn->cmd_count] = temp;
 	tkn->cmd_lex[tkn->cmd_count] = temp_lex;
 	tkn->cmd_count++;
-	temp = NULL;
-	temp_lex = NULL;
 	return (i);
 }
 
@@ -129,12 +127,16 @@ static int	cmd_word(t_tkn *tkn, int i)
 			break ;
 	}
 	temp = (char **) malloc(sizeof(char *) * (count + 1));
+	if (temp == NULL)
+		return (1);
 	temp_lex = (char **) malloc(sizeof(char *) * (count + 1));
+	if (temp_lex == NULL)
+		return (1);
 	j = 0;
 	while (count > 0)
 	{
-		temp[j] = tkn->tokens[i];
-		temp_lex[j] = tkn->lexemas[i];
+		temp[j] = ft_strdup(tkn->tokens[i]);
+		temp_lex[j] = ft_strdup(tkn->lexemas[i]);
 		j++;
 		i++;
 		count--;
@@ -144,8 +146,6 @@ static int	cmd_word(t_tkn *tkn, int i)
 	tkn->cmd[tkn->cmd_count] = temp;
 	tkn->cmd_lex[tkn->cmd_count] = temp_lex;
 	tkn->cmd_count++;
-	temp = NULL;
-	temp_lex = NULL;
 	return (i);
 }
 
