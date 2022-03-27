@@ -32,6 +32,7 @@ SRC_FILES		=	minishell.c \
 					exec_cmd_export.c \
 					exec_cmd_unset.c \
 					exec_cmd_env.c \
+					exec_cmd_exit.c \
 					exit.c \
 
 SRC				=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))
