@@ -36,6 +36,7 @@ typedef struct s_tkn
 	char	*path_0;
 	int		exp_start;
 	int		exp_flag;
+	int		exit_signal;
 }	t_tkn;
 
 typedef struct s_filename

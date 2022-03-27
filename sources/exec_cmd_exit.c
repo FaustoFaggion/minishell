@@ -40,19 +40,22 @@ void	exec_cmd_exit(t_tkn *tkn, int i)
 	is_digit = cmd_digit(tkn, i);
 	if (is_digit == 1)
 	{
-		printf("exit\nbash: exit: %s: requer argumento numérico\n",
-			tkn->cmd[i][1]);
+		ft_putendl_fd("exit:\nexit: ", 2);
+		ft_putendl_fd(tkn->cmd[i][1], 2);
+		ft_putendl_fd(": requer argumento numérico\n", 2);
 		return ;
 	}
 	else if (len > 2)
 	{
-		printf("exit\nbash: exit: número excessivo de argumentos\n");
+		ft_putendl_fd("exit\nbash: exit: número excessivo de argumentos\n", 2);
+		tkn->exit_signal = 2
 		return ;
 	}
 	if (tkn->cmd[i][1] == NULL)
 		ret = 0;
 	else
 		ret = ft_atoi(tkn->cmd[i][1]);
+	
 	exit_shell(tkn);
 	free_tab(&tkn->envp, tkn->envp_count);
 	rl_clear_history();
