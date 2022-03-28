@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 17:06:35 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/26 17:07:04 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/28 15:31:42 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,10 @@ void	exec_cmd_echo(t_tkn *tkn, int i)
 	}
 	if (ft_strncmp(tkn->cmd[i][1], "-n", 2) == 0)
 		j = 2;
-	else
+	while (tkn->cmd[i][j] != NULL)
 	{
-		while (tkn->cmd[i][j] != NULL)
-		{
-			printf(">>>>>%s ", tkn->cmd[i][j]);
-			j++;
-		}
+		printf("%s ", tkn->cmd[i][j]);
+		j++;
 	}
 	if (ft_strncmp(tkn->cmd[i][1], "-n", 2) != 0)
 		printf("\n");

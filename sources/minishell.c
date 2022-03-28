@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:20:20 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/26 16:13:00 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/28 15:09:15 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,6 @@ static void	token_recog(t_tkn *tkn)
 		x++;
 	}
 	printf("cmd[%d] %p\n", x, tkn->cmd[x]);
-}
-
-static void	print_dir(void)
-{
-	char		dir[1024];
-	char		*user;
-//	char		*hostname;
-
-	user = getenv("USER");
-	printf("%s@ ", user);
-	getcwd(dir, sizeof(dir));
-	printf("%s", dir);
 }
 
 static void	copy_path(t_tkn *tkn)
@@ -123,35 +111,33 @@ static void	envp_list_dup(t_tkn *tkn, char *envp[])
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_tkn	tkn;
-	int		x;
-	
+
 	if (argc > 1)
 		printf("%s :Invalid number of arguments", argv[0]);
 	envp_list_dup(&tkn, envp);
 	while (1)
 	{
+		handle_signal_prompt();
 		init_tkn(&tkn);
-		print_dir();
-		tkn.line = readline("$ ");
-		if (tkn.line == NULL)
-			printf ("line = NULL");
-		if (ft_strlen(tkn.line) != 0)
-			add_history(tkn.line);
-		x = token_analysis(&tkn);
-		if (x == 0)
+		if (get_prompt(&tkn) == 0)
 		{
-			lexical_analysis(&tkn);
-			if (sintax_analysis(&tkn) == 0)
+			if (token_analysis(&tkn) == 0)
 			{
-				expansion(&tkn);
-				cmd_tab(&tkn);
-				exec_cmd_tab(&tkn);
-				if (DEBUG == 1)
-					token_recog(&tkn);
-				exit_shell(&tkn);
+				lexical_analysis(&tkn);
+				if (sintax_analysis(&tkn) == 0)
+				{
+					expansion(&tkn);
+					cmd_tab(&tkn);
+					exec_cmd_tab(&tkn);
+					if (DEBUG == 1)
+						token_recog(&tkn);
+					exit_shell(&tkn);
+				}
+				else
+					exit_shell(&tkn);
 			}
-			else
-				exit_shell(&tkn);
 		}
+		else
+			exit_shell(&tkn);
 	}
 }

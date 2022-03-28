@@ -9,10 +9,11 @@ I_MINISHELL		=	-I ./include
 L_READLINE		=	-lreadline
 
 CC				=	clang
-CFLAGS			=	-Wall -Werror -Wextra -g
+CFLAGS			=	-g -Wall -Werror -Wextra
 
 SRC_DIR			=	sources
 SRC_FILES		=	minishell.c \
+					get_prompt.c \
 					token_analysis.c \
 					lexical_analysis.c \
 					sintax_analysis.c \
@@ -33,6 +34,7 @@ SRC_FILES		=	minishell.c \
 					exec_cmd_unset.c \
 					exec_cmd_env.c \
 					exec_cmd_exit.c \
+					handle_signal_prompt.c \
 					exit.c \
 
 SRC				=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))

@@ -13,3 +13,10 @@
 
 <p> IEEE Std 1003.1, 2004 Edition - https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html </p>
 <p> Readline Library - https://tiswww.case.edu/php/chet/readline/readline.html</p>
+
+<p> Signals - https://www.youtube.com/watch?v=NfHqGv0PlIw&list=PL0qfF8MrJ-jxMfirAdxDs9zIiBg2Wug0z&index=43 </p>
+
+<p>signal_handler is runing asyncronosly. So is not every function that cam be safyly called from signal_handler.</p>
+<p>signal_handler safy functions - https://man7.org/linux/man-pages/man7/signal-safety.7.html</p>
+
+<p>Sigaction - https://www.youtube.com/watch?v=_1TuZUbCnX0,</p>

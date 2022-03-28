@@ -54,16 +54,25 @@ void	exec_cmd_exit(t_tkn *tkn, int i)
 	int	len;
 	int	is_digit;
 
-	len = cmd_size(tkn, i);
-	is_digit = cmd_digit(tkn, i);
-	if (not_valid_exit(tkn, i, len, is_digit) == 1)
-		return;
 	if (tkn->cmd[i][1] == NULL)
 		tkn->exit_signal = 0;
 	else
-		tkn->exit_signal = (ft_atoi(tkn->cmd[i][1]) % 256);
-	exit_shell(tkn);
-	free_tab(&tkn->envp, tkn->envp_count);
-	rl_clear_history();
-	exit(tkn->exit_signal);
+	{
+		len = cmd_size(tkn, i);
+		is_digit = cmd_digit(tkn, i);
+		if (not_valid_exit(tkn, i, len, is_digit) == 1)
+			return;
+		else
+		{
+			if (ft_atoi(tkn->cmd[i][1]) > 256)
+				tkn->exit_signal = (ft_atoi(tkn->cmd[i][1]) % 256);
+			else
+				tkn->exit_signal = (ft_atoi(tkn->cmd[i][1]));
+		}
+	}
+		exit_shell(tkn);
+		free_tab(&tkn->envp, tkn->envp_count);
+		rl_clear_history();
+		exit(tkn->exit_signal);
+	
 }

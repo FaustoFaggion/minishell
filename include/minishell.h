@@ -1,17 +1,18 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <sys/wait.h>
-#include <sys/types.h>
-#include "libft.h"
-#include <fcntl.h>
 
-#define DEBUG 1
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <sys/wait.h>
+# include <sys/types.h>
+# include "libft.h"
+# include <fcntl.h>
+
+#define DEBUG 0
 #define PIPE "PIPE"
 #define LESS "LESS"
 #define DLESS "DLESS"
@@ -39,10 +40,7 @@ typedef struct s_tkn
 	int		exit_signal;
 }	t_tkn;
 
-typedef struct s_filename
-{
-	int	fd;
-}	t_filename;
+int		get_prompt(t_tkn *tkn);
 
 int		token_analysis(t_tkn *tkn);
 
@@ -93,6 +91,8 @@ void	exec_cmd_unset(t_tkn *tkn, int i);
 void	exec_cmd_envp(t_tkn *tkn);
 
 void	exec_cmd_exit(t_tkn *tkn, int i);
+
+void	handle_signal_prompt(void);
 
 void	exit_shell(t_tkn *tkn);
 
