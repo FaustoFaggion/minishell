@@ -62,6 +62,8 @@ void	quoted_envp(char **tkn);
 
 void	cmd_tab(t_tkn *tkn);
 
+int	exec_cmd_path_ck(t_tkn *tkn, int i);
+
 void	exec_cmd_tab(t_tkn *tkn);
 
 void	exec_simple_cmd(t_tkn *tkn, int i);
@@ -84,9 +86,9 @@ void	exec_cmd_pwd(void);
 
 void	exec_cmd_cd(t_tkn *tkn, int i);
 
-void	exec_cmd_export(t_tkn *tkn, int i);
+void	exec_cmd_export(t_tkn *tkn, char *cmd_arg);
 
-void	exec_cmd_unset(t_tkn *tkn, int i);
+void	exec_cmd_unset(t_tkn *tkn, char *cmd_arg);
 
 void	exec_cmd_envp(t_tkn *tkn);
 

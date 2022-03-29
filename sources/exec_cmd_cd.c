@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 16:14:38 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/26 16:15:59 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/29 13:01:24 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,16 @@ static void	steup_old_pwd(t_tkn *tkn, char *old_dir)
 {
 	int		x;
 	char	**temp;
+	char	*swap;
 
 	x = 0;
 	while (tkn->envp[x] != NULL)
 	{
 		if (ft_strncmp(tkn->envp[x], "OLDPWD=", 7) == 0)
 		{
+			swap = tkn->envp[x];
 			tkn->envp[x] = ft_strjoin("OLDPWD=", old_dir);
+			free(swap);
 			break ;
 		}
 		x++;
@@ -39,12 +42,14 @@ static void	steup_old_pwd(t_tkn *tkn, char *old_dir)
 	tkn->envp[x] = ft_strjoin("OLDPWD=", old_dir);
 	tkn->envp[++x] = NULL;
 	tkn->envp_count++;
+	free(temp);
 }
 
 static void	steup_pwd(t_tkn *tkn)
 {
 	int		x;
 	char	dir[1024];
+	char	*swap;
 
 	x = 0;
 	while (tkn->envp[x] != NULL)
@@ -52,7 +57,9 @@ static void	steup_pwd(t_tkn *tkn)
 		if (ft_strncmp(tkn->envp[x], "PWD=", 4) == 0)
 		{
 			getcwd(dir, sizeof(dir));
+			swap = tkn->envp[x];
 			tkn->envp[x] = ft_strjoin("PWD=", dir);
+			free(swap);
 			break ;
 		}
 		x++;
@@ -65,6 +72,8 @@ void	exec_cmd_cd(t_tkn *tkn, int i)
 
 	getcwd(old_dir, sizeof(old_dir));
 	if (tkn->cmd[i][1] == NULL)
+		chdir("/home");
+	else if (ft_strncmp(tkn->cmd[i][1], "~\0", 1) == 0)
 		chdir("/home");
 	else if (tkn->cmd[i][2] != NULL)
 	{

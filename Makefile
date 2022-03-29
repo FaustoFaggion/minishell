@@ -22,11 +22,13 @@ SRC_FILES		=	minishell.c \
 					expansion_d_quote.c \
 					expansion_envp.c \
 					cmd_tab.c \
+					exec_cmd_path_ck.c \
 					exec_cmd_tab.c \
 					exec_cmd_simple.c \
 					exec_cmd_pipe.c \
 					exec_cmd_d_great.c \
 					exec_cmd_d_less.c \
+					built_in_cmd.c \
 					exec_cmd_echo.c \
 					exec_cmd_pwd.c \
 					exec_cmd_cd.c \

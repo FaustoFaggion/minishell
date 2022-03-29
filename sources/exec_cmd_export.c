@@ -6,33 +6,30 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 17:21:14 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/26 17:22:03 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/29 15:59:44 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	validate_var(t_tkn *tkn, int i)
+static int	validate_var(char *cmd_arg)
 {
 	int	x;
 
-	if (ft_isdigit(tkn->cmd[i][1][0]) == 0
-			|| ft_strncmp(tkn->cmd[i][1], "=", 1) == 0)
+	if (ft_isdigit(cmd_arg[0]) == 0
+			|| ft_strncmp(cmd_arg, "=", 1) == 0)
 		return (1);
-	printf("%s ", tkn->cmd[i][0]);
-	printf("%s ", tkn->cmd[i][1]);
 	x = 0;
-	while (tkn->cmd[i][1][x] != '\0')
+	while (cmd_arg[x] != '\0')
 	{
-		printf("%c ", tkn->cmd[i][1][x]);
-		if (tkn->cmd[i][1][x] == '=')
+		if (cmd_arg[x] == '=')
 			return (0);
 		x++;
 	}
 	return (1);
 }
 
-void	exec_cmd_export(t_tkn *tkn, int i)
+void	exec_cmd_export(t_tkn *tkn, char *cmd_arg)
 {
 	int		x;
 	char	**temp;
@@ -40,15 +37,15 @@ void	exec_cmd_export(t_tkn *tkn, int i)
 	char	*swap;
 	char	*swap_2;
 
-	if (validate_var(tkn, i) == 1)
+	if (validate_var(cmd_arg) == 1)
 	{
 		printf("bash: export: `%s`: não é um identificador válido\n",
-			tkn->cmd[i][1]);
+			cmd_arg);
 	}
 	else
 	{
-		swap = (char *)malloc(ft_strlen(tkn->cmd[i][1]) + 1);
-		ft_memcpy(swap, tkn->cmd[i][1], ft_strlen(tkn->cmd[i][1]) + 1);
+		swap = (char *)malloc(ft_strlen(cmd_arg) + 1);
+		ft_memcpy(swap, cmd_arg, ft_strlen(cmd_arg) + 1);
 		var = ft_split(swap, '=');
 		x = 0;
 		while (tkn->envp[x] != NULL)
@@ -65,17 +62,16 @@ void	exec_cmd_export(t_tkn *tkn, int i)
 		}
 		free_tab(&var, 2);
 		temp = tkn->envp;
-		tkn->envp = NULL;
 		tkn->envp = (char **)malloc(sizeof(char *) * (tkn->envp_count + 2));
 		x = 0;
 		while (temp[x] != NULL)
 		{
-			tkn->envp[x] = temp[x];
+			tkn->envp[x] = ft_strdup(temp[x]);
 			x++;
 		}
 		tkn->envp[x] = swap;
 		tkn->envp[++x] = NULL;
-		tkn->envp_count = x;
-		free(temp);
+		free_tab(&temp, tkn->envp_count);
+		tkn->envp_count++;
 	}
 }
