@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 17:21:14 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/29 15:59:44 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/29 17:35:09 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,7 @@ void	exec_cmd_export(t_tkn *tkn, char *cmd_arg)
 	char	*swap_2;
 
 	if (validate_var(cmd_arg) == 1)
-	{
-		printf("bash: export: `%s`: não é um identificador válido\n",
-			cmd_arg);
-	}
+		printf("bash: export: `%s`: não é um identificador válido\n", cmd_arg);
 	else
 	{
 		swap = (char *)malloc(ft_strlen(cmd_arg) + 1);
@@ -56,6 +53,7 @@ void	exec_cmd_export(t_tkn *tkn, char *cmd_arg)
 				tkn->envp[x] = ft_strdup(swap);
 				free(swap_2);
 				free(swap);
+				free_tab(&var, 2);
 				return ;
 			}
 			x++;

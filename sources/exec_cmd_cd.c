@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 16:14:38 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/29 13:01:24 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/29 19:21:35 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,22 @@ static void	steup_pwd(t_tkn *tkn)
 void	exec_cmd_cd(t_tkn *tkn, int i)
 {
 	char	old_dir[1024];
-
+	char	*user;
+	char	*user_path;
+	
+	user = getenv("USER");
 	getcwd(old_dir, sizeof(old_dir));
 	if (tkn->cmd[i][1] == NULL)
 		chdir("/home");
-	else if (ft_strncmp(tkn->cmd[i][1], "~\0", 1) == 0)
+	else if (ft_strncmp(tkn->cmd[i][1], "~\0", 2) == 0
+			|| ft_strncmp(tkn->cmd[i][1], "~/", 2) == 0)
 		chdir("/home");
+	else if (ft_strncmp(tkn->cmd[i][1], "-\0", 2) == 0)
+	{
+		user_path = ft_strjoin("/home/", user);
+		chdir(user_path);
+		free(user_path);
+	}
 	else if (tkn->cmd[i][2] != NULL)
 	{
 		printf("bah: cd: número excessivo de argumentos\n");

@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 17:09:47 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/29 13:16:22 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/29 17:31:11 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,12 @@ void	exec_cmd_unset(t_tkn *tkn, char *cmd_arg)
 	flag = 0;
 	x = 0;
 	var = ft_strjoin(cmd_arg, "=");
+	if (ft_strncmp(cmd_arg, "PATH=", 5) == 0 || ft_strncmp(cmd_arg, "HOME=", 5) == 0)
+	{
+		printf("\n");
+		free(var);
+		return ;
+	}
 	while (tkn->envp[x] != NULL)
 	{
 		if (ft_strncmp(tkn->envp[x], var,
