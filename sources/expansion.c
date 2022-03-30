@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 16:07:10 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/30 12:37:33 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/30 13:03:26 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,22 @@ int	prepare_special_char(t_tkn **tkn, char **quote, int j)
 	return (j - 1);
 }
 
+static int	special_char(t_tkn **tkn, char **token, int j)
+{
+	if (j == 0)
+	{
+		if ((*token)[j] == '~' && ((*token)[j + 1] == '\0'
+				|| (*token)[j + 1] == '/'))
+			j = prepare_special_char(tkn, token, j);
+	}
+	else
+	{
+		if ((*token)[j] == '~' && (*token)[j - 1] == ' '
+				&& ((*token)[j + 1] == '\0' || (*token)[j + 1] == '/'))
+			j = prepare_special_char(tkn, token, j);
+	}
+	return (j);
+}
 void	expansion(t_tkn *tkn)
 {
 	int		i;
@@ -105,10 +121,9 @@ void	expansion(t_tkn *tkn)
 		j = 0;
 		while (tkn->tokens[i][j] != '\0')
 		{
+			j = special_char(&tkn, &tkn->tokens[i], j);
 			if(j == 0)
 				exec_cmd_path_ck(tkn, i);
-			if (tkn->tokens[i][j] == '~')
-				j = prepare_special_char(&tkn, &tkn->tokens[i], j);
 			if (tkn->tokens[i][j] == '$')
 				j = prepare_envp(&tkn, &tkn->tokens[i], j);
 			else if (tkn->tokens[i][j] == '\"')
