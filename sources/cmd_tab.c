@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 14:51:10 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/26 17:06:24 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/30 10:09:58 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,4 +153,5 @@ void	cmd_tab(t_tkn *tkn)
 			i = cmd_word(tkn, i);
 	}
 	tkn->cmd[tkn->cmd_count] = NULL;
+	tkn->cmd_lex[tkn->cmd_count] = NULL;
 }

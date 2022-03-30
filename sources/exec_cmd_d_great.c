@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 16:16:28 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/26 16:26:53 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/30 10:15:01 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,26 @@ static void	exec_cmd(t_tkn *tkn, int i)
 
 static int	exec_child_(t_tkn *tkn, int fd[], int i)
 {
+	int	y;
+	char	*temp;
+	
+	y = 0;
 	close(fd[0]);
-	if (ft_strncmp(tkn->cmd_lex[i + 1][1], "WORD", 4) == 0)
+	while (tkn->cmd_lex[i + y + 1] != NULL)
 	{
-		if (ft_strncmp(tkn->cmd_lex[i + 1][0], "DGREAT", 6) == 0)
-			tkn->fd = open(tkn->cmd[i + 1][1], O_RDWR | O_APPEND
+	//	if(tkn->fd != 0)
+	//		close(tkn->fd);
+		if (ft_strncmp(tkn->cmd_lex[i + y + 1][0], "DGREAT", 6) == 0)
+			tkn->fd = open(tkn->cmd[i + y + 1][1], O_RDWR | O_APPEND
 					| O_CREAT, 0777);
-		else if (ft_strncmp(tkn->cmd_lex[i + 1][0], "GREAT", 5) == 0)
-			tkn->fd = open(tkn->cmd[i + 1][1], O_RDWR | O_TRUNC
+		else if (ft_strncmp(tkn->cmd_lex[i + y + 1][0], "GREAT", 5) == 0)
+			tkn->fd = open(tkn->cmd[i + y + 1][1], O_RDWR | O_TRUNC
 					| O_CREAT, 0777);
+		else
+			break;
+		y++;
 	}
+	temp = ft_get_next_line(tkn->fd);
 	if (tkn->fd < 0)
 	{
 		printf("bash: %s: Arquivo ou diretório inexistente\n", tkn->cmd[i][1]);
