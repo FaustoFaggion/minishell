@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 17:21:14 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/29 17:35:09 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/30 15:40:44 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	validate_var(char *cmd_arg)
 	return (1);
 }
 
-void	exec_cmd_export(t_tkn *tkn, char *cmd_arg)
+void	exec_cmd_export(char ***envp, char *cmd_arg, int *count)
 {
 	int		x;
 	char	**temp;
@@ -45,12 +45,12 @@ void	exec_cmd_export(t_tkn *tkn, char *cmd_arg)
 		ft_memcpy(swap, cmd_arg, ft_strlen(cmd_arg) + 1);
 		var = ft_split(swap, '=');
 		x = 0;
-		while (tkn->envp[x] != NULL)
+		while ((*envp)[x] != NULL)
 		{
-			if (ft_strncmp(tkn->envp[x], var[0], ft_strlen(var[0])) == 0)
+			if (ft_strncmp((*envp)[x], var[0], ft_strlen(var[0])) == 0)
 			{
-				swap_2 = tkn->envp[x];
-				tkn->envp[x] = ft_strdup(swap);
+				swap_2 = (*envp)[x];
+				(*envp)[x] = ft_strdup(swap);
 				free(swap_2);
 				free(swap);
 				free_tab(&var, 2);
@@ -59,17 +59,17 @@ void	exec_cmd_export(t_tkn *tkn, char *cmd_arg)
 			x++;
 		}
 		free_tab(&var, 2);
-		temp = tkn->envp;
-		tkn->envp = (char **)malloc(sizeof(char *) * (tkn->envp_count + 2));
+		temp = (*envp);
+		(*envp) = (char **)malloc(sizeof(char *) * (*count + 2));
 		x = 0;
 		while (temp[x] != NULL)
 		{
-			tkn->envp[x] = ft_strdup(temp[x]);
+			(*envp)[x] = ft_strdup(temp[x]);
 			x++;
 		}
-		tkn->envp[x] = swap;
-		tkn->envp[++x] = NULL;
-		free_tab(&temp, tkn->envp_count);
-		tkn->envp_count++;
+		(*envp)[x] = swap;
+		(*envp)[++x] = NULL;
+		free_tab(&temp, *count);
+		(*count)++;
 	}
 }

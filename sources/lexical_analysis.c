@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 20:02:29 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/26 10:21:18 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/30 15:16:19 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,23 @@
 
 static void	word_rules(t_tkn *tkn, int x)
 {
+	int j;
+	
+	j = -1;
+	while (tkn->tokens[x][++j] != '\0')
+	{
+		if (tkn->tokens[x][j] == '\"' || tkn->tokens[x][j] == '\'')
+		{
+			j++;
+			while (tkn->tokens[x][j] != '\"' && tkn->tokens[x][j] != '\'')
+				j++;
+		}
+		if (tkn->tokens[x][j] == '=')
+		{
+			tkn->lexemas[x] = ft_strdup("ASSIGNMENT_WORD");
+			return ;
+		}
+	}
 	tkn->lexemas[x] = ft_strdup("WORD");
 }
 

@@ -6,38 +6,38 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 17:09:47 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/30 10:34:17 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/30 15:47:50 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	unset_var(t_tkn *tkn, char *var)
+static void	unset_var(char ***envp, char *var, int *count)
 {
 	char	**temp;
 	int		x;
 	int		y;
 
-	temp = (char **)malloc((tkn->envp_count) * sizeof(char *));
+	temp = (char **)malloc((*count) * sizeof(char *));
 	x = 0;
 	y = 0;
-	while (tkn->envp[x + y] != NULL)
+	while ((*envp)[x + y] != NULL)
 	{
-		if (ft_strncmp(tkn->envp[x + y], var, ft_strlen(var)) == 0)
+		if (ft_strncmp((*envp)[x + y], var, ft_strlen(var)) == 0)
 			y++;
 		else
 		{
-			temp[x] = ft_strdup(tkn->envp[x + y]);
+			temp[x] = ft_strdup((*envp)[x + y]);
 			x++;
 		}
 	}
 	temp[x] = NULL;
-	free_tab(&tkn->envp, tkn->envp_count);
-	tkn->envp = temp;
-	tkn->envp_count--;
+	free_tab(envp, *count);
+	*envp = temp;
+	(*count)--;
 }
 
-void	exec_cmd_unset(t_tkn *tkn, char *cmd_arg)
+void	exec_cmd_unset(char ***envp, char *cmd_arg, int *count)
 {
 	int		x;
 	int		flag;
@@ -51,14 +51,14 @@ void	exec_cmd_unset(t_tkn *tkn, char *cmd_arg)
 		return ;
 	}
 	var = ft_strjoin(cmd_arg, "=");
-	while (tkn->envp[x] != NULL)
+	while ((*envp)[x] != NULL)
 	{
-		if (ft_strncmp(tkn->envp[x], var,
+		if (ft_strncmp((*envp)[x], var,
 			ft_strlen(var)) == 0)
 			flag = 1;
 		x++;
 	}
 	if (flag == 1)
-		unset_var(tkn, var);
+		unset_var(envp, var, count);
 	free(var);
 }

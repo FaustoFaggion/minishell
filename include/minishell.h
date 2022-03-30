@@ -12,7 +12,7 @@
 # include "libft.h"
 # include <fcntl.h>
 
-#define DEBUG 0
+#define DEBUG 1
 #define PIPE "PIPE"
 #define LESS "LESS"
 #define DLESS "DLESS"
@@ -86,9 +86,9 @@ void	exec_cmd_pwd(void);
 
 void	exec_cmd_cd(t_tkn *tkn, int i);
 
-void	exec_cmd_export(t_tkn *tkn, char *cmd_arg);
+void	exec_cmd_export(char ***envp, char *cmd_arg, int *count);
 
-void	exec_cmd_unset(t_tkn *tkn, char *cmd_arg);
+void	exec_cmd_unset(char ***envp, char *cmd_arg, int *count);
 
 void	exec_cmd_envp(t_tkn *tkn);
 

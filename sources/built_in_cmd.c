@@ -4,12 +4,12 @@ static int	built_in_utils(t_tkn *tkn, int i)
 {
 	if (ft_strncmp(tkn->cmd[i][0], "export\0", 7) == 0)
 	{
-		exec_cmd_export(tkn, tkn->cmd[i][1]);
+		exec_cmd_export(&tkn->envp, tkn->cmd[i][1], &tkn->envp_count);
 		return (0);
 	}
 	else if (ft_strncmp(tkn->cmd[i][0], "unset\0", 6) == 0)
 	{
-		exec_cmd_unset(tkn, tkn->cmd[i][1]);
+		exec_cmd_unset(&tkn->envp, tkn->cmd[i][1], &tkn->envp_count);
 		return (0);
 	}
 	else if (ft_strncmp(tkn->cmd[i][0], "env\0", 4) == 0)
