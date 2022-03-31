@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:20:20 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/30 09:31:45 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/31 16:11:48 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,15 @@ static void	init_tkn(t_tkn *tkn)
 	tkn->tokens = NULL;
 	tkn->lexemas = NULL;
 	tkn->cmd = NULL;
+	tkn->path = NULL;
 	tkn->path_0 = NULL;
 	copy_path(tkn);
 	tkn->path_count = 0;
-	while (tkn->path[tkn->path_count] != NULL)
-		tkn->path_count++;
+	if (tkn->path != NULL)
+	{
+		while (tkn->path[tkn->path_count] != NULL)
+			tkn->path_count++;
+	}
 	tkn->envp_count = 0;
 	while (tkn->envp[tkn->envp_count] != NULL)
 		tkn->envp_count++;
@@ -115,6 +119,7 @@ int	main(int argc, char *argv[], char *envp[])
 	if (argc > 1)
 		printf("%s :Invalid number of arguments", argv[0]);
 	envp_list_dup(&tkn, envp);
+	tkn.amb_v = NULL;
 	while (1)
 	{
 		handle_signal_prompt();

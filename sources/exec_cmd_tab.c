@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 20:17:11 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/29 07:30:38 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/31 14:23:55 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,24 @@ int	cmd_setup(t_tkn *tkn, int i)
 	x = 0;
 	if (tkn->path_0 != NULL)
 		free(tkn->path_0);
-	while (tkn->path[x] != NULL)
+	if (tkn->path != NULL)
 	{
-		tkn->path_0 = ft_strjoin(tkn->path[x], "/");
-		if (tkn->path_0 == NULL)
-			exit(1);
-		temp = tkn->path_0;
-		tkn->path_0 = ft_strjoin(temp, tkn->cmd[i][0]);
-		free(temp);
-		if (tkn->path_0 == NULL)
-			exit(1);
-		if (access(tkn->path_0, F_OK) == 0)
-			return (0);
-		free(tkn->path_0);
-		tkn->path_0 = NULL;
-		x++;
+		while (tkn->path[x] != NULL)
+		{
+			tkn->path_0 = ft_strjoin(tkn->path[x], "/");
+			if (tkn->path_0 == NULL)
+				exit(1);
+			temp = tkn->path_0;
+			tkn->path_0 = ft_strjoin(temp, tkn->cmd[i][0]);
+			free(temp);
+			if (tkn->path_0 == NULL)
+				exit(1);
+			if (access(tkn->path_0, F_OK) == 0)
+				return (0);
+			free(tkn->path_0);
+			tkn->path_0 = NULL;
+			x++;
+		}
 	}
 	cmd_not_found(tkn, i);
 	return (1);

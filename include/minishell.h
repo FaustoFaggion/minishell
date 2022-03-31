@@ -11,8 +11,9 @@
 # include <sys/types.h>
 # include "libft.h"
 # include <fcntl.h>
+#include <signal.h>
 
-#define DEBUG 1
+#define DEBUG 0
 #define PIPE "PIPE"
 #define LESS "LESS"
 #define DLESS "DLESS"
@@ -32,6 +33,8 @@ typedef struct s_tkn
 	int		fd;
 	char	**envp;
 	int		envp_count;
+	char	**amb_v;
+	int		amb_v_count;
 	char	**path;
 	int		path_count;
 	char	*path_0;
@@ -86,11 +89,11 @@ void	exec_cmd_pwd(void);
 
 void	exec_cmd_cd(t_tkn *tkn, int i);
 
-void	exec_cmd_export(char ***envp, char *cmd_arg, int *count);
+void	exec_cmd_export(t_tkn *tkn, int i);
 
 void	exec_cmd_unset(char ***envp, char *cmd_arg, int *count);
 
-void	exec_cmd_envp(t_tkn *tkn);
+void	exec_cmd_env(t_tkn *tkn, int flag);
 
 void	exec_cmd_exit(t_tkn *tkn, int i);
 

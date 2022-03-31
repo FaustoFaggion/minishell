@@ -1,5 +1,4 @@
 #include "minishell.h"
-#include <signal.h>
 
 static void	ft_handle_sigint(void);
 static void	ft_prompt_cancel(int signal);

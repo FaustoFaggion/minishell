@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 17:09:47 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/30 15:47:50 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/31 14:20:11 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,6 @@ void	exec_cmd_unset(char ***envp, char *cmd_arg, int *count)
 	
 	flag = 0;
 	x = 0;
-	if (ft_strncmp(cmd_arg, "PATH\0", 5) == 0 || ft_strncmp(cmd_arg, "HOME\0", 5) == 0)
-	{
-		printf("\n");
-		return ;
-	}
 	var = ft_strjoin(cmd_arg, "=");
 	while ((*envp)[x] != NULL)
 	{

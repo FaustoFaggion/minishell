@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 10:34:01 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/30 12:16:02 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/31 14:13:21 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static void	expand_envp(t_tkn **tkn, char **exp_envp)
 	}
 }
 
-int	prepare_envp(t_tkn **tkn, char **quote, int j)
+int	prepare_envp(t_tkn **tkn, char **quote, int j) 
 {
 	char	*temp;
 	char	*temp_2;
