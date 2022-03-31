@@ -1,6 +1,13 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+#define _GNU_SOURCE
+#define DEBUG 0
+#define PIPE "PIPE"
+#define LESS "LESS"
+#define DLESS "DLESS"
+#define GREAT "GREAT"
+#define DGREAT "DGREAT"
 
 # include <stdio.h>
 # include <readline/readline.h>
@@ -13,12 +20,6 @@
 # include <fcntl.h>
 #include <signal.h>
 
-#define DEBUG 0
-#define PIPE "PIPE"
-#define LESS "LESS"
-#define DLESS "DLESS"
-#define GREAT "GREAT"
-#define DGREAT "DGREAT"
 
 typedef struct s_tkn
 {
@@ -65,7 +66,7 @@ void	quoted_envp(char **tkn);
 
 void	cmd_tab(t_tkn *tkn);
 
-int	exec_cmd_path_ck(t_tkn *tkn, int i);
+int		exec_cmd_path_ck(t_tkn *tkn, int i);
 
 void	exec_cmd_tab(t_tkn *tkn);
 

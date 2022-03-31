@@ -20,3 +20,5 @@
 <p>signal_handler safy functions - https://man7.org/linux/man-pages/man7/signal-safety.7.html</p>
 
 <p>Sigaction - https://www.youtube.com/watch?v=_1TuZUbCnX0,</p>
+
+<p>_GNU_SOURCE - https://stackoverflow.com/questions/5582211/what-does-define-gnu-source-imply</p>

@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:20:20 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/31 16:11:48 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/03/31 16:28:53 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ static void	envp_list_dup(t_tkn *tkn, char *envp[])
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_tkn	tkn;
-
+	
 	if (argc > 1)
 		printf("%s :Invalid number of arguments", argv[0]);
 	envp_list_dup(&tkn, envp);
