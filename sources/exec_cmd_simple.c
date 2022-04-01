@@ -6,12 +6,12 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 20:17:33 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/30 17:18:44 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/04/01 17:58:43 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/*
 static int	check_built_in(t_tkn *tkn, int i)
 {
 	if (ft_strncmp(tkn->cmd[i][0], "cd\0", 3) == 0)
@@ -82,3 +82,4 @@ void	exec_simple_cmd(t_tkn *tkn, int i)
 		}
 	}
 }
+*/

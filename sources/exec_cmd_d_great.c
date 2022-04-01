@@ -6,12 +6,12 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 16:16:28 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/31 14:00:51 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/04/01 17:58:27 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/*
 static void	exec_cmd(t_tkn *tkn, int i)
 {
 	if (built_in_cmd(tkn, i) == 1)
@@ -37,8 +37,8 @@ static int	exec_child_(t_tkn *tkn, int fd[], int i)
 	close(fd[0]);
 	while (tkn->cmd_lex[i + y + 1] != NULL)
 	{
-	//	if(tkn->fd != 0)
-	//		close(tkn->fd);
+		if(tkn->fd != 0)
+			close(tkn->fd);
 		if (ft_strncmp(tkn->cmd_lex[i + y + 1][0], "DGREAT", 6) == 0)
 			tkn->fd = open(tkn->cmd[i + y + 1][1], O_RDWR | O_APPEND
 					| O_CREAT, 0777);
@@ -83,3 +83,4 @@ void	exec_cmd_d_great(t_tkn *tkn, int i)
 	dup2(fd[0], STDIN_FILENO);
 	close(fd[0]);
 }
+*/

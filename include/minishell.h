@@ -2,7 +2,7 @@
 # define MINISHELL_H
 
 #define _GNU_SOURCE
-#define DEBUG 0
+#define DEBUG 1
 #define PIPE "PIPE"
 #define LESS "LESS"
 #define DLESS "DLESS"
@@ -42,6 +42,7 @@ typedef struct s_tkn
 	int		exp_start;
 	int		exp_flag;
 	int		exit_signal;
+	int		i_cmd;
 }	t_tkn;
 
 int		get_prompt(t_tkn *tkn);
@@ -70,15 +71,15 @@ int		exec_cmd_path_ck(t_tkn *tkn, int i);
 
 void	exec_cmd_tab(t_tkn *tkn);
 
-void	exec_simple_cmd(t_tkn *tkn, int i);
+//void	exec_simple_cmd(t_tkn *tkn, int i);
 
 int		cmd_setup(t_tkn *tkn, int i);
 
 void	cmd_not_found(t_tkn *tkn, int i);
 
-void	exec_cmd_pipe(t_tkn *tkn, int i);
+void	exec_cmd_pipe(t_tkn *tkn);
 
-void	exec_cmd_d_great(t_tkn *tkn, int i);
+//	exec_cmd_d_great(t_tkn *tkn, int i);
 
 void	exec_cmd_d_less(t_tkn *tkn, int i);
 

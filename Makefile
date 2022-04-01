@@ -24,9 +24,7 @@ SRC_FILES		=	minishell.c \
 					cmd_tab.c \
 					exec_cmd_path_ck.c \
 					exec_cmd_tab.c \
-					exec_cmd_simple.c \
 					exec_cmd_pipe.c \
-					exec_cmd_d_great.c \
 					exec_cmd_d_less.c \
 					built_in_cmd.c \
 					exec_cmd_echo.c \
@@ -38,6 +36,8 @@ SRC_FILES		=	minishell.c \
 					exec_cmd_exit.c \
 					handle_signal_prompt.c \
 					exit.c \
+					#exec_cmd_d_great.c \
+					exec_cmd_simple.c \
 
 SRC				=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
