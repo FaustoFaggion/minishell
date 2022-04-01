@@ -20,6 +20,7 @@
 # include <fcntl.h>
 #include <signal.h>
 
+extern int	global_exit;
 
 typedef struct s_tkn
 {
@@ -100,6 +101,10 @@ void	exec_cmd_env(t_tkn *tkn, int flag);
 void	exec_cmd_exit(t_tkn *tkn, int i);
 
 void	handle_signal_prompt(void);
+
+void	handle_signal_parent(void);
+
+void	handle_signal_child(void);
 
 void	exit_shell(t_tkn *tkn);
 

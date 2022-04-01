@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 17:21:14 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/31 14:50:32 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/04/01 18:39:59 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,16 @@ static int	validate_var(char *cmd_arg)
 {
 	int	x;
 
-	if (ft_isdigit(cmd_arg[0]) == 0
-			|| ft_strncmp(cmd_arg, "=", 1) == 0)
+	if (ft_isdigit(cmd_arg[0]) == 0)
+	{
+		global_exit = 1;
 		return (1);
+	}
+	else if (ft_strncmp(cmd_arg, "=", 1) == 0)
+	{
+		global_exit = 0;
+		return (1);
+	}
 	x = 0;
 	while (cmd_arg[x] != '\0')
 	{

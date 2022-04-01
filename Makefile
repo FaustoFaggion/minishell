@@ -35,6 +35,8 @@ SRC_FILES		=	minishell.c \
 					exec_cmd_env.c \
 					exec_cmd_exit.c \
 					handle_signal_prompt.c \
+					handle_signal_parent.c \
+					handle_signal_child.c \
 					exit.c \
 					#exec_cmd_d_great.c \
 					exec_cmd_simple.c \

@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:20:20 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/31 16:28:53 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/04/01 18:13:25 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,8 @@ static void	envp_list_dup(t_tkn *tkn, char *envp[])
 	}
 	tkn->envp[x] = NULL;
 }
+
+int	global_exit;
 
 int	main(int argc, char *argv[], char *envp[])
 {

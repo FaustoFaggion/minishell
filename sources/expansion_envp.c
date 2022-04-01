@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 10:34:01 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/31 14:13:21 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/04/01 18:25:35 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	check_expansion(t_tkn **tkn, char **quote, int j)
 	if ((*quote)[j] == '?')
 	{
 		j++;
-		printf("falta expandir '?'");
+		printf("<%d>\n", global_exit);
 		(*tkn)->exp_flag = 0;
 	}	
 	else if (check_expansion_1(quote, j) == 0)

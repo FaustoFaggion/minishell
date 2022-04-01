@@ -6,11 +6,35 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 17:09:47 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/31 14:20:11 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/04/01 18:41:02 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	validate_var(char *cmd_arg)
+{
+	int	x;
+
+	if (ft_isdigit(cmd_arg[0]) == 0)
+	{
+		global_exit = 1;
+		return (1);
+	}
+	else if (ft_strncmp(cmd_arg, "=", 1) == 0)
+	{
+		global_exit = 0;
+		return (1);
+	}
+	x = 0;
+	while (cmd_arg[x] != '\0')
+	{
+		if (cmd_arg[x] == '=')
+			return (0);
+		x++;
+	}
+	return (1);
+}
 
 static void	unset_var(char ***envp, char *var, int *count)
 {
@@ -45,6 +69,8 @@ void	exec_cmd_unset(char ***envp, char *cmd_arg, int *count)
 	
 	flag = 0;
 	x = 0;
+	if (validate_var(cmd_arg) == 1)
+		printf("bash: unset: `%s`: não é um identificador válido\n", cmd_arg);
 	var = ft_strjoin(cmd_arg, "=");
 	while ((*envp)[x] != NULL)
 	{

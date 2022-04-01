@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 20:01:42 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/04/01 18:06:01 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/04/01 18:45:35 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ static void	define_stdout(t_tkn *tkn, int fd[])
 	{
 		if (ft_strncmp(tkn->cmd_lex[tkn->i_cmd + 1][0], "PIPE", 4) == 0)
 		{
-			printf("\npipe\n");
 			dup2(fd[1], STDOUT_FILENO);
 		}
 		else if (ft_strncmp(tkn->cmd_lex[tkn->i_cmd  + 1][0], "DGREAT", 6) == 0
@@ -97,6 +96,7 @@ static int	exec_child(t_tkn *tkn, int fd[])
 {
 	int	i;
 	
+	handle_signal_child();
 	i = tkn->i_cmd;
 	close(fd[0]);
 	define_stdout(tkn, fd);
@@ -132,6 +132,7 @@ void	exec_cmd_pipe(t_tkn *tkn)
 {
 	int	fd[2];
 	int	pid;
+	int	wstatus;
 
 	if (check_built_in(tkn) == 1)
 	{
@@ -144,8 +145,11 @@ void	exec_cmd_pipe(t_tkn *tkn)
 				exit(write(1, "fork error\n", 11));
 			if (pid == 0)
 				exec_child(tkn, fd);
-			waitpid(pid, NULL, 0);
+			waitpid(pid, &wstatus, 0);
+			if (!WIFSIGNALED(wstatus))
+				global_exit = WEXITSTATUS(wstatus);
 		}
+		handle_signal_parent();
 		close(fd[1]);
 		if (tkn->cmd[tkn->i_cmd + 1] != NULL)
 		{
