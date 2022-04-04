@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 20:01:42 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/04/01 18:45:35 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/04/04 15:29:35 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,58 +48,93 @@ static int	check_built_in(t_tkn *tkn)
 	return (1);
 }
 
-static void	redirect_stdout(t_tkn *tkn, int fd[], int i)
+static void	redirect_std_fileno(t_tkn *tkn, int fd[])
 {
 	char	*temp;
+	int		flag;
 	
 	close(fd[0]);
-	tkn->fd = 0;
+	tkn->fd_out = 0;
+	tkn->fd_in = 0;
+	flag = 0;
 	while (tkn->cmd_lex[tkn->i_cmd + 1] != NULL)
 	{
-		if(tkn->fd != 0)
-			close(tkn->fd);
 		if (ft_strncmp(tkn->cmd_lex[tkn->i_cmd + 1][0], "DGREAT", 6) == 0)
-			tkn->fd = open(tkn->cmd[tkn->i_cmd + 1][1], O_RDWR | O_APPEND
+		{
+			if(tkn->fd_out != 0)
+			close(tkn->fd_out);
+			tkn->fd_out = open(tkn->cmd[tkn->i_cmd + 1][1], O_RDWR | O_APPEND
 					| O_CREAT, 0777);
+			flag = 1;
+		}
 		else if (ft_strncmp(tkn->cmd_lex[tkn->i_cmd + 1][0], "GREAT", 5) == 0)
-			tkn->fd = open(tkn->cmd[tkn->i_cmd + 1][1], O_RDWR | O_TRUNC
+		{
+			printf("\n entrei >\n");
+			if(tkn->fd_out != 0)
+			close(tkn->fd_out);
+			tkn->fd_out = open(tkn->cmd[tkn->i_cmd + 1][1], O_RDWR | O_TRUNC
 					| O_CREAT, 0777);
+			flag = 1;
+		}
+		else if (ft_strncmp(tkn->cmd_lex[tkn->i_cmd + 1][0], "LESS", 5) == 0)
+		{
+			if(tkn->fd_in != 0)
+				close(tkn->fd_in);
+			tkn->fd_in = open(tkn->cmd[tkn->i_cmd + 1][1], O_RDONLY);
+			if (tkn->fd_in < 0)
+			{
+				printf("bash: %s: Arquivo ou diretório inexistente\n", tkn->cmd[tkn->i_cmd][1]);
+				return ;
+			}
+			else
+				dup2(tkn->fd_in, STDIN_FILENO);
+
+		}
 		else
 			break;
 		tkn->i_cmd++;
 	}
-	temp = ft_get_next_line(tkn->fd);
-	if (tkn->fd < 0)
+	if (flag == 1)
 	{
-		printf("bash: %s: Arquivo ou diretório inexistente\n", tkn->cmd[i][1]);
-		return ;
+		temp = ft_get_next_line(tkn->fd_out);
+		if (tkn->fd_out < 0)
+		{
+			printf("bash: %s: Arquivo ou diretório inexistente\n", tkn->cmd[tkn->i_cmd][1]);
+			return ;
+		}
+		else
+			dup2(tkn->fd_out, STDOUT_FILENO);
+		
 	}
-	else
-		dup2(tkn->fd, STDOUT_FILENO);
 }
 
-static void	define_stdout(t_tkn *tkn, int fd[])
+static void	define_std_fileno(t_tkn *tkn, int fd[])
 {
-	if (tkn->cmd[tkn->i_cmd + 1] != NULL)
+	if (tkn->cmd_lex[tkn->i_cmd + 1] != NULL)
 	{
 		if (ft_strncmp(tkn->cmd_lex[tkn->i_cmd + 1][0], "PIPE", 4) == 0)
 		{
 			dup2(fd[1], STDOUT_FILENO);
 		}
-		else if (ft_strncmp(tkn->cmd_lex[tkn->i_cmd  + 1][0], "DGREAT", 6) == 0
-				|| (ft_strncmp(tkn->cmd_lex[tkn->i_cmd + 1][0], "GREAT", 5) == 0))
-			redirect_stdout(tkn, fd, tkn->i_cmd);
+		else if (ft_strncmp(tkn->cmd_lex[tkn->i_cmd + 1][0], "DGREAT", 6) == 0
+				|| (ft_strncmp(tkn->cmd_lex[tkn->i_cmd + 1][0], "GREAT", 5) == 0)
+				|| (ft_strncmp(tkn->cmd_lex[tkn->i_cmd + 1][0], "LESS", 4) == 0))
+		{
+			redirect_std_fileno(tkn, fd);
+		}
+		else
+			printf("\nerro lógica if do redirect\n");
 	}
 }
 
 static int	exec_child(t_tkn *tkn, int fd[])
 {
-	int	i;
+	int		i;
 	
 	handle_signal_child();
 	i = tkn->i_cmd;
 	close(fd[0]);
-	define_stdout(tkn, fd);
+	define_std_fileno(tkn, fd);
 	close(fd[1]);
 	if (built_in_cmd(tkn, i) == 1)
 	{
@@ -121,9 +156,6 @@ static int	is_redirect(t_tkn *tkn)
 {
 	if (ft_strncmp(tkn->cmd_lex[tkn->i_cmd][0], "DGREAT", 6) == 0
 				|| (ft_strncmp(tkn->cmd_lex[tkn->i_cmd][0], "GREAT", 5) == 0))
-		return (1);
-	else if (ft_strncmp(tkn->cmd_lex[tkn->i_cmd][0], "DLESS", 5) == 0
-				|| (ft_strncmp(tkn->cmd_lex[tkn->i_cmd][0], "LESS", 4) == 0))
 		return (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 17:24:54 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/31 15:00:31 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/04/04 10:35:18 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,16 @@
 
 static void	exec_cmd_less(t_tkn *tkn, int i)
 {
-	if (ft_strncmp(tkn->cmd_lex[i][1], "WORD", 4) == 0)
-		tkn->fd = open(tkn->cmd[i][1], O_RDONLY);
-	if (tkn->fd < 0)
+	if(tkn->fd_in != 0)
+		close(tkn->fd_in);
+	tkn->fd_in = open(tkn->cmd[i][1], O_RDONLY);
+	if (tkn->fd_in < 0)
 	{
 		printf("bash: %s: Arquivo ou diretório inexistente\n", tkn->cmd[i][1]);
 		return ;
 	}
 	else
-		dup2(tkn->fd, STDIN_FILENO);
+		dup2(tkn->fd_in, STDIN_FILENO);
 }
 
 static void	wr_line(char *tkn, int limiter, int fd[])

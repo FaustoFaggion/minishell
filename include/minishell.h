@@ -32,7 +32,8 @@ typedef struct s_tkn
 	int		tkn_count;
 	int		cmd_count;
 	int		len;
-	int		fd;
+	int		fd_out;
+	int		fd_in;
 	char	**envp;
 	int		envp_count;
 	char	**amb_v;
