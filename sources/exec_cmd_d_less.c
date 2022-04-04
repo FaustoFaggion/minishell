@@ -6,25 +6,11 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 17:24:54 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/04/04 10:35:18 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/04/04 16:27:52 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void	exec_cmd_less(t_tkn *tkn, int i)
-{
-	if(tkn->fd_in != 0)
-		close(tkn->fd_in);
-	tkn->fd_in = open(tkn->cmd[i][1], O_RDONLY);
-	if (tkn->fd_in < 0)
-	{
-		printf("bash: %s: Arquivo ou diretório inexistente\n", tkn->cmd[i][1]);
-		return ;
-	}
-	else
-		dup2(tkn->fd_in, STDIN_FILENO);
-}
 
 static void	wr_line(char *tkn, int limiter, int fd[])
 {
@@ -69,8 +55,6 @@ static int	exec_cmd_dless(t_tkn *tkn, int i)
 
 void	exec_cmd_d_less(t_tkn *tkn, int i)
 {
-	if (ft_strncmp(tkn->cmd_lex[i][0], "LESS", 4) == 0)
-		exec_cmd_less(tkn, i);
-	else if (ft_strncmp(tkn->cmd_lex[i][0], "DLESS", 5) == 0)
+	if (ft_strncmp(tkn->cmd_lex[i][0], "DLESS", 5) == 0)
 		exec_cmd_dless(tkn, i);
 }

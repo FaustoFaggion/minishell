@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 20:01:42 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/04/04 15:47:45 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/04/04 16:26:25 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static void	redirect_std_fileno(t_tkn *tkn, int fd[])
 					| O_CREAT, 0777);
 			flag = 1;
 		}
-		else if (ft_strncmp(tkn->cmd_lex[tkn->i_cmd + 1][0], "LESS", 5) == 0)
+		else if (ft_strncmp(tkn->cmd_lex[tkn->i_cmd + 1][0], "LESS", 4) == 0)
 		{
 			if(tkn->fd_in != 0)
 				close(tkn->fd_in);
@@ -87,8 +87,11 @@ static void	redirect_std_fileno(t_tkn *tkn, int fd[])
 				return ;
 			}
 			else
-				dup2(tkn->fd_in, STDIN_FILENO);
-
+				dup2(tkn->fd_in, STDIN_FILENO);			
+		}
+		else if (ft_strncmp(tkn->cmd_lex[tkn->i_cmd + 1][0], "DLESS", 5) == 0)
+		{
+			exec_cmd_d_less(tkn, tkn->i_cmd + 1);
 		}
 		else
 			break;
@@ -117,8 +120,9 @@ static void	define_std_fileno(t_tkn *tkn, int fd[], char **next_cmd)
 			dup2(fd[1], STDOUT_FILENO);
 		}
 		else if (ft_strncmp(next_cmd[0], "DGREAT", 6) == 0
-				|| (ft_strncmp(next_cmd[0], "GREAT", 5) == 0)
-				|| (ft_strncmp(next_cmd[0], "LESS", 4) == 0))
+				|| ft_strncmp(next_cmd[0], "GREAT", 5) == 0
+				|| ft_strncmp(next_cmd[0], "LESS", 4) == 0
+				|| ft_strncmp(next_cmd[0], "DLESS", 5) == 0)
 		{
 			redirect_std_fileno(tkn, fd);
 		}
