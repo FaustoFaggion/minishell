@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 20:01:42 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/04/04 16:26:25 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/04/05 08:34:47 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void	redirect_std_fileno(t_tkn *tkn, int fd[])
 		if (ft_strncmp(tkn->cmd_lex[tkn->i_cmd + 1][0], "DGREAT", 6) == 0)
 		{
 			if(tkn->fd_out != 0)
-			close(tkn->fd_out);
+				close(tkn->fd_out);
 			tkn->fd_out = open(tkn->cmd[tkn->i_cmd + 1][1], O_RDWR | O_APPEND
 					| O_CREAT, 0777);
 			flag = 1;
@@ -71,7 +71,7 @@ static void	redirect_std_fileno(t_tkn *tkn, int fd[])
 		{
 			printf("\n entrei >\n");
 			if(tkn->fd_out != 0)
-			close(tkn->fd_out);
+				close(tkn->fd_out);
 			tkn->fd_out = open(tkn->cmd[tkn->i_cmd + 1][1], O_RDWR | O_TRUNC
 					| O_CREAT, 0777);
 			flag = 1;
@@ -131,7 +131,7 @@ static void	define_std_fileno(t_tkn *tkn, int fd[], char **next_cmd)
 	}
 }
 
-static int	exec_child(t_tkn *tkn, int fd[], char **cmd, char **nex_cmd)
+static int	exec_child(t_tkn *tkn, int fd[], char **nex_cmd)
 {
 	int		i;
 	
@@ -140,9 +140,10 @@ static int	exec_child(t_tkn *tkn, int fd[], char **cmd, char **nex_cmd)
 	close(fd[0]);
 	define_std_fileno(tkn, fd, nex_cmd);
 	close(fd[1]);
+//	printf("%s", )
 	if (built_in_cmd(tkn, i) == 1)
 	{
-		if (execve(tkn->path_0, cmd, tkn->envp) == -1)
+		if (execve(tkn->path_0, tkn->cmd[i], tkn->envp) == -1)
 		{
 			write(2, "error execve\n", 13);
 			exit(1);
@@ -155,7 +156,7 @@ static int	exec_child(t_tkn *tkn, int fd[], char **cmd, char **nex_cmd)
 	exit(0);
 	return (0);
 }
-
+/*
 static int	is_redirect(t_tkn *tkn)
 {
 	if (ft_strncmp(tkn->cmd_lex[tkn->i_cmd][0], "DGREAT", 6) == 0
@@ -163,7 +164,7 @@ static int	is_redirect(t_tkn *tkn)
 		return (1);
 	return (0);
 }
-
+*/
 void	exec_cmd_pipe(t_tkn *tkn)
 {
 	int	fd[2];
@@ -180,17 +181,17 @@ void	exec_cmd_pipe(t_tkn *tkn)
 			if (pid < 0)
 				exit(write(1, "fork error\n", 11));
 			if (pid == 0)
-				exec_child(tkn, fd, tkn->cmd_lex[tkn->i_cmd], tkn->cmd_lex[tkn->i_cmd + 1]);
+				exec_child(tkn, fd, tkn->cmd_lex[tkn->i_cmd + 1]);
 			waitpid(pid, &wstatus, 0);
 			if (!WIFSIGNALED(wstatus))
 				global_exit = WEXITSTATUS(wstatus);
 		}
 		handle_signal_parent();
 		close(fd[1]);
+	//	printf("\n..cmd %s\n",tkn->cmd[tkn->i_cmd + 1][0]);
 		if (tkn->cmd[tkn->i_cmd + 1] != NULL)
 		{
-			if (ft_strncmp(tkn->cmd_lex[tkn->i_cmd + 1][0], "PIPE", 4) == 0
-					&& is_redirect(tkn) == 0)
+			if (ft_strncmp(tkn->cmd_lex[tkn->i_cmd + 1][0], "PIPE", 4) == 0)
 			{
 				dup2(fd[0], STDIN_FILENO);
 			}
