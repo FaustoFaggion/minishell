@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 20:02:29 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/30 15:16:19 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/04/18 11:48:23 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ static void	token_to_lexema(t_tkn *tkn, int x)
 		tkn->lexemas[x] = ft_strdup("LESS");
 	else if (ft_strncmp(tkn->tokens[x], "<<", 2) == 0)
 		tkn->lexemas[x] = ft_strdup("DLESS");
-	else if (ft_strncmp(tkn->tokens[x], ">\0", 2) == 0)
+	else if (ft_strncmp(tkn->tokens[x], ">\0", 2) == 0
+			|| ft_strncmp(tkn->tokens[x], ">|", 2) == 0)
 		tkn->lexemas[x] = ft_strdup("GREAT");
 	else if (ft_strncmp(tkn->tokens[x], ">>", 2) == 0)
 		tkn->lexemas[x] = ft_strdup("DGREAT");

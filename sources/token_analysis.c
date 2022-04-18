@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 16:10:30 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/04/04 11:16:19 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/04/18 11:46:29 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static int	metachar_check(t_tkn *tkn, int i)
 	{
 		i++;
 		if (tkn->line[i] == '>')
+			i++;
+		if (tkn->line[i] == '|')
 			i++;
 	}
 	return (i);

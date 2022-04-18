@@ -101,7 +101,8 @@ static int	built_in_utils(t_tkn *tkn, int i)
 	}
 	else if (ft_strncmp(tkn->cmd[i][0], "env\0", 4) == 0)
 	{
-		exec_cmd_env(tkn, 0);
+		if (tkn->cmd[i][1] == NULL)
+			exec_cmd_env(tkn, 0);
 		return (0);
 	}
 	else if (ft_strncmp(tkn->cmd[i][0], "exit\0", 5) == 0)
