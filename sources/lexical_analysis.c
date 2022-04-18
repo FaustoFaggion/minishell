@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 20:02:29 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/04/18 11:48:23 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/04/18 13:08:29 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,14 @@ static void	word_rules(t_tkn *tkn, int x)
 	tkn->lexemas[x] = ft_strdup("WORD");
 }
 
+static void	assig_word_rules(t_tkn *tkn, int x)
+{
+	if (ft_strncmp(tkn->tokens[x], "$\0", 2) == 0)
+		tkn->lexemas[x] = ft_strdup("WORD");
+	else
+		tkn->lexemas[x] = ft_strdup("ASSIGNMENT_WORD");
+}
+
 static void	token_to_lexema(t_tkn *tkn, int x)
 {
 	if (ft_strncmp(tkn->tokens[x], "|", 1) == 0)
@@ -48,7 +56,7 @@ static void	token_to_lexema(t_tkn *tkn, int x)
 	else if (ft_strncmp(tkn->tokens[x], ">>", 2) == 0)
 		tkn->lexemas[x] = ft_strdup("DGREAT");
 	else if (ft_strncmp(tkn->tokens[x], "$", 1) == 0)
-		tkn->lexemas[x] = ft_strdup("ASSIGNMENT_WORD");
+		assig_word_rules(tkn, x);
 	else
 		word_rules(tkn, x);
 }
