@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 16:07:10 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/04/18 13:18:53 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/04/18 14:52:42 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void	expansion(t_tkn *tkn)
 			if (tkn->tokens[i][j] == '~')
 				j = special_char(&tkn, &tkn->tokens[i], j);
 			if (tkn->tokens[i][j] == '$')
-				j = prepare_envp(&tkn, &tkn->tokens[i], i, j);
+				j = prepare_envp(&tkn, &tkn->tokens[i], j);
 			else if (tkn->tokens[i][j] == '\"')
 				j = prepare_quote(&tkn, &tkn->tokens[i], j, i);
 			else if (tkn->tokens[i][j] == '\'')
