@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:20:20 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/04/01 18:13:25 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/04/18 09:57:32 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ static void	copy_path(t_tkn *tkn)
 
 static void	init_tkn(t_tkn *tkn)
 {
+	tkn->line = NULL;
 	tkn->tokens = NULL;
 	tkn->lexemas = NULL;
 	tkn->cmd = NULL;

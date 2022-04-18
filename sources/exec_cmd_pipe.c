@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 20:01:42 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/04/05 08:34:47 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/04/18 09:30:38 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ static void	redirect_std_fileno(t_tkn *tkn, int fd[])
 		}
 		else if (ft_strncmp(tkn->cmd_lex[tkn->i_cmd + 1][0], "GREAT", 5) == 0)
 		{
-			printf("\n entrei >\n");
 			if(tkn->fd_out != 0)
 				close(tkn->fd_out);
 			tkn->fd_out = open(tkn->cmd[tkn->i_cmd + 1][1], O_RDWR | O_TRUNC
