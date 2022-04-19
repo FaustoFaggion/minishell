@@ -26,7 +26,7 @@ void	setup_error(char *arg, int flag)
 	}
 	if (flag == 5)
 	{
-		printf("bash: erro de sintaxe próximo ao token inesperado `%s'\n", token);
+		printf("bash: erro de sintaxe próximo ao token inesperado `%s'\n", arg);
 		global_exit = 2;
 	}
 }
