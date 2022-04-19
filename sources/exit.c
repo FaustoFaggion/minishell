@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:19:26 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/04/18 10:02:17 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/04/19 09:06:36 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ static void	exit_utils(t_tkn *tkn)
 		free_tab(&tkn->tokens, tkn->tkn_count);
 	if (tkn->lexemas != NULL)
 		free_tab(&tkn->lexemas, tkn->tkn_count);
-	//if (tkn->line != NULL)
-	//	free(tkn->line);
+	if (tkn->line != NULL)
+		free(tkn->line);
 	if (tkn->path_0 != NULL)
 		free(tkn->path_0);
 	free_tab(&tkn->path, tkn->path_count);

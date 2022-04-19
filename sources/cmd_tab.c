@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 14:51:10 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/30 10:09:58 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/04/19 08:03:42 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,20 @@ static int	cmd_count(t_tkn *tkn, int i)
 	count = 0;
 	if (ft_strncmp(tkn->lexemas[i], "PIPE", 4) == 0)
 		count = 1;
-	if (ft_strncmp(tkn->lexemas[i], "LESS", 4) == 0
+	else if (ft_strncmp(tkn->lexemas[i], "LESS", 4) == 0
 		|| ft_strncmp(tkn->lexemas[i], "DLESS", 5) == 0
 		|| ft_strncmp(tkn->lexemas[i], "GREAT", 5) == 0
 		|| ft_strncmp(tkn->lexemas[i], "DGREAT", 6) == 0)
-		count = 2;
+	{
+		count = 1;
+		while (ft_strncmp(tkn->lexemas[i + count], "WORD", 4) == 0
+		|| ft_strncmp(tkn->lexemas[i + count], "ASSIGNMENT_WORD", 15) == 0)
+		{
+			count++;
+			if (tkn->lexemas[i + count] == NULL)
+				break ;
+		}
+	}
 	return (count);
 }
 

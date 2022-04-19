@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 20:01:42 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/04/18 18:06:20 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/04/19 08:17:28 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ static int	exec_child(t_tkn *tkn, int fd[], char **nex_cmd)
 	close(fd[0]);
 	define_std_fileno(tkn, fd, nex_cmd);
 	close(fd[1]);
-//	printf("%s", )
+//	printf("rrrrrrrr");
 	if (built_in_cmd(tkn, i) == 1)
 	{
 		if (execve(tkn->path_0, tkn->cmd[i], tkn->envp) == -1)

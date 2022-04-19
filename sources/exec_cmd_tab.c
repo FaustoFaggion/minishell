@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 20:17:11 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/04/04 10:00:43 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/04/19 09:08:02 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,28 @@ void	cmd_not_found(t_tkn *tkn, int i)
 	global_exit = 127;
 }
 
+static void	special_case(t_tkn *tkn, int i)
+{
+	int j;
+
+	j = 0;
+	if (ft_strncmp(tkn->cmd[i][0], "env\0", 4) == 0 && tkn->cmd[i][1] != NULL)
+	{
+		free(tkn->cmd[i][j]);
+		while (tkn->cmd[i][j] != NULL)
+		{
+			tkn->cmd[i][j] = tkn->cmd[i][j + 1];
+			j++;
+		}
+	}
+}
+
 int	cmd_setup(t_tkn *tkn, int i)
 {
 	int		x;
 	char	*temp;
 
+	special_case(tkn, i);
 	x = 0;
 	if (tkn->path_0 != NULL)
 		free(tkn->path_0);

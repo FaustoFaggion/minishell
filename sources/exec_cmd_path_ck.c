@@ -1,5 +1,6 @@
 #include "minishell.h"
 
+/*
 static void	not_found(t_tkn *tkn, int i)
 {
 	write(2, "bash: ", 6);
@@ -34,6 +35,7 @@ static int	cmd_check(t_tkn *tkn, char *cmd, int i)
 	not_found(tkn, i);
 	return (1);
 }
+*/
 int	exec_cmd_path_ck(t_tkn *tkn, int i)
 {
 	int		x;
@@ -42,32 +44,24 @@ int	exec_cmd_path_ck(t_tkn *tkn, int i)
 	if (ft_strncmp(tkn->tokens[i], "/usr/bin/", 9) == 0)
 	{
 		temp = ft_substr(tkn->tokens[i], 9, ft_strlen(tkn->tokens[i]) - 9);
-		if (cmd_check(tkn, temp, i) == 0)
-		{
-			while (tkn->tokens[i][++x + 9] != '\0')
-				tkn->tokens[i][x] = tkn->tokens[i][x + 9];
+		while (tkn->tokens[i][++x + 9] != '\0')
+			tkn->tokens[i][x] = tkn->tokens[i][x + 9];
+		tkn->tokens[i][x] = '\0';
+		while (tkn->tokens[i][++x] != '\0')
 			tkn->tokens[i][x] = '\0';
-			while (tkn->tokens[i][++x] != '\0')
-				tkn->tokens[i][x] = '\0';
-			free(temp);
-			return (0);
-		}
 		free(temp);
+		return (0);
 	}
 	else if (ft_strncmp(tkn->tokens[i], "/bin/", 5) == 0)
 	{
 		temp = ft_substr(tkn->tokens[i], 5, ft_strlen(tkn->tokens[i]) - 5);
-		if (cmd_check(tkn, temp, i) == 0)
-		{
-			while (tkn->tokens[i][++x + 5] != '\0')
-				tkn->tokens[i][x] = tkn->tokens[i][x + 5];
+		while (tkn->tokens[i][++x + 5] != '\0')
+			tkn->tokens[i][x] = tkn->tokens[i][x + 5];
+		tkn->tokens[i][x] = '\0';
+		while (tkn->tokens[i][++x] != '\0')
 			tkn->tokens[i][x] = '\0';
-			while (tkn->tokens[i][++x] != '\0')
-				tkn->tokens[i][x] = '\0';
-			free(temp);
-			return (0);
-		}
 		free(temp);
+		return (0);
 	}
 	else if (ft_strncmp(tkn->tokens[i], "/usr/bin/", 9) != 0
 			&& ft_strncmp(tkn->tokens[i], "/bin/", 5) != 0)
