@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:20:20 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/04/19 09:25:34 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/04/19 09:56:58 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ static void	init_tkn(t_tkn *tkn)
 	tkn->cmd = NULL;
 	tkn->path = NULL;
 	tkn->path_0 = NULL;
+	tkn->fd_in = 0;
+	tkn->fd_out = 1;
 	copy_path(tkn);
 	tkn->path_count = 0;
 	if (tkn->path != NULL)

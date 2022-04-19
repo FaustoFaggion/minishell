@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 20:01:42 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/04/19 08:17:28 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/04/19 10:40:36 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,9 +137,9 @@ static int	exec_child(t_tkn *tkn, int fd[], char **nex_cmd)
 	handle_signal_child();
 	i = tkn->i_cmd;
 	close(fd[0]);
+//	is_redirect()
 	define_std_fileno(tkn, fd, nex_cmd);
 	close(fd[1]);
-//	printf("rrrrrrrr");
 	if (built_in_cmd(tkn, i) == 1)
 	{
 		if (execve(tkn->path_0, tkn->cmd[i], tkn->envp) == -1)
@@ -155,15 +155,7 @@ static int	exec_child(t_tkn *tkn, int fd[], char **nex_cmd)
 	exit(0);
 	return (0);
 }
-/*
-static int	is_redirect(t_tkn *tkn)
-{
-	if (ft_strncmp(tkn->cmd_lex[tkn->i_cmd][0], "DGREAT", 6) == 0
-				|| (ft_strncmp(tkn->cmd_lex[tkn->i_cmd][0], "GREAT", 5) == 0))
-		return (1);
-	return (0);
-}
-*/
+
 void	exec_cmd_pipe(t_tkn *tkn)
 {
 	int	fd[2];
@@ -187,7 +179,6 @@ void	exec_cmd_pipe(t_tkn *tkn)
 		}
 		handle_signal_parent();
 		close(fd[1]);
-	//	printf("\n..cmd %s\n",tkn->cmd[tkn->i_cmd + 1][0]);
 		if (tkn->cmd[tkn->i_cmd + 1] != NULL)
 		{
 			if (ft_strncmp(tkn->cmd_lex[tkn->i_cmd + 1][0], "PIPE", 4) == 0)

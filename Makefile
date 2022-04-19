@@ -40,6 +40,7 @@ SRC_FILES		=	minishell.c \
 					handle_signal_child.c \
 					handle_signal_here_doc.c \
 					exit.c \
+					setup_error.c \
 					#exec_cmd_d_great.c \
 					exec_cmd_simple.c \
 

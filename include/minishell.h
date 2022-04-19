@@ -109,6 +109,8 @@ void	handle_signal_child(void);
 
 void	handle_signal_here_doc(void);
 
+void	setup_error(char *arg, int flag);
+
 void	exit_shell(t_tkn *tkn);
 
 void	exit_shell_quote(t_tkn *tkn, int i);

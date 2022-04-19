@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 17:24:54 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/04/04 17:31:37 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/04/19 10:02:12 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	exec_cmd_less(t_tkn *tkn, int i)
 	tkn->fd_in = open(tkn->cmd[i][1], O_RDONLY);
 	if (tkn->fd_in < 0)
 	{
-		printf("bash: %s: Arquivo ou diretório inexistente\n", tkn->cmd[i][1]);
+		setup_error(tkn->cmd[i][1], 1);
 		return ;
 	}
 	else
