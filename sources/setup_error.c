@@ -2,6 +2,12 @@
 
 void	setup_error(char *arg, int flag)
 {
+	if (flag == 0)
+	{
+		write(1, arg, ft_strlen(arg));
+		write(1, ": Command not found\n", 20);
+		global_exit = 127;
+	}
 	if (flag == 1)
 	{
 		printf("bash: %s: Arquivo ou diretório inexistente\n", arg);
@@ -28,5 +34,27 @@ void	setup_error(char *arg, int flag)
 	{
 		printf("bash: erro de sintaxe próximo ao token inesperado `%s'\n", arg);
 		global_exit = 2;
+	}
+	if (flag == 6)
+	{
+		printf("bash: export: `%s`: não é um identificador válido\n", arg);
+		global_exit = 1; 
+	}
+	if (flag == 7)
+	{
+		ft_putendl_fd("exit\nbash: exit: número excessivo de argumentos\n", 2);
+		global_exit = 1;
+	}
+	if (flag == 8)
+	{
+		ft_putendl_fd("exit:\nexit: ", 2);
+		ft_putendl_fd(arg, 2);
+		ft_putendl_fd(": requer argumento numérico\n", 2);
+		global_exit = 2;
+	}
+	if (flag == 9)
+	{
+		printf("bash: cd: número excessivo de argumentos\n");
+		global_exit = 1;
 	}
 }

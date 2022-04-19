@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 17:21:14 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/04/01 18:39:59 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/04/19 11:06:17 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,9 @@ static int	validate_var(char *cmd_arg)
 	int	x;
 
 	if (ft_isdigit(cmd_arg[0]) == 0)
-	{
-		global_exit = 1;
 		return (1);
-	}
 	else if (ft_strncmp(cmd_arg, "=", 1) == 0)
-	{
-		global_exit = 0;
 		return (1);
-	}
 	x = 0;
 	while (cmd_arg[x] != '\0')
 	{
@@ -45,7 +39,7 @@ void	exec_cmd_export(t_tkn *tkn, int i)
 	char	*swap_2;
 
 	if (validate_var(tkn->cmd[i][1]) == 1)
-		printf("bash: export: `%s`: não é um identificador válido\n", tkn->cmd[i][1]);
+		setup_error(tkn->cmd[i][1], 6);
 	else
 	{
 		if (tkn->cmd[i][1] == NULL)

@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 20:01:42 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/04/19 10:40:36 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/04/19 10:56:29 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static void	redirect_std_fileno(t_tkn *tkn, int fd[])
 			tkn->fd_in = open(tkn->cmd[tkn->i_cmd + 1][1], O_RDONLY);
 			if (tkn->fd_in < 0)
 			{
-				printf("bash: %s: Arquivo ou diretório inexistente\n", tkn->cmd[tkn->i_cmd][1]);
+				setup_error(tkn->cmd[tkn->i_cmd][1], 1);
 				return ;
 			}
 			else

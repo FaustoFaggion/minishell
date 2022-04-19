@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 16:14:38 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/03/29 19:21:35 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/04/19 11:21:00 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,15 +87,14 @@ void	exec_cmd_cd(t_tkn *tkn, int i)
 	}
 	else if (tkn->cmd[i][2] != NULL)
 	{
-		printf("bah: cd: número excessivo de argumentos\n");
+		setup_error(tkn->cmd[i][2], 9);
 		return ;
 	}
 	else
 	{
 		if (chdir(tkn->cmd[i][1]) == -1)
 		{
-			printf("bash: %s: Arquivo ou diretório inexistente\n",
-				tkn->cmd[i][1]);
+			setup_error(tkn->cmd[i][1], 1);
 			return ;
 		}
 	}

@@ -6,18 +6,11 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 20:17:11 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/04/19 09:31:13 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/04/19 10:52:37 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	cmd_not_found(t_tkn *tkn, int i)
-{
-	write(1, tkn->cmd[i][0], ft_strlen(tkn->cmd[i][0]));
-	write(1, ": Command not found\n", 20);
-	global_exit = 127;
-}
 
 static void	special_case(t_tkn *tkn, int i)
 {
@@ -63,7 +56,7 @@ int	cmd_setup(t_tkn *tkn, int i)
 			x++;
 		}
 	}
-	cmd_not_found(tkn, i);
+	setup_error(tkn->cmd[i][0], 0);
 	return (1);
 }
 

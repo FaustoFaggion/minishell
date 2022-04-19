@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:20:20 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/04/19 09:56:58 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/04/19 10:59:36 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,11 @@ int	main(int argc, char *argv[], char *envp[])
 	t_tkn	tkn;
 	
 	if (argc > 1)
-		printf("%s :Invalid number of arguments", argv[0]);
+	{
+		printf("%s :Invalid number of arguments\n", argv[0]);
+		global_exit = 1;
+		return (1);
+	}
 	envp_list_dup(&tkn, envp);
 	tkn.amb_v = NULL;
 	while (1)

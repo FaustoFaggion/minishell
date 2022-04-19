@@ -34,16 +34,12 @@ static int	not_valid_exit(t_tkn *tkn, int i, int len, int is_digit)
 {
 	if (is_digit == 1)
 	{
-		ft_putendl_fd("exit:\nexit: ", 2);
-		ft_putendl_fd(tkn->cmd[i][1], 2);
-		ft_putendl_fd(": requer argumento numérico\n", 2);
-		global_exit = 2;
+		setup_error(tkn->cmd[i][1], 8);
 		return (1);
 	}
 	else if (len > 2)
 	{
-		ft_putendl_fd("exit\nbash: exit: número excessivo de argumentos\n", 2);
-		global_exit = 1;
+		setup_error(tkn->cmd[i][1], 7);
 		return (1);
 	}
 	return (0);
