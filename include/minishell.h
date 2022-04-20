@@ -81,7 +81,7 @@ void	cmd_not_found(t_tkn *tkn, int i);
 
 void	exec_cmd_pipe(t_tkn *tkn);
 
-//	exec_cmd_d_great(t_tkn *tkn, int i);
+void	exec_cmd_d_great(t_tkn *tkn);
 
 void	exec_cmd_d_less(t_tkn *tkn, int i);
 
