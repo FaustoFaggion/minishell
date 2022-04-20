@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:19:26 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/04/19 09:06:36 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/04/20 10:03:47 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,43 +70,4 @@ void	exit_shell(t_tkn *tkn)
 		tkn->cmd_lex = NULL;
 	}
 	exit_utils(tkn);
-}
-
-void	exit_shell_quote(t_tkn *tkn, int i)
-{
-	int	x;
-
-	x = 0;
-	if (tkn->tokens != NULL)
-	{
-		while (x < i)
-		{
-			free(tkn->tokens[x]);
-			x++;
-		}
-		free(tkn->tokens);
-	}
-	x = 0;
-	if (tkn->lexemas != NULL)
-	{
-		while (x < tkn->tkn_count)
-		{
-			free(tkn->lexemas[x]);
-			x++;
-		}
-		free(tkn->lexemas);
-	}
-	if (tkn->line != NULL)
-		free(tkn->line);
-	x = 0;
-	if (tkn->path != NULL)
-	{
-		while (x < tkn->path_count)
-		{
-			free(tkn->path[x]);
-			x++;
-		}
-		free(tkn->path);
-		tkn->path = NULL;
-	}
 }

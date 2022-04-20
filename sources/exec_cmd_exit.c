@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_cmd_exit.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/20 09:48:02 by fagiusep          #+#    #+#             */
+/*   Updated: 2022/04/20 09:49:14 by fagiusep         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static int	cmd_size(t_tkn *tkn, int i)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	while (tkn->cmd[i][j] != NULL)
@@ -12,7 +24,7 @@ static int	cmd_size(t_tkn *tkn, int i)
 
 static int	cmd_digit(t_tkn *tkn, int i)
 {
-	int j;
+	int	j;
 	int	flag;
 
 	j = 0;
@@ -26,7 +38,6 @@ static int	cmd_digit(t_tkn *tkn, int i)
 			flag = 1;
 		j++;
 	}
-
 	return (flag);
 }
 
@@ -57,7 +68,7 @@ void	exec_cmd_exit(t_tkn *tkn, int i)
 		len = cmd_size(tkn, i);
 		is_digit = cmd_digit(tkn, i);
 		if (not_valid_exit(tkn, i, len, is_digit) == 1)
-			return;
+			return ;
 		else
 		{
 			if (ft_atoi(tkn->cmd[i][1]) > 256)
@@ -66,10 +77,8 @@ void	exec_cmd_exit(t_tkn *tkn, int i)
 				global_exit = (ft_atoi(tkn->cmd[i][1]));
 		}
 	}
-		
-		exit_shell(tkn);
-		free_tab(&tkn->envp, tkn->envp_count);
-		rl_clear_history();
-		exit(global_exit);
-	
+	exit_shell(tkn);
+	free_tab(&tkn->envp, tkn->envp_count);
+	rl_clear_history();
+	exit(global_exit);
 }

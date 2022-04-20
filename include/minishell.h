@@ -2,7 +2,7 @@
 # define MINISHELL_H
 
 #define _GNU_SOURCE
-#define DEBUG 0
+#define DEBUG 1
 #define PIPE "PIPE"
 #define LESS "LESS"
 #define DLESS "DLESS"
@@ -68,6 +68,8 @@ int		join_token(char **quote, char **temp, char **exp_envp, char **temp_2);
 void	quoted_envp(char **tkn);
 
 void	cmd_tab(t_tkn *tkn);
+
+int		cmd_word(t_tkn *tkn, int i);
 
 int		exec_cmd_path_ck(t_tkn *tkn, int i);
 

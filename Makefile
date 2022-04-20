@@ -22,6 +22,7 @@ SRC_FILES		=	minishell.c \
 					expansion_d_quote.c \
 					expansion_envp.c \
 					cmd_tab.c \
+					cmd_tab_utils.c \
 					exec_cmd_path_ck.c \
 					exec_cmd_tab.c \
 					exec_cmd_pipe.c \
@@ -41,6 +42,7 @@ SRC_FILES		=	minishell.c \
 					handle_signal_child.c \
 					handle_signal_here_doc.c \
 					exit.c \
+					exit_utils.c \
 					setup_error.c \
 					#exec_cmd_simple.c \
 

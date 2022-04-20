@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_signal_prompt.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/20 09:49:40 by fagiusep          #+#    #+#             */
+/*   Updated: 2022/04/20 09:49:41 by fagiusep         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static void	ft_handle_sigint(void);
@@ -38,4 +50,3 @@ static void	ft_handle_sigquit(void)
 	sigemptyset(&sa.sa_mask);
 	sigaction(SIGQUIT, &sa, NULL);
 }
-

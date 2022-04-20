@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 20:17:11 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/04/20 09:23:07 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/04/20 15:58:18 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@ static void	special_case(t_tkn *tkn, int i)
 	if (ft_strncmp(tkn->cmd[i][0], "env\0", 4) == 0 && tkn->cmd[i][1] != NULL)
 	{
 		free(tkn->cmd[i][j]);
+		free(tkn->cmd_lex[i][j]);
 		while (tkn->cmd[i][j] != NULL)
 		{
 			tkn->cmd[i][j] = tkn->cmd[i][j + 1];
+			tkn->cmd_lex[i][j] = tkn->cmd_lex[i][j + 1];
 			j++;
 		}
 	}
@@ -65,33 +67,7 @@ void	exec_cmd_tab(t_tkn *tkn)
 	tkn->i_cmd = 0;
 	while (tkn->cmd[tkn->i_cmd] != NULL)
 	{
-		if (ft_strncmp(tkn->cmd_lex[tkn->i_cmd][0], "WORD", 4) == 0
-			|| ft_strncmp(tkn->cmd_lex[tkn->i_cmd][0], "ASSIGNMENT_WORD", 15) == 0)
-		{
-			if (tkn->cmd[tkn->i_cmd + 1] == NULL)
-			{
-				exec_cmd_pipe(tkn);	
-			}
-			else if (ft_strncmp(tkn->cmd_lex[tkn->i_cmd + 1][0], "PIPE", 4) == 0)
-			{
-				exec_cmd_pipe(tkn);
-				tkn->i_cmd++;
-			}
-			else if (ft_strncmp(tkn->cmd_lex[tkn->i_cmd + 1][0], "GREAT", 5) == 0
-				|| ft_strncmp(tkn->cmd_lex[tkn->i_cmd + 1][0], "DGREAT", 6) == 0)
-			{
-				exec_cmd_pipe(tkn);
-				tkn->i_cmd++;
-			}
-			else if (ft_strncmp(tkn->cmd_lex[tkn->i_cmd + 1][0], "LESS", 4) == 0
-				|| ft_strncmp(tkn->cmd_lex[tkn->i_cmd + 1][0], "DLESS", 5) == 0)
-			{
-				exec_cmd_pipe(tkn);
-				tkn->i_cmd++;
-			}
-			tkn->i_cmd++;
-		}
-		else if (ft_strncmp(tkn->cmd_lex[tkn->i_cmd][0], "LESS", 4) == 0
+		if (ft_strncmp(tkn->cmd_lex[tkn->i_cmd][0], "LESS", 4) == 0
 				|| ft_strncmp(tkn->cmd_lex[tkn->i_cmd][0], "DLESS", 5) == 0)
 		{
 			
@@ -101,9 +77,24 @@ void	exec_cmd_tab(t_tkn *tkn)
 		else if (ft_strncmp(tkn->cmd_lex[tkn->i_cmd][0], "GREAT", 5) == 0
 				|| ft_strncmp(tkn->cmd_lex[tkn->i_cmd][0], "DGREAT", 6) == 0)
 		{
+			printf("cmd_great exec_cmd_tab\n");
 			exec_cmd_d_great(tkn);
 			tkn->i_cmd++;
 			
+		}
+		else if (ft_strncmp(tkn->cmd_lex[tkn->i_cmd][0], "WORD", 4) == 0
+			|| ft_strncmp(tkn->cmd_lex[tkn->i_cmd][0], "ASSIGNMENT_WORD", 15) == 0)
+		{
+			
+			if (tkn->cmd[tkn->i_cmd + 1] != NULL
+				&& ft_strncmp(tkn->cmd_lex[tkn->i_cmd + 1][0], "PIPE", 4) == 0)
+			{
+				exec_cmd_pipe(tkn);
+				tkn->i_cmd++;
+			}
+			else 
+				exec_cmd_pipe(tkn);
+			tkn->i_cmd++;
 		}
 	}
 	dup2(1, STDIN_FILENO);

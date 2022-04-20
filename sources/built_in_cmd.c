@@ -1,5 +1,17 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   built_in_cmd.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/20 10:08:07 by fagiusep          #+#    #+#             */
+/*   Updated: 2022/04/20 10:32:38 by fagiusep         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "minishell.h"
+/*
 static int	validate_var(t_tkn *tkn, int i)
 {
 	int	x;
@@ -86,7 +98,7 @@ static void	prepare_amb_var(t_tkn *tkn, int i)
 		tkn->amb_v_count++;
 	}
 }
-
+*/
 static int	built_in_utils(t_tkn *tkn, int i)
 {
 	if (ft_strncmp(tkn->cmd[i][0], "export\0", 7) == 0)
@@ -110,6 +122,7 @@ static int	built_in_utils(t_tkn *tkn, int i)
 		exec_cmd_exit(tkn, i);
 		return (0);
 	}
+/*	
 	else if (ft_strncmp(tkn->cmd_lex[i][0], "ASSIGNMENT_WORD", 15) == 0)
 	{
 		printf("\n\n................\n\n");
@@ -119,6 +132,7 @@ static int	built_in_utils(t_tkn *tkn, int i)
 			return (0);
 		}
 	}
+*/
 	return (1);
 }
 

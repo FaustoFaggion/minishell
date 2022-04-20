@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:59:12 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/04/19 10:43:07 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/04/20 14:42:32 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void	sintax_error(t_tkn *tkn, char *token)
 {
-		setup_error(token, 3);
-		exit_shell(tkn);
+	setup_error(token, 3);
+	exit_shell(tkn);
 }
 
 static int	check_cmd(t_tkn *tkn, int i, char *token)
@@ -42,7 +42,7 @@ static int	check_cmd(t_tkn *tkn, int i, char *token)
 
 static int	check_pipe(t_tkn *tkn, int i, char *token)
 {
-	if (tkn->lexemas[++i] == NULL)
+	if (tkn->lexemas[++i] == NULL || ft_strncmp(tkn->lexemas[i], "PIPE", 4) == 0)
 	{
 		sintax_error(tkn, token);
 		return (-1);

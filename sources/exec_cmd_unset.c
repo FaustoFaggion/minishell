@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 17:09:47 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/04/19 07:39:36 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/04/20 10:33:10 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	exec_cmd_unset(char ***envp, char *cmd_arg, int *count)
 	int		x;
 	int		flag;
 	char	*var;
-	
+
 	flag = 0;
 	x = 0;
 //	if (validate_var(cmd_arg) == 1)

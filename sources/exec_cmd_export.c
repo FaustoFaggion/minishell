@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 17:21:14 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/04/19 11:06:17 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/04/20 11:28:46 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,61 @@ static int	validate_var(char *cmd_arg)
 	while (cmd_arg[x] != '\0')
 	{
 		if (cmd_arg[x] == '=')
+		{
+			if (cmd_arg[x + 1] == ' ' || cmd_arg[x + 1] == '\0')
+				return (1);
 			return (0);
+		}
 		x++;
 	}
 	return (1);
 }
 
-void	exec_cmd_export(t_tkn *tkn, int i)
+static int	check_envp(t_tkn *tkn, char **swap, char ***var)
+{
+	int		x;
+	char	*swap_2;
+
+	x = 0;
+	while (tkn->envp[x] != NULL)
+	{
+		if (ft_strncmp(tkn->envp[x], (*var)[0], ft_strlen((*var)[0])) == 0)
+		{
+			swap_2 = tkn->envp[x];
+			tkn->envp[x] = ft_strdup(*swap);
+			free(swap_2);
+			free(*swap);
+			free_tab(var, 2);
+			return (1);
+		}
+		x++;
+	}
+	return (0);
+}
+
+static void	setup_envp(t_tkn *tkn, char **swap)
 {
 	int		x;
 	char	**temp;
+
+	temp = tkn->envp;
+	tkn->envp = (char **)malloc(sizeof(char *) * (tkn->envp_count + 2));
+	x = 0;
+	while (temp[x] != NULL)
+	{
+		tkn->envp[x] = ft_strdup(temp[x]);
+		x++;
+	}
+	tkn->envp[x] = *swap;
+	tkn->envp[++x] = NULL;
+	free_tab(&temp, tkn->envp_count);
+	tkn->envp_count++;
+}
+
+void	exec_cmd_export(t_tkn *tkn, int i)
+{
 	char	**var;
 	char	*swap;
-	char	*swap_2;
 
 	if (validate_var(tkn->cmd[i][1]) == 1)
 		setup_error(tkn->cmd[i][1], 6);
@@ -50,32 +92,9 @@ void	exec_cmd_export(t_tkn *tkn, int i)
 		swap = (char *)malloc(ft_strlen(tkn->cmd[i][1]) + 1);
 		ft_memcpy(swap, tkn->cmd[i][1], ft_strlen(tkn->cmd[i][1]) + 1);
 		var = ft_split(swap, '=');
-		x = 0;
-		while (tkn->envp[x] != NULL)
-		{
-			if (ft_strncmp(tkn->envp[x], var[0], ft_strlen(var[0])) == 0)
-			{
-				swap_2 = tkn->envp[x];
-				tkn->envp[x] = ft_strdup(swap);
-				free(swap_2);
-				free(swap);
-				free_tab(&var, 2);
-				return ;
-			}
-			x++;
-		}
+		if (check_envp(tkn, &swap, &var) == 1)
+			return ;
 		free_tab(&var, 2);
-		temp = tkn->envp;
-		tkn->envp = (char **)malloc(sizeof(char *) * (tkn->envp_count + 2));
-		x = 0;
-		while (temp[x] != NULL)
-		{
-			tkn->envp[x] = ft_strdup(temp[x]);
-			x++;
-		}
-		tkn->envp[x] = swap;
-		tkn->envp[++x] = NULL;
-		free_tab(&temp, tkn->envp_count);
-		tkn->envp_count++;
+		setup_envp(tkn, &swap);
 	}
 }

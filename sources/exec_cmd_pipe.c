@@ -6,7 +6,7 @@
 /*   By: fagiusep <fagiusep@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 20:01:42 by fagiusep          #+#    #+#             */
-/*   Updated: 2022/04/20 09:11:19 by fagiusep         ###   ########.fr       */
+/*   Updated: 2022/04/20 15:52:40 by fagiusep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void	redirect_std_fileno(t_tkn *tkn, int fd[])
 		}
 		else if (ft_strncmp(tkn->cmd_lex[tkn->i_cmd + 1][0], "GREAT", 5) == 0)
 		{
-			if(tkn->fd_out != 0)
+			if (tkn->fd_out != 0)
 				close(tkn->fd_out);
 			tkn->fd_out = open(tkn->cmd[tkn->i_cmd + 1][1], O_RDWR | O_TRUNC
 					| O_CREAT, 0777);
@@ -103,25 +103,24 @@ static void	redirect_std_fileno(t_tkn *tkn, int fd[])
 		{
 			printf("bash: %s: Arquivo ou diretório inexistente\n", tkn->cmd[tkn->i_cmd][1]);
 			return ;
-		}
+		} 
 		else
 			dup2(tkn->fd_out, STDOUT_FILENO);
-		
 	}
 }
 
-static void	define_std_fileno(t_tkn *tkn, int fd[])
+static void	define_std_fileno(t_tkn *tkn, int fd[], char **next_cmd)
 {
-	if (tkn->cmd_lex[tkn->i_cmd + 1] != NULL)
+	if (next_cmd != NULL)
 	{
-		if (ft_strncmp(tkn->cmd_lex[tkn->i_cmd + 1][0], "PIPE", 4) == 0)
+		if (ft_strncmp(next_cmd[0], "PIPE", 4) == 0)
 		{
 			dup2(fd[1], STDOUT_FILENO);
 		}
-		else if (ft_strncmp(tkn->cmd_lex[tkn->i_cmd + 1][0], "DGREAT", 6) == 0
-				|| ft_strncmp(tkn->cmd_lex[tkn->i_cmd + 1][0], "GREAT", 5) == 0
-				|| ft_strncmp(tkn->cmd_lex[tkn->i_cmd + 1][0], "LESS", 4) == 0
-				|| ft_strncmp(tkn->cmd_lex[tkn->i_cmd + 1][0], "DLESS", 5) == 0)
+		else if (ft_strncmp(next_cmd[0], "DGREAT", 6) == 0
+				|| ft_strncmp(next_cmd[0], "GREAT", 5) == 0
+				|| ft_strncmp(next_cmd[0], "LESS", 4) == 0
+				|| ft_strncmp(next_cmd[0], "DLESS", 5) == 0)
 		{
 			redirect_std_fileno(tkn, fd);
 		}
@@ -130,19 +129,14 @@ static void	define_std_fileno(t_tkn *tkn, int fd[])
 	}
 }
 
-static int	exec_child(t_tkn *tkn, int fd[])
+static int	exec_child(t_tkn *tkn, int fd[], char **nex_cmd)
 {
 	int		i;
 	
 	handle_signal_child();
 	i = tkn->i_cmd;
 	close(fd[0]);
-	if (ft_strncmp(tkn->cmd_lex[tkn->i_cmd][0], "GREAT", 5) == 0)
-	{
-		tkn->i_cmd--;
-		define_std_fileno(tkn, fd);
-	}
-	define_std_fileno(tkn, fd);
+	define_std_fileno(tkn, fd, nex_cmd);
 	close(fd[1]);
 	if (built_in_cmd(tkn, i) == 1)
 	{
@@ -176,7 +170,7 @@ void	exec_cmd_pipe(t_tkn *tkn)
 			if (pid < 0)
 				exit(write(1, "fork error\n", 11));
 			if (pid == 0)
-				exec_child(tkn, fd);
+				exec_child(tkn, fd, tkn->cmd_lex[tkn->i_cmd + 1]);
 			waitpid(pid, &wstatus, 0);
 			if (!WIFSIGNALED(wstatus))
 				global_exit = WEXITSTATUS(wstatus);
@@ -186,8 +180,16 @@ void	exec_cmd_pipe(t_tkn *tkn)
 		if (tkn->cmd[tkn->i_cmd + 1] != NULL)
 		{
 			if (ft_strncmp(tkn->cmd_lex[tkn->i_cmd + 1][0], "PIPE", 4) == 0)
-			{
 				dup2(fd[0], STDIN_FILENO);
+			while (tkn->cmd[tkn->i_cmd + 1] != NULL)
+			{
+				if (ft_strncmp(tkn->cmd_lex[tkn->i_cmd + 1][0], "DGREAT", 6) == 0
+					|| ft_strncmp(tkn->cmd_lex[tkn->i_cmd + 1][0], "GREAT", 5) == 0
+					|| ft_strncmp(tkn->cmd_lex[tkn->i_cmd + 1][0], "LESS", 4) == 0
+					|| ft_strncmp(tkn->cmd_lex[tkn->i_cmd + 1][0], "DLESS", 5) == 0)
+					tkn->i_cmd++;
+				else
+					break ;
 			}
 		}
 		close(fd[0]);
