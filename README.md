@@ -21,4 +21,6 @@
 
 <p>Sigaction - https://www.youtube.com/watch?v=_1TuZUbCnX0,</p>
 
-<p>_GNU_SOURCE - https://stackoverflow.com/questions/5582211/what-does-define-gnu-source-imply</p>
+<p>_GNU_SOURCE - https://stackoverflow.com/questions/5582211/what-does-define-gnu-source-imply</p
+  
+<p> Group IDs - https://www.youtube.com/watch?v=NfHqGv0PlIw</p>
