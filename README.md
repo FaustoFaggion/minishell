@@ -1,4 +1,4 @@
-# Minishell Project
+# Minishell  Project (IN PROGESS)
 
 ## Description
 <p> Creation of a simple shell.</p>
